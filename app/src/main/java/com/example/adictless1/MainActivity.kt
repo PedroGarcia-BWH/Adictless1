@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                     data[1] = password
 
                     val putData =
-                        PutData("http://192.168.1.16/LoginRegister/login.php", "POST", field, data)
+                        PutData("http://10.182.116.204/LoginRegister/login.php", "POST", field, data)
                     if (putData.startPut()) {
                         if (putData.onComplete()) {
                             progressBar.setVisibility(View.GONE)
