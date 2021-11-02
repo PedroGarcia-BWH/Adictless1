@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                             if (result == "Inicio de Sesion Correcto") {
                                 Toast.makeText(applicationContext, result, Toast.LENGTH_SHORT)
                                     .show()
-                                val intent = Intent(applicationContext, Login::class.java)
+                                val intent = Intent(this, Login::class.java)
                                 startActivity(intent)
                                 finish()
                             } else {
