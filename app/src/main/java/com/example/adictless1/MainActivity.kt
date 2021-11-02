@@ -18,16 +18,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val log_email = findViewById<TextView>(R.id.email)
-        val log_password = findViewById<TextView>(R.id.password)
-        val log_login = findViewById<Button>(R.id.login)
+        val logEmail = findViewById<TextView>(R.id.email)
+        val logPassword = findViewById<TextView>(R.id.password)
+        val logLogin = findViewById<Button>(R.id.login)
         val progressBar = findViewById<ProgressBar>(R.id.progress)
 
-        log_login.setOnClickListener(View.OnClickListener {
+        logLogin.setOnClickListener(View.OnClickListener {
             val email: String
             val password: String
-            email = log_email.getText().toString()
-            password = log_password.getText().toString()
+            email = logEmail.getText().toString()
+            password = logPassword.getText().toString()
             if (email != "" && password != "") {
                 progressBar.setVisibility(View.VISIBLE)
                 val handler = Handler(Looper.getMainLooper())

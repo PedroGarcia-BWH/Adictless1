@@ -17,19 +17,19 @@ class RegisterActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register2)
 
-        val reg_email = findViewById<TextView>(R.id.emailRegister)
-        val reg_username = findViewById<TextView>(R.id.nickNameRegister)
-        val reg_password = findViewById<TextView>(R.id.passwordRegister)
-        val reg_registro = findViewById<Button>(R.id.confirmRegister)
+        val regEmail = findViewById<TextView>(R.id.emailRegister)
+        val regUsername = findViewById<TextView>(R.id.nickNameRegister)
+        val regPassword = findViewById<TextView>(R.id.passwordRegister)
+        val regRegistro = findViewById<Button>(R.id.confirmRegister)
         val progressBar = findViewById<ProgressBar>(R.id.reg_progress)
 
-        reg_registro.setOnClickListener(View.OnClickListener {
+        regRegistro.setOnClickListener(View.OnClickListener {
             val email: String
             val username: String
             val password: String
-            email = reg_email.getText().toString()
-            username = reg_username.getText().toString()
-            password = reg_password.getText().toString()
+            email = regEmail.getText().toString()
+            username = regUsername.getText().toString()
+            password = regPassword.getText().toString()
             if (email != "" && username != "" && password != "") {
                 progressBar.setVisibility(View.VISIBLE)
                 val handler = Handler(Looper.getMainLooper())

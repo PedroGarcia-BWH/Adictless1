@@ -65,14 +65,12 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Registrate"
-        tools:layout_editor_absoluteX="153dp"
-        tools:layout_editor_absoluteY="529dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login"
-        app:layout_constraintVertical_bias="0.009" />
+        app:layout_constraintVertical_bias="0.0" />
+
 
     <ProgressBar
         android:id="@+id/progress"
