@@ -19,8 +19,8 @@ class Login : AppCompatActivity() {
 
     private fun setUpTabs(){
         val adapter = PageController(supportFragmentManager)
-        adapter.addFragment(Home(), "Home")
         adapter.addFragment(Forum(), "Forum")
+        adapter.addFragment(Home(), "Home")
         adapter.addFragment(Progress(), "Progress")
         val viewpager = findViewById<ViewPager>(R.id.viewpager)
         val tabs = findViewById<TabLayout>(R.id.tabs)
