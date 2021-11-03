@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         val registro =findViewById<Button>(R.id.register)
         registro.setOnClickListener {
             val intento1 = Intent(this, RegisterActivity1::class.java)
-            //val intento2 = Intent(this, Login::class.java)
+            val intento2 = Intent(this, Login::class.java)
             startActivity(intento1)
         }
     }
