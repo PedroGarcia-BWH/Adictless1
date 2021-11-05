@@ -18,16 +18,16 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
-        app:tabMode="fixed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="?attr/colorPrimary"
-        android:elevation="6dp"
-        app:tabTextColor="#d3d3d3"
-        app:tabSelectedTextColor="#ffffff"
-        app:tabIndicatorColor="#ff00ff"
+        android:elevation="40dp"
         android:minHeight="?attr/actionBarSize"
-        android:layout_alignParentBottom="true">
+        app:tabIndicatorColor="#ff00ff"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="#ffffff"
+        app:tabTextColor="#d3d3d3">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/forumTab"

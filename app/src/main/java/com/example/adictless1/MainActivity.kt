@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         registro.setOnClickListener {
             val intento1 = Intent(this, RegisterActivity1::class.java)
             val intento2 = Intent(this, Login::class.java)
-            startActivity(intento1)
+            startActivity(intento2)
         }
     }
 }

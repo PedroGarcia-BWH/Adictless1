@@ -7,6 +7,7 @@ import com.example.adictless1.Controlador.Forum
 import com.example.adictless1.Controlador.Home
 import com.example.adictless1.Controlador.PageController
 import com.example.adictless1.Controlador.Progress
+import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.tabs.TabLayout
 
 class Login : AppCompatActivity() {
