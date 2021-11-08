@@ -2,6 +2,8 @@ package com.example.adictless1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.viewpager.widget.ViewPager
 import com.example.adictless1.Controlador.Forum
 import com.example.adictless1.Controlador.Home
@@ -16,6 +18,11 @@ class Login : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         setUpTabs()
+        /*val new = findViewById<CardView>(R.id.newCard)
+        if(new.callOnClick()){
+            val texto = findViewById<TextView>(R.id.pruebaText)
+            texto.setText("Funciona")
+        }*/
     }
 
     private fun setUpTabs(){
