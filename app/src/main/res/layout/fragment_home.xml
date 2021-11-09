@@ -98,7 +98,7 @@
                     android:foregroundTint="#070707" />
 
                 <androidx.cardview.widget.CardView
-
+                    android:id="@+id/newCard"
                     android:layout_width="match_parent"
                     android:layout_height="82dp"
                     android:clickable="true"

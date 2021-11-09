@@ -2,6 +2,8 @@ package com.example.adictless1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.service.autofill.OnClickAction
+import android.view.View
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.viewpager.widget.ViewPager
@@ -19,9 +21,9 @@ class Login : AppCompatActivity() {
 
         setUpTabs()
         /*val new = findViewById<CardView>(R.id.newCard)
-        if(new.callOnClick()){
-            val texto = findViewById<TextView>(R.id.pruebaText)
-            texto.setText("Funciona")
+        new.setOnClickListener{
+            val pr = findViewById<TextView>(R.id.pruebaText)
+            pr.setTextColor(5)
         }*/
     }
 
