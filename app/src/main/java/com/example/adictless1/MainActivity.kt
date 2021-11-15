@@ -11,6 +11,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import com.vishnusivadas.advanced_httpurlconnection.PutData
+import org.w3c.dom.Text
 
 
 class MainActivity : AppCompatActivity() {
@@ -68,11 +69,16 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        val registro =findViewById<Button>(R.id.register)
+        val registro =findViewById<TextView>(R.id.register)
         registro.setOnClickListener {
-            val intento1 = Intent(this, RegisterActivity1::class.java)
-            val intento2 = Intent(this, Login::class.java)
-            startActivity(intento2)
+            val registerAct = Intent(this, RegisterActivity1::class.java)
+            startActivity(registerAct)
+        }
+
+        val invitado = findViewById<TextView>(R.id.guest)
+        invitado.setOnClickListener {
+            val guestAct = Intent(this, Login::class.java)
+            startActivity(guestAct)
         }
     }
 }
