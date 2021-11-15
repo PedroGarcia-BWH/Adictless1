@@ -1,16 +1,16 @@
 package com.example.adictless1
 
-import androidx.appcompat.app.AppCompatActivity
-import android.widget.ProgressBar
-import android.os.Bundle
-import android.os.Looper
-import com.vishnusivadas.advanced_httpurlconnection.PutData
-import android.widget.Toast
 import android.content.Intent
+import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.vishnusivadas.advanced_httpurlconnection.PutData
 
 class RegisterActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class RegisterActivity2 : AppCompatActivity() {
                     data[1] = username
                     data[2] = password
                     val putData =
-                        PutData("http://10.182.116.204/LoginRegister/signup.php", "POST", field, data)
+                        PutData("http://192.168.1.16/LoginRegister/signup.php", "POST", field, data)
                     if (putData.startPut()) {
                         if (putData.onComplete()) {
                             progressBar.setVisibility(View.GONE)

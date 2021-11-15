@@ -39,15 +39,16 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/textView"
+                            android:id="@+id/Username"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="44dp"
-                            android:text="Bienvenido\nNombre Apellido Apellido 2"
+                            android:text="Bienvenido\n"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:layout_editor_absoluteX="0dp" />
+
 
                         <TextView
                             android:id="@+id/textView4"
