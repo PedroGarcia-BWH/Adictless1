@@ -44,7 +44,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="40dp"
                             android:fontFamily="sans-serif-black"
-                            android:text="Bienvenido\nNombre Apellido Apellido 2"
+                            android:text="Bienvenido\nAlias"
                             android:textSize="18sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -85,7 +85,7 @@
                     android:textSize="20sp" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/newCard"
+                    android:id="@+id/announce1"
                     android:layout_width="378dp"
                     android:layout_height="93dp"
                     android:layout_gravity="center"
@@ -126,7 +126,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/newCard2"
+                    android:id="@+id/announce2"
                     android:layout_width="378dp"
                     android:layout_height="93dp"
                     android:layout_gravity="center"

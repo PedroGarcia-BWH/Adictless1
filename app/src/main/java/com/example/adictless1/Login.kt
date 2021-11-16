@@ -1,5 +1,6 @@
 package com.example.adictless1
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.service.autofill.OnClickAction
@@ -20,18 +21,19 @@ class Login : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         setUpTabs()
-        /*val new = findViewById<CardView>(R.id.newCard)
-        new.setOnClickListener{
-            val pr = findViewById<TextView>(R.id.pruebaText)
-            pr.setTextColor(5)
+        /*val anuncio1 = findViewById<CardView>(R.id.announce1)
+        anuncio1.setOnClickListener {
+            val an1Act = Intent(this, RegisterActivity1::class.java)
+            startActivity(an1Act)
         }*/
+
     }
 
     private fun setUpTabs(){
         val adapter = PageController(supportFragmentManager)
-        adapter.addFragment(Forum(), "Forum")
-        adapter.addFragment(Home(), "Home")
-        adapter.addFragment(Progress(), "Progress")
+        adapter.addFragment(Forum(), "Foro")
+        adapter.addFragment(Home(), "Inicio")
+        adapter.addFragment(Progress(), "Progreso")
         val viewpager = findViewById<ViewPager>(R.id.viewpager)
         val tabs = findViewById<TabLayout>(R.id.tabs)
         viewpager.adapter = adapter

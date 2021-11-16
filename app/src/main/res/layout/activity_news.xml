@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/news_bg"
+    tools:context=".NewsActivity">
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:text="Titulo de la noticia"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subtitulo de la noticia"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="48dp" />
+
+    <ScrollView
+        android:layout_width="414dp"
+        android:layout_height="616dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="381dp"
+                android:layout_height="709dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="sans-serif-thin"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vehicula sodales dolor, sed molestie nibh luctus ut. Curabitur placerat, leo vel finibus fringilla, ex libero tincidunt nunc, in venenatis tellus tellus in orci. Sed et lectus a elit suscipit elementum vel id sapien. Praesent convallis lectus ex, ac placerat nisi maximus ultricies. Quisque rutrum nibh lorem. Mauris mattis ut ipsum ac bibendum. Donec gravida purus at imperdiet cursus. Nulla massa enim, vestibulum feugiat posuere vel, lacinia hendrerit neque. Etiam vulputate sem nec eros consequat, quis elementum risus scelerisque. Vestibulum varius, dolor vel pretium hendrerit, ipsum metus lacinia elit, placerat gravida nisi nunc id ex. Aenean dignissim feugiat tellus nec convallis. Duis non dolor sit amet dolor porta bibendum vitae vitae ex. Suspendisse nec semper turpis. Nulla vel diam in erat ornare tincidunt vitae id nibh. Nullam sagittis lobortis ipsum, sed mattis diam tempus et.  Ut suscipit mattis tortor finibus elementum. Pellentesque ac luctus tortor, vitae gravida mauris. Quisque sit amet dolor fringilla, elementum nibh sollicitudin, hendrerit diam. Ut aliquet felis non ante dictum, at imperdiet leo dictum. Praesent vel erat ut turpis tincidunt rhoncus ut eget leo. Etiam volutpat erat id turpis convallis sodales. Nullam nibh tellus, imperdiet a felis sit amet, malesuada posuere justo.  Vivamus efficitur ut magna eget lacinia. Pellentesque suscipit ante vel purus scelerisque finibus. Integer ultrices orci vehicula, feugiat sem id, maximus ligula. Integer sed lacus quam. Morbi mattis nunc odio, at sodales nulla venenatis non. Curabitur eget neque tristique, luctus arcu at, blandit augue. Aliquam a vulputate orci. Nullam condimentum et libero ut ullamcorper. Duis cursus lacinia blandit. Quisque vel odio arcu. Donec lacus turpis, auctor eget augue quis, ultrices feugiat erat. Pellentesque facilisis, leo eu lacinia euismod, metus massa fringilla tellus, et gravida lacus metus sit amet est. Morbi urna nunc, cursus quis sapien a, pellentesque finibus quam. Phasellus varius tortor non fringilla dictum. Aliquam eu facilisis augue. Sed condimentum nisi felis, vehicula semper neque ullamcorper laoreet.  Aliquam erat volutpat. Integer sit amet eros nec nunc pretium condimentum. In efficitur metus at varius vehicula. Integer eleifend diam mauris, id sollicitudin nisi dictum sed. Vestibulum turpis massa, euismod a lectus et, auctor tempus mi. Nullam pharetra convallis orci. Maecenas eget cursus leo. Cras tellus nisi, mollis in eros ac, scelerisque aliquam purus. Donec ut urna sed eros scelerisque finibus. Donec congue mollis nibh in ultrices. Donec at magna ac magna aliquet viverra. Nullam lacus libero, laoreet nec nunc luctus, volutpat gravida erat. Aliquam et justo nec dui feugiat finibus.  Vestibulum vitae venenatis felis. Nulla tincidunt pretium diam semper faucibus. Nunc in interdum dui. Ut vitae eleifend lacus. Phasellus eu ornare ipsum. Duis vitae dolor fringilla, aliquam ante in, sagittis turpis. Proin a fringilla lacus, vitae hendrerit odio."
+                android:textColor="#9E9B9B"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
