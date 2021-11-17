@@ -15,6 +15,9 @@
             android:label="@string/title_activity_survey1"
             android:theme="@style/Theme.Adictless1.NoActionBar" />
         <activity
+            android:name=".SurveryActivity2"
+            android:exported="false" />
+        <activity
             android:name=".NewsActivity"
             android:exported="false" />
         <activity
