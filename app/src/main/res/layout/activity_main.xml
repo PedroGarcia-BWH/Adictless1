@@ -22,7 +22,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="600dp">
 
             <ImageView
                 android:id="@+id/imageView1"
@@ -39,13 +39,16 @@
 
             <EditText
                 android:id="@+id/email"
-                android:layout_width="281dp"
-                android:layout_height="48dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="68dp"
+                android:layout_marginEnd="15dp"
                 android:background="@drawable/edtext_bg"
                 android:hint=" Correo electrónico"
                 android:inputType="text"
                 android:paddingStart="10dp"
+                android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.506"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,9 +56,11 @@
 
             <EditText
                 android:id="@+id/password"
-                android:layout_width="280dp"
-                android:layout_height="48dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="36dp"
+                android:layout_marginEnd="15dp"
                 android:background="@drawable/edtext_bg"
                 android:hint="Contraseña"
                 android:inputType="textPassword"
@@ -67,9 +72,12 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/login"
-                android:layout_width="195dp"
-                android:layout_height="44dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="44dp"
+                android:layout_marginEnd="15dp"
                 android:background="@drawable/loginbtn"
                 android:gravity="center"
                 android:text="Iniciar Sesión"
@@ -81,11 +89,14 @@
 
             <TextView
                 android:id="@+id/textView8"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="50dp"
                 android:fontFamily="sans-serif-black"
                 android:text="Iniciar Sesion"
+                android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -96,8 +107,9 @@
 
             <TextView
                 android:id="@+id/register"
-                android:layout_width="wrap_content"
-                android:layout_height="22dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="17dp"
                 android:layout_marginEnd="46dp"
@@ -118,7 +130,7 @@
 
     <ProgressBar
         android:id="@+id/progress"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -127,7 +139,7 @@
 
     <TextView
         android:id="@+id/guest"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:clickable="true"
