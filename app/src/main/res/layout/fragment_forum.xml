@@ -3,12 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     tools:context=".Controlador.Forum">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/SOON"
         android:layout_width="match_parent"
-        android:layout_height="465dp"
-        android:text="forum" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="WORK IN PROGRESS,SOON..."
+        android:textColor="@color/black" />
 
 </FrameLayout>
