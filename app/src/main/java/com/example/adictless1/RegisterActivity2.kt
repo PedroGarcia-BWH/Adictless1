@@ -69,6 +69,12 @@ class RegisterActivity2 : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            val survey =findViewById<TextView>(R.id.survey)
+            survey.setOnClickListener {
+                val surveyAct = Intent(this, SurveyActivity1::class.java)
+                startActivity(surveyAct)
+            }
+
         })
     }
 }

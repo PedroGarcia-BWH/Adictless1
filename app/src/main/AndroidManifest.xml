@@ -10,6 +10,11 @@
         android:theme="@style/Theme.Adictless1"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".SurveyActivity1"
+            android:exported="false"
+            android:label="@string/title_activity_survey1"
+            android:theme="@style/Theme.Adictless1.NoActionBar" />
+        <activity
             android:name=".NewsActivity"
             android:exported="false" />
         <activity

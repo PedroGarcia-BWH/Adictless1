@@ -7,8 +7,9 @@
     tools:context=".RegisterActivity2">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="364dp"
-        android:layout_height="513dp"
+        android:id="@+id/cardView3"
+        android:layout_width="365dp"
+        android:layout_height="592dp"
         android:layout_marginStart="22dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="23dp"
@@ -22,7 +23,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="594dp">
 
             <EditText
                 android:id="@+id/passwordRegister"
@@ -49,18 +50,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/emailRegister" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/confirmRegister"
-                android:layout_width="152dp"
-                android:layout_height="41dp"
-                android:layout_marginTop="60dp"
-                android:background="@drawable/loginbtn"
-                android:text="Confirmar"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="@+id/passwordRegister"
-                app:layout_constraintStart_toStartOf="@+id/passwordRegister"
-                app:layout_constraintTop_toBottomOf="@+id/passwordRegister" />
 
             <EditText
                 android:id="@+id/emailRegister"
@@ -96,13 +85,78 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif-thin"
-                android:text="mínimo 8 caracteres"
                 android:paddingStart="5dp"
+                android:text="Mínimo 8 caracteres"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/passwordRegister"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/passwordRegister"
                 app:layout_constraintTop_toBottomOf="@+id/passwordRegister" />
+
+            <CheckBox
+                android:id="@+id/redesSociales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:text="Redes Sociales"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="13dp"
+                android:gravity="center"
+                android:text="Marque en cuáles necesita ayuda,"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+            <CheckBox
+                android:id="@+id/Apuestas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="15dp"
+                android:text="Apuestas"
+                app:layout_constraintStart_toEndOf="@+id/redesSociales"
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+            <CheckBox
+                android:id="@+id/Videojuegos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:text="Videojuegos"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/redesSociales" />
+
+            <CheckBox
+                android:id="@+id/NoSabe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="15dp"
+                android:text="No sé"
+                app:layout_constraintStart_toEndOf="@+id/Videojuegos"
+                app:layout_constraintTop_toBottomOf="@+id/Apuestas" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/confirmRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/loginbtn"
+                android:text="Confirmar"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Videojuegos" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -116,5 +170,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirmRegister" />
+
+    <TextView
+        android:id="@+id/survey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="¿Estas indeciso?, realiza nuestra encuesta"
+        app:layout_constraintTop_toBottomOf="@+id/cardView3"
+        tools:layout_editor_absoluteX="74dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
