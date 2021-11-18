@@ -121,6 +121,7 @@
                 android:layout_marginStart="64dp"
                 android:layout_marginTop="15dp"
                 android:text="Apuestas"
+
                 app:layout_constraintStart_toEndOf="@+id/redesSociales"
                 app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
@@ -131,6 +132,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="15dp"
                 android:text="Videojuegos"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/redesSociales" />
 
