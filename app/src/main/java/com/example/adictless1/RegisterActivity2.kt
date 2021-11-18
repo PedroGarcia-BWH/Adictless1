@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.vishnusivadas.advanced_httpurlconnection.PutData
 
@@ -21,6 +18,9 @@ class RegisterActivity2 : AppCompatActivity() {
         val regUsername = findViewById<TextView>(R.id.nickNameRegister)
         val regPassword = findViewById<TextView>(R.id.passwordRegister)
         val regRegistro = findViewById<Button>(R.id.confirmRegister)
+        val regRedes = findViewById<CheckBox>(R.id.redesSociales)
+        val regApuestas = findViewById<CheckBox>(R.id.Apuestas)
+        val regVideojuegos = findViewById<CheckBox>(R.id.Videojuegos)
 
         val progressBar = findViewById<ProgressBar>(R.id.reg_progress)
 
@@ -28,26 +28,40 @@ class RegisterActivity2 : AppCompatActivity() {
             val email: String
             val username: String
             val password: String
+            var type: String = ""
+
             email = regEmail.getText().toString()
             username = regUsername.getText().toString()
             password = regPassword.getText().toString()
-            if (email != "" && username != "" && password != "") {
-                if(password.length >= 8) {
+            if (email != "" && username != "" && password != "" && (regRedes.isChecked == true ||
+                        regApuestas.isChecked == true || regVideojuegos.isChecked == true)) {
+
+                if (password.length >= 8) {
+                    if(regRedes.isChecked == true)
+                        type += "RedesSociales "
+                    if(regApuestas.isChecked == true)
+                        type += "Apuestas "
+                    if(regVideojuegos.isChecked == true)
+                        type += "Videojuegos"
+
                     progressBar.setVisibility(View.VISIBLE)
                     val handler = Handler(Looper.getMainLooper())
                     handler.post {
-                        val field = arrayOfNulls<String>(3)
+                        val field = arrayOfNulls<String>(4)
                         field[0] = "email"
                         field[1] = "username"
                         field[2] = "password"
+                        field[3] = "type"
                         //Creating array for data
-                        val data = arrayOfNulls<String>(3)
+                        val data = arrayOfNulls<String>(4)
                         data[0] = email
                         data[1] = username
                         data[2] = password
+                        data[3] = type
+
                         val putData =
                             PutData(
-                                "http://192.168.1.16/LoginRegister/signup.php",
+                                "http://192.168.1.14/LoginRegister/signup.php",
                                 "POST",
                                 field,
                                 data
@@ -86,7 +100,7 @@ class RegisterActivity2 : AppCompatActivity() {
             }
 
         })
-        val survey =findViewById<TextView>(R.id.survey)
+        val survey = findViewById<TextView>(R.id.survey)
         survey.setOnClickListener {
             val surveyAct = Intent(this, SurveyActivity1::class.java)
             startActivity(surveyAct)
