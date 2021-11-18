@@ -13,15 +13,15 @@ class SurveyActivity1 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_survey1)
 
-        val checkBoxYes = findViewById<RadioGroup>(R.id.radioGroup1)
-        if(checkBoxYes.getCheckedRadioButtonId() != R.id.p3Yes)
-        {
-
-            val redesSociales =findViewById<TextView>(R.id.bottonSurvey1)
+        val redesSociales =findViewById<TextView>(R.id.bottonSurvey1)
             redesSociales.setOnClickListener{
+                val checkBoxYes = findViewById<RadioButton>(R.id.p3Yes)
+                if(checkBoxYes.isChecked())
+                {
                 val intentRedesSociales = Intent(this,SurveyActivitySocialMedia1::class.java)
                 startActivity(intentRedesSociales)
-            }
+                }
+
        }
 
        /* val checkBoxNo = (RadioButton)findViewById(R.id.p3No)
