@@ -21,7 +21,7 @@ class RegisterActivity2 : AppCompatActivity() {
         val regRedes = findViewById<CheckBox>(R.id.redesSociales)
         val regApuestas = findViewById<CheckBox>(R.id.Apuestas)
         val regVideojuegos = findViewById<CheckBox>(R.id.Videojuegos)
-
+        val regNose = findViewById<CheckBox>(R.id.NoSabe)
         val progressBar = findViewById<ProgressBar>(R.id.reg_progress)
 
         regRegistro.setOnClickListener(View.OnClickListener {
@@ -34,56 +34,79 @@ class RegisterActivity2 : AppCompatActivity() {
             username = regUsername.getText().toString()
             password = regPassword.getText().toString()
             if (email != "" && username != "" && password != "" && (regRedes.isChecked == true ||
-                        regApuestas.isChecked == true || regVideojuegos.isChecked == true)) {
+                        regApuestas.isChecked == true || regVideojuegos.isChecked == true ||
+                        regNose.isChecked == true)) {
 
                 if (password.length >= 8) {
-                    if(regRedes.isChecked == true)
-                        type += "RedesSociales "
-                    if(regApuestas.isChecked == true)
-                        type += "Apuestas "
-                    if(regVideojuegos.isChecked == true)
-                        type += "Videojuegos"
 
-                    progressBar.setVisibility(View.VISIBLE)
-                    val handler = Handler(Looper.getMainLooper())
-                    handler.post {
-                        val field = arrayOfNulls<String>(4)
-                        field[0] = "email"
-                        field[1] = "username"
-                        field[2] = "password"
-                        field[3] = "type"
-                        //Creating array for data
-                        val data = arrayOfNulls<String>(4)
-                        data[0] = email
-                        data[1] = username
-                        data[2] = password
-                        data[3] = type
+                    if (regNose.isChecked == true && (regRedes.isChecked == true ||
+                                regApuestas.isChecked == true ||
+                                regVideojuegos.isChecked == true)) {
+                        Toast.makeText(
+                            applicationContext,
+                            "No se puede seleccionar el campo Prefiero No Contestar y otro campo a la vez",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }else {
+                        if (regNose.isChecked == true)
+                            type += "NoProcede "
+                        if (regRedes.isChecked == true)
+                            type += "RedesSociales "
+                        if (regApuestas.isChecked == true)
+                            type += "Apuestas "
+                        if (regVideojuegos.isChecked == true)
+                            type += "Videojuegos"
 
-                        val putData =
-                            PutData(
-                                "http://192.168.1.14/LoginRegister/signup.php",
-                                "POST",
-                                field,
-                                data
-                            )
-                        if (putData.startPut()) {
-                            if (putData.onComplete()) {
-                                progressBar.setVisibility(View.GONE)
-                                val result = putData.result
-                                if (result == "Registro Correcto") {
-                                    Toast.makeText(applicationContext, result, Toast.LENGTH_SHORT)
-                                        .show()
-                                    val intent =
-                                        Intent(applicationContext, MainActivity::class.java)
-                                    startActivity(intent)
-                                    finish()
-                                } else {
-                                    Toast.makeText(applicationContext, result, Toast.LENGTH_SHORT)
-                                        .show()
+                        progressBar.setVisibility(View.VISIBLE)
+                        val handler = Handler(Looper.getMainLooper())
+                        handler.post {
+                            val field = arrayOfNulls<String>(4)
+                            field[0] = "email"
+                            field[1] = "username"
+                            field[2] = "password"
+                            field[3] = "type"
+                            //Creating array for data
+                            val data = arrayOfNulls<String>(4)
+                            data[0] = email
+                            data[1] = username
+                            data[2] = password
+                            data[3] = type
+
+                            val putData =
+                                PutData(
+                                    "http://192.168.1.14/LoginRegister/signup.php",
+                                    "POST",
+                                    field,
+                                    data
+                                )
+                            if (putData.startPut()) {
+                                if (putData.onComplete()) {
+                                    progressBar.setVisibility(View.GONE)
+                                    val result = putData.result
+                                    if (result == "Registro Correcto") {
+                                        Toast.makeText(
+                                            applicationContext,
+                                            result,
+                                            Toast.LENGTH_SHORT
+                                        )
+                                            .show()
+                                        val intent =
+                                            Intent(applicationContext, MainActivity::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    } else {
+                                        Toast.makeText(
+                                            applicationContext,
+                                            result,
+                                            Toast.LENGTH_SHORT
+                                        )
+                                            .show()
+                                    }
                                 }
                             }
                         }
                     }
+
                 } else {
                     Toast.makeText(
                         applicationContext,
