@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.CheckBox
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.TextView
 
 class SurveyActivity1 : AppCompatActivity() {
@@ -11,8 +13,19 @@ class SurveyActivity1 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_survey1)
 
-       /* val checkBoxYes = (CheckBox)findViewById(R.id.p3Yes)
-        if(checkBoxYes.isChecked())
+        val checkBoxYes = findViewById<RadioGroup>(R.id.radioGroup1)
+        if(checkBoxYes.getCheckedRadioButtonId() != R.id.p3Yes)
+        {
+
+            val redesSociales =findViewById<TextView>(R.id.bottonSurvey1)
+            redesSociales.setOnClickListener{
+                val intentRedesSociales = Intent(this,SurveyActivitySocialMedia1::class.java)
+                startActivity(intentRedesSociales)
+            }
+       }
+
+       /* val checkBoxNo = (RadioButton)findViewById(R.id.p3No)
+        if(checkBoxNo.isChecked())
         {
 
             val redesSociales =findViewById<TextView>(R.id.bottonSurvey1)
@@ -20,11 +33,31 @@ class SurveyActivity1 : AppCompatActivity() {
                 val intentRedesSociales = Intent(this,SurveyActivity2::class.java)
                 startActivity(intentRedesSociales)
             }
-        }
-        val survey =findViewById<TextView>(R.id.survey)
-        survey.setOnClickListener {
-            val surveyAct = Intent(this, SurveyActivity1::class.java)
-            startActivity(surveyAct)
         }*/
     }
+
+
+    /*fun onRadioButtonClicked(view: View) {
+        if (view is RadioButton) {
+            // Is the button now checked?
+            val checked = view.isChecked
+
+            // Check which radio button was clicked
+            when (view.getId()) {
+                R.id.p3Yes ->
+                    if (checked) {
+                        val redesSociales = findViewById<TextView>(R.id.bottonSurvey1)
+                        redesSociales.setOnClickListener {
+                            val intentRedesSociales =
+                                Intent(this, SurveyActivitySocialMedia1::class.java)
+                            startActivity(intentRedesSociales)
+                        }
+                    }
+                R.id.p3No ->
+                    if (checked) {
+                        // Ninjas rule
+                    }
+            }
+        }
+    }*/
 }
