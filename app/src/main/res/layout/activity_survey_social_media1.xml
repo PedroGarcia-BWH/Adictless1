@@ -8,9 +8,66 @@
 
     <TextView
         android:id="@+id/textView17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:gravity="center"
+        android:text="¿Cuántas redes sociales utiliza?"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/Edad"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="250dp"
+        android:background="@drawable/edtext_bg"
+        android:hint="Edad"
+        android:inputType="number"
+        android:paddingStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <TextView
+        android:id="@+id/pImpulsos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PRUEBA"
-        tools:layout_editor_absoluteX="185dp"
-        tools:layout_editor_absoluteY="317dp" />
+        android:layout_marginTop="40dp"
+        android:text="¿Controla sus impulsos cuando utiliza las redes sociales?"
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/Edad" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/pImpulsos"
+        tools:layout_editor_absoluteX="43dp">
+
+        <RadioButton
+            android:id="@+id/p6Yes1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Si" />
+
+        <RadioButton
+            android:id="@+id/p6No1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="22dp"
+        tools:layout_editor_absoluteY="421dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
