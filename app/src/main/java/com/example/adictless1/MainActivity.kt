@@ -1,7 +1,6 @@
 package com.example.adictless1
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,8 +9,8 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.vishnusivadas.advanced_httpurlconnection.PutData
-import org.w3c.dom.Text
 
 
 class MainActivity : AppCompatActivity() {
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                     data[1] = password
 
                     val putData =
-                        PutData("http://10.182.116.204/LoginRegister/login.php", "POST", field, data)
+                        PutData("http://192.168.1.16/LoginRegister/login.php", "POST", field, data)
                     if (putData.startPut()) {
                         if (putData.onComplete()) {
                             progressBar.setVisibility(View.GONE)

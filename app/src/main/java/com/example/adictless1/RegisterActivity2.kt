@@ -21,6 +21,7 @@ class RegisterActivity2 : AppCompatActivity() {
         val regUsername = findViewById<TextView>(R.id.nickNameRegister)
         val regPassword = findViewById<TextView>(R.id.passwordRegister)
         val regRegistro = findViewById<Button>(R.id.confirmRegister)
+
         val progressBar = findViewById<ProgressBar>(R.id.reg_progress)
 
         regRegistro.setOnClickListener(View.OnClickListener {
@@ -31,36 +32,50 @@ class RegisterActivity2 : AppCompatActivity() {
             username = regUsername.getText().toString()
             password = regPassword.getText().toString()
             if (email != "" && username != "" && password != "") {
-                progressBar.setVisibility(View.VISIBLE)
-                val handler = Handler(Looper.getMainLooper())
-                handler.post {
-                    val field = arrayOfNulls<String>(3)
-                    field[0] = "email"
-                    field[1] = "username"
-                    field[2] = "password"
-                    //Creating array for data
-                    val data = arrayOfNulls<String>(3)
-                    data[0] = email
-                    data[1] = username
-                    data[2] = password
-                    val putData =
-                        PutData("http://192.168.1.16/LoginRegister/signup.php", "POST", field, data)
-                    if (putData.startPut()) {
-                        if (putData.onComplete()) {
-                            progressBar.setVisibility(View.GONE)
-                            val result = putData.result
-                            if (result == "Registro Correcto") {
-                                Toast.makeText(applicationContext, result, Toast.LENGTH_SHORT)
-                                    .show()
-                                val intent = Intent(applicationContext, MainActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                            } else {
-                                Toast.makeText(applicationContext, result, Toast.LENGTH_SHORT)
-                                    .show()
+                if(password.length >= 8) {
+                    progressBar.setVisibility(View.VISIBLE)
+                    val handler = Handler(Looper.getMainLooper())
+                    handler.post {
+                        val field = arrayOfNulls<String>(3)
+                        field[0] = "email"
+                        field[1] = "username"
+                        field[2] = "password"
+                        //Creating array for data
+                        val data = arrayOfNulls<String>(3)
+                        data[0] = email
+                        data[1] = username
+                        data[2] = password
+                        val putData =
+                            PutData(
+                                "http://192.168.1.16/LoginRegister/signup.php",
+                                "POST",
+                                field,
+                                data
+                            )
+                        if (putData.startPut()) {
+                            if (putData.onComplete()) {
+                                progressBar.setVisibility(View.GONE)
+                                val result = putData.result
+                                if (result == "Registro Correcto") {
+                                    Toast.makeText(applicationContext, result, Toast.LENGTH_SHORT)
+                                        .show()
+                                    val intent =
+                                        Intent(applicationContext, MainActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                } else {
+                                    Toast.makeText(applicationContext, result, Toast.LENGTH_SHORT)
+                                        .show()
+                                }
                             }
                         }
                     }
+                } else {
+                    Toast.makeText(
+                        applicationContext,
+                        "El password debe contener al menos 8 caracteres",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             } else {
                 Toast.makeText(
