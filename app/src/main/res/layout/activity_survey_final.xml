@@ -200,6 +200,53 @@
                     android:text="No" />
             </RadioGroup>
 
+            <TextView
+                android:id="@+id/p9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Suele apostar? " />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/p9Yes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Si" />
+
+                <RadioButton
+                    android:id="@+id/p9No"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/p10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Controlas sus impulsos al apostar? " />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <RadioButton
+                    android:id="@+id/p10Yes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Si" />
+
+                <RadioButton
+                    android:id="@+id/p10No"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No" />
+            </RadioGroup>
+
             <Button
                 android:id="@+id/bottonSurvey"
                 android:layout_width="match_parent"
