@@ -1,7 +1,6 @@
 package com.example.adictless1
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,9 +9,8 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.vishnusivadas.advanced_httpurlconnection.PutData
-import org.w3c.dom.Text
-
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         logLogin.setOnClickListener(View.OnClickListener {
             val email: String
             val password: String
+            var username: CharSequence = ""
             email = logEmail.getText().toString()
             password = logPassword.getText().toString()
             if (email != "" && password != "") {
@@ -42,15 +41,22 @@ class MainActivity : AppCompatActivity() {
                     data[1] = password
 
                     val putData =
-                        PutData("http://192.168.1.14/LoginRegister/login.php", "POST", field, data)
+                        PutData("http://192.168.1.16/LoginRegister/login.php", "POST", field, data)
                     if (putData.startPut()) {
                         if (putData.onComplete()) {
                             progressBar.setVisibility(View.GONE)
                             val result = putData.result
                             if (result == "Inicio de Sesion Correcto") {
+                                val fetchData = PutData("http://192.168.1.16/LoginRegister/show_login.php","POST", field, data)
+                                if(fetchData.startPut()){
+                                    if(fetchData.onComplete()){
+                                        username = fetchData.result
+                                    }
+                                }
                                 Toast.makeText(applicationContext, result, Toast.LENGTH_SHORT)
                                     .show()
-                                val intent = Intent(this, Login::class.java)
+                                val intent = Intent(applicationContext, Login::class.java)
+                                intent.putExtra("usuario",username)
                                 startActivity(intent)
                                 finish()
                             } else {

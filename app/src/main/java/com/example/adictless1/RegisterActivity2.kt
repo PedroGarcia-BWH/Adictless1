@@ -74,7 +74,7 @@ class RegisterActivity2 : AppCompatActivity() {
 
                             val putData =
                                 PutData(
-                                    "http://192.168.1.14/LoginRegister/signup.php",
+                                    "http://192.168.1.16/LoginRegister/signup.php",
                                     "POST",
                                     field,
                                     data
