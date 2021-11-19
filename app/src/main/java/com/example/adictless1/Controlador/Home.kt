@@ -40,9 +40,19 @@ class Home : Fragment() {
         val an1CardView = view?.findViewById<CardView>(R.id.announce1)
         Log.d("View", an1CardView.toString())
         an1CardView?.setOnClickListener{
-            Log.d("myTag", "This is my message");
             val an1Ac = Intent(activity, NewsActivity::class.java)
+            an1Ac.putExtra("parametro", 1);
+
             activity?.startActivity(an1Ac)
+        }
+
+
+        val an2CardView = view?.findViewById<CardView>(R.id.announce2)
+        an2CardView?.setOnClickListener{
+            val an2Ac = Intent(activity, NewsActivity::class.java)
+            an2Ac.putExtra("parametro", 2);
+
+            activity?.startActivity(an2Ac)
         }
     }
 
