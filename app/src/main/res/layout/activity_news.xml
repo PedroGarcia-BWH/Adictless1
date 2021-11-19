@@ -3,15 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#F4F4FF"
     tools:context=".NewsActivity">
 
     <ScrollView
-        android:layout_width="414dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,7 +20,7 @@
 
             <ImageView
                 android:id="@+id/imagenArticulo"
-                android:layout_width="415dp"
+                android:layout_width="match_parent"
                 android:layout_height="318dp"
                 android:layout_marginTop="-50dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +30,7 @@
 
             <TextView
                 android:id="@+id/tituloArticulo"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="-25dp"
@@ -46,7 +44,7 @@
 
             <TextView
                 android:id="@+id/subTituloArticulo"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:text="@string/subTituloArticulo1"
@@ -56,8 +54,8 @@
 
             <TextView
                 android:id="@+id/cuerpoArticulo"
-                android:layout_width="399dp"
-                android:layout_height="1474dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="sans-serif-condensed"
