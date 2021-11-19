@@ -125,7 +125,7 @@ class RegisterActivity2 : AppCompatActivity() {
         })
         val survey = findViewById<TextView>(R.id.survey)
         survey.setOnClickListener {
-            val surveyAct = Intent(this, SurveyActivity1::class.java)
+            val surveyAct = Intent(this, SurveyActivityFinal::class.java)
             startActivity(surveyAct)
         }
 

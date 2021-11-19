@@ -6,253 +6,281 @@
     android:layout_height="match_parent"
     tools:context=".SurveyActivityFinal">
 
-    <ScrollView
+    <TextView
+        android:id="@+id/textView18"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:text="Encuesta"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/p"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/redesSocialesCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="180dp"
-                android:layout_marginTop="88dp"
-                android:gravity="center"
-                android:text="Sexo"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:cardCornerRadius="12dp">
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/p1"
-                tools:layout_editor_absoluteX="0dp">
-
-                <RadioButton
-                    android:id="@+id/Male"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    android:text="Hombre" />
+                    <TextView
+                        android:id="@+id/p2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:gravity="center"
+                        android:text="¿Utilizas redes sociales?"
+                        app:layout_constraintTop_toBottomOf="@+id/Edad"
+                        tools:layout_editor_absoluteX="0dp" />
 
-                <RadioButton
-                    android:id="@+id/Female"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Mujer" />
+                    <RadioGroup
+                        android:id="@+id/radioGroup1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@+id/p3"
+                        tools:layout_editor_absoluteX="0dp">
 
-            </RadioGroup>
+                        <RadioButton
+                            android:id="@+id/p3Yes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:text="Si"
 
-            <TextView
-                android:id="@+id/pEdad2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="Indica tu edad"
-                android:textAlignment="center"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-                tools:layout_editor_absoluteX="0dp" />
+                            />
 
-            <EditText
-                android:id="@+id/edad"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="300dp"
-                android:background="@drawable/edtext_bg"
-                android:hint="Edad"
-                android:inputType="number"
-                android:paddingStart="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pEdad" />
+                        <RadioButton
+                            android:id="@+id/p3No"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:text="No" />
 
-            <TextView
-                android:id="@+id/p2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:gravity="center"
-                android:text="¿Utilizas redes sociales?"
-                app:layout_constraintTop_toBottomOf="@+id/Edad"
-                tools:layout_editor_absoluteX="0dp" />
+                    </RadioGroup>
 
-            <RadioGroup
-                android:id="@+id/radioGroup1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="30dp"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/p3"
-                tools:layout_editor_absoluteX="0dp">
+                    <LinearLayout
+                        android:id="@+id/RedesLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                <RadioButton
-                    android:id="@+id/p3Yes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Si"
+                        <TextView
+                            android:id="@+id/p5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="¿Cuántas redes sociales utiliza?"
+                            android:textAlignment="center" />
 
+                        <EditText
+                            android:id="@+id/nRedesSociales"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="40dp"
+                            android:background="@drawable/edtext_bg"
+                            android:ems="10"
+                            android:hint="Introduzca un número"
+                            android:inputType="number"
+                            android:paddingStart="10dp" />
 
-                    />
+                        <TextView
+                            android:id="@+id/p6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:paddingTop="10dp"
+                            android:text="¿Controla sus impulsos cuando utiliza las Redes Sociales?"
+                            android:textAlignment="center" />
 
-                <RadioButton
-                    android:id="@+id/p3No"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="No" />
+                        <RadioGroup
+                            android:id="@+id/radioGroup2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-            </RadioGroup>
+                            <RadioButton
+                                android:id="@+id/p6Yes"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="Si" />
 
-            <TextView
-                android:id="@+id/p5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="¿Cuántas redes sociales utiliza?" />
+                            <RadioButton
+                                android:id="@+id/p6No"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="No" />
+                        </RadioGroup>
 
-            <EditText
-                android:id="@+id/nRedesSociales"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Introduzca un número"
-                android:inputType="number" />
+                        <TextView
+                            android:id="@+id/p7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:paddingTop="10dp"
+                            android:text="¿Toma alguna sustancia(alcohol o drogas) mientras consume Redes Sociales?"
+                            android:textAlignment="center" />
 
-            <TextView
-                android:id="@+id/p6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="¿Controla sus impulsos cuando utiliza las Redes Sociales?" />
+                        <RadioGroup
+                            android:id="@+id/radioGroup3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-            <RadioGroup
-                android:id="@+id/radioGroup2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                            <RadioButton
+                                android:id="@+id/p7Yes"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="Si" />
 
-                <RadioButton
-                    android:id="@+id/p6Yes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Si" />
+                            <RadioButton
+                                android:id="@+id/p7No"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="No" />
+                        </RadioGroup>
 
-                <RadioButton
-                    android:id="@+id/p6No"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="No" />
-            </RadioGroup>
+                        <TextView
+                            android:id="@+id/p8"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:paddingTop="10dp"
+                            android:text="¿Tiene alguna actitud distinta luego de utilizar redes sociales?"
+                            android:textAlignment="center" />
 
-            <TextView
-                android:id="@+id/p7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="¿Toma alguna sustancia(alcohol o drogas) mientras consume Redes Sociales?" />
+                        <RadioGroup
+                            android:id="@+id/radioGroup4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-            <RadioGroup
-                android:id="@+id/radioGroup3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                            <RadioButton
+                                android:id="@+id/p8Yes"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="Si" />
 
-                <RadioButton
-                    android:id="@+id/p7Yes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Si" />
+                            <RadioButton
+                                android:id="@+id/p8No"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="No" />
+                        </RadioGroup>
 
-                <RadioButton
-                    android:id="@+id/p7No"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="No" />
-            </RadioGroup>
+                        <TextView
+                            android:id="@+id/p9"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:paddingTop="10dp"
+                            android:text="¿Suele apostar? "
+                            android:textAlignment="center" />
 
-            <TextView
-                android:id="@+id/p8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="¿Tiene alguna actitud distinta luego de utilizar redes sociales?" />
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-            <RadioGroup
-                android:id="@+id/radioGroup4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                            <RadioButton
+                                android:id="@+id/p9Yes"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:paddingTop="10dp"
+                                android:text="Si" />
 
-                <RadioButton
-                    android:id="@+id/p8Yes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Si" />
+                            <RadioButton
+                                android:id="@+id/p9No"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="No" />
 
-                <RadioButton
-                    android:id="@+id/p8No"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="No" />
-            </RadioGroup>
+                        </RadioGroup>
 
-            <TextView
-                android:id="@+id/p9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="¿Suele apostar? " />
+                        <TextView
+                            android:id="@+id/p10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:paddingTop="10dp"
+                            android:text="¿Controlas sus impulsos al apostar? "
+                            android:textAlignment="center" />
 
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                <RadioButton
-                    android:id="@+id/p9Yes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Si" />
+                            <RadioButton
+                                android:id="@+id/p10Yes"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="Si" />
 
-                <RadioButton
-                    android:id="@+id/p9No"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="No" />
+                            <RadioButton
+                                android:id="@+id/p10No"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:text="No" />
+                        </RadioGroup>
 
-            </RadioGroup>
+                    </LinearLayout>
 
-            <TextView
-                android:id="@+id/p10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="¿Controlas sus impulsos al apostar? " />
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <RadioButton
-                    android:id="@+id/p10Yes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Si" />
-
-                <RadioButton
-                    android:id="@+id/p10No"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="No" />
-            </RadioGroup>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <Button
                 android:id="@+id/bottonSurvey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
                 android:background="@drawable/loginbtn"
                 android:text="Continuar"
@@ -264,12 +292,5 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:constraint_referenced_ids="p5,nRedesSociales,p6,radioGroup2,p7,radioGroup3,p8,radioGroup4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
