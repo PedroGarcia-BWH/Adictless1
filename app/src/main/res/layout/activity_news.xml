@@ -4,35 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/news_bg"
+    android:background="#F4F4FF"
     tools:context=".NewsActivity">
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif-black"
-        android:text="¿Qué son las adicciones?"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Tipos de adicciones y ejemplos."
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <ScrollView
         android:layout_width="414dp"
-        android:layout_height="616dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="1dp"
@@ -44,21 +21,53 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="380dp"
-                android:layout_height="2189dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="12dp"
-                android:fontFamily="sans-serif-thin"
-                android:text="\nLa palabra adicción viene del latín “addictus​a”, una enfermedad crónica y recurrente del cerebro que se caracteriza por una búsqueda patológica de la recompensa o alivio a través del uso de una sustancia u otras acciones. Según la Organización Mundial de la Salud (OMS) es una enfermedad física y psicoemocional que crea una dependencia o necesidad hacia una sustancia, actividad o relación. Se caracteriza por un conjunto de signos y síntomas, en los que se involucran factores biológicos, genéticos, psicológicos y sociales. La adicción se considera una enfermedad que ofrece placer o estímulos a la persona que la padece, e incluso llega a modificar su conducta. Una persona adicta, aun sabiendo que no le beneficia el consumo de esa adicción, no puede evitar el consumo de la misma. En la base de toda conducta adictiva está una pobre o mala gestión emocional.  Lo importante no es por qué empezamos el consumo si no por qué nos quedamos con él. El consumo nos permite dar salida a algún tipo de emoción que, o no sabemos manejar, o no nos sentimos cómodos con ella. Las conductas compulsivas nos permiten dar salida a esas situaciones o emociones complicadas provocándonos una sensación irreal de “alivio” y es precisamente por ello por lo que nos quedamos en ellas. El problema llega cuando esa sensación de alivio ya no es tal y nos damos cuenta de que ya no somos capaces de parar. Definida la palabra adicción, se pueden diferenciar dos tipos de adicciones: las adicciones con sustancias y las adicciones sin sustancias.\n  \nLas adicciones con sustancias:\n  La adicción a sustancias es una enfermedad afecta a todo el cerebro. Concretamente, genera un desbalance en los neurotransmisores del sistema límbico y en los circuitos mesolímbicos dopaminergicos, en la parte del cerebro que controla los instintos animales primarios. Existe una creencia bastante extendida que solo son negativas las consumiciones de drogas ilegales. Debemos dejar claro que independientemente sea legal o ilegal, una adicción es una adicción, independientemente sea legal o no.  Como claro ejemplo podemos hablar del alcoholismo, es una de las adicciones más comunes del mundo. Es una droga que se considera legal en la mayor parte del mundo y provoca millones de muertes al año.\n  \nLas adicciones sin sustancias:\n Las adicciones sin sustancias también son conocidas como adicciones conductuales o comportamentales. Este tipo de adicciones pueden parecer menos peligrosas, pero no lo son. En las adicciones sin sustancia no se desarrolla “dependencia física” y por tanto no aparece el síndrome de abstinencia. Sí que tienen asociada la dependencia psicológica y emocional (ya que las áreas cerebrales implicadas en este tipo de adicción son las mismas que en las adicciones con sustancia).  En este caso, un claro ejemplo sería la adicción a apuestas deportivas. Numerosas personas en todo el mundo pierden grandes cantidades de dinero, incluso llegando a arruinarse."
-                android:textColor="#9E9B9B"
-                android:textSize="20dp"
-                android:textStyle="bold"
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="415dp"
+                android:layout_height="318dp"
+                android:layout_marginTop="-50dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/img_1" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="-25dp"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/tituloArticulo1"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="@string/subTituloArticulo1"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="399dp"
+                android:layout_height="1474dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/cuerpoArticulo1"
+                android:textColor="#696969"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView13" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
