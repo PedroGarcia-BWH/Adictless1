@@ -129,5 +129,26 @@ class RegisterActivity2 : AppCompatActivity() {
             startActivity(surveyAct)
         }
 
+
+        /* Intercambio de bloqueos entre checkbox */
+        val noResponse = findViewById<CheckBox>(R.id.NoSabe)
+
+        noResponse.setOnCheckedChangeListener { buttonView, isChecked ->
+            regRedes.isEnabled = !isChecked
+            regApuestas.isEnabled = !isChecked
+            regVideojuegos.isEnabled = !isChecked
+
+        }
+
+        regRedes.setOnCheckedChangeListener { buttonView, isChecked ->
+            noResponse.isEnabled = !isChecked && !regApuestas.isChecked && !regVideojuegos.isChecked
+        }
+        regApuestas.setOnCheckedChangeListener { buttonView, isChecked ->
+            noResponse.isEnabled = !isChecked && !regRedes.isChecked && !regVideojuegos.isChecked
+        }
+        regVideojuegos.setOnCheckedChangeListener { buttonView, isChecked ->
+            noResponse.isEnabled = !isChecked && !regApuestas.isChecked && !regRedes.isChecked
+        }
+
     }
 }
