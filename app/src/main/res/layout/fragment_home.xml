@@ -106,7 +106,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
                             android:fontFamily="sans-serif-black"
-                            android:text="Titulo del articulo"
+                            android:text="¿Qué son las adicciones?"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -117,7 +117,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="4dp"
                             android:layout_marginEnd="11dp"
-                            android:text="Descripcion minima del artículo"
+                            android:text="Tipos de adicciones y ejemplos."
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="1.0"
                             app:layout_constraintStart_toStartOf="parent"
