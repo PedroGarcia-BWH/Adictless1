@@ -50,7 +50,7 @@
                         android:id="@+id/p2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="0dp"
+                        android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:text="¿Utilizas redes sociales?"
                         app:layout_constraintTop_toBottomOf="@+id/Edad"
@@ -94,16 +94,17 @@
                             android:id="@+id/p5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="¿Cuántas redes sociales utiliza?"
-                            android:textAlignment="center" />
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:text="¿Cuántas redes sociales utiliza?" />
 
                         <EditText
                             android:id="@+id/nRedesSociales"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:layout_marginStart="40dp"
+                            android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
-                            android:layout_marginEnd="40dp"
+                            android:layout_marginEnd="80dp"
                             android:background="@drawable/edtext_bg"
                             android:ems="10"
                             android:hint="Introduzca un número"
@@ -117,8 +118,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:paddingTop="10dp"
-                            android:text="¿Controla sus impulsos cuando utiliza las Redes Sociales?"
-                            android:textAlignment="center" />
+                            android:text="¿Controla sus impulsos cuando utiliza las Redes Sociales?" />
 
                         <RadioGroup
                             android:id="@+id/radioGroup2"
@@ -149,8 +149,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:paddingTop="10dp"
-                            android:text="¿Toma alguna sustancia(alcohol o drogas) mientras consume Redes Sociales?"
-                            android:textAlignment="center" />
+                            android:text="¿Toma alguna sustancia(alcohol o drogas) mientras consume Redes Sociales?" />
 
                         <RadioGroup
                             android:id="@+id/radioGroup3"
@@ -181,8 +180,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:paddingTop="10dp"
-                            android:text="¿Tiene alguna actitud distinta luego de utilizar redes sociales?"
-                            android:textAlignment="center" />
+                            android:text="¿Tiene alguna actitud distinta luego de utilizar redes sociales?" />
 
                         <RadioGroup
                             android:id="@+id/radioGroup4"
@@ -212,8 +210,13 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/ApuestasCardView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="12dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -262,6 +265,8 @@
                             android:id="@+id/p12"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:text="¿Toma alguna sustancia durante el proceso de apostar?" />
 
                         <RadioGroup
@@ -272,12 +277,16 @@
                                 android:id="@+id/p13Yes"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="Si" />
 
                             <RadioButton
                                 android:id="@+id/p13No"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="No" />
                         </RadioGroup>
 
@@ -285,6 +294,8 @@
                             android:id="@+id/p13"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:text="¿Apuesta en formato online o en formato físico?" />
 
                         <RadioGroup
@@ -295,12 +306,16 @@
                                 android:id="@+id/p12Yes"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="Si" />
 
                             <RadioButton
                                 android:id="@+id/p12No"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="No" />
                         </RadioGroup>
 
@@ -308,6 +323,8 @@
                             android:id="@+id/p11"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:text="¿Controla sus impulsos al apostar?" />
 
                         <RadioGroup
@@ -318,12 +335,16 @@
                                 android:id="@+id/p11Yes"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="Si" />
 
                             <RadioButton
                                 android:id="@+id/p11No"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="No" />
                         </RadioGroup>
 
@@ -331,6 +352,8 @@
                             android:id="@+id/p14"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:text="¿Tiene alguna actitud distinta antes y después de apostar?" />
 
                         <RadioGroup
@@ -341,12 +364,16 @@
                                 android:id="@+id/p14Yes"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="Si" />
 
                             <RadioButton
                                 android:id="@+id/p14No"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="No" />
 
                         </RadioGroup>
@@ -358,8 +385,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/VideojuegosCardView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="12dp" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -370,7 +403,11 @@
                         android:id="@+id/p15"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="¿Juega a videojuegos? " />
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="¿Juega a videojuegos? "
+                        android:textAlignment="center" />
 
                     <RadioGroup
                         android:layout_width="match_parent"
@@ -380,12 +417,16 @@
                             android:id="@+id/p15Yes"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:text="Si" />
 
                         <RadioButton
                             android:id="@+id/p15No"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:text="No" />
                     </RadioGroup>
 
@@ -399,6 +440,8 @@
                             android:id="@+id/p16"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:text="¿Juega mayoritariamente online u offline?" />
 
                         <RadioGroup
@@ -409,12 +452,16 @@
                                 android:id="@+id/p16Online"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="Online" />
 
                             <RadioButton
                                 android:id="@+id/p16Offline"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="Offline" />
                         </RadioGroup>
 
@@ -422,6 +469,8 @@
                             android:id="@+id/p17"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:text="¿En qué plataforma juega? " />
 
                         <RadioGroup
@@ -432,18 +481,24 @@
                                 android:id="@+id/p17Consola"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="Consola" />
 
                             <RadioButton
                                 android:id="@+id/p17Movil"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="Móvil" />
 
                             <RadioButton
                                 android:id="@+id/p17PC"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="Ordenador" />
                         </RadioGroup>
 
@@ -451,6 +506,8 @@
                             android:id="@+id/p18"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:text="¿Controlas sus impulsos cuando juega? " />
 
                         <RadioGroup
@@ -461,12 +518,16 @@
                                 android:id="@+id/p18Yes"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="Si" />
 
                             <RadioButton
                                 android:id="@+id/p18No"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="No" />
                         </RadioGroup>
 
@@ -474,6 +535,8 @@
                             android:id="@+id/p19"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:text="¿Toma alguna sustancia(alcohol u otras drogas) durante el uso de videojuegos?" />
 
                         <RadioGroup
@@ -484,12 +547,16 @@
                                 android:id="@+id/p19Yes"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="Si" />
 
                             <RadioButton
                                 android:id="@+id/p19No"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="No" />
                         </RadioGroup>
 
@@ -497,6 +564,8 @@
                             android:id="@+id/p20"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:text="¿Tiene alguna actitud distinta luego de utilizar videojeugos?" />
 
                         <RadioGroup
@@ -507,12 +576,16 @@
                                 android:id="@+id/p29Yes"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="Si" />
 
                             <RadioButton
                                 android:id="@+id/p20No"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:text="No" />
                         </RadioGroup>
 
@@ -525,6 +598,9 @@
                 android:id="@+id/p21"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textAlignment="center"
                 android:text="¿Crees que está desatendiendo otros aspectos de su vida debido a algunas de estas acciones? " />
 
             <RadioGroup
@@ -535,12 +611,18 @@
                     android:id="@+id/p21Yes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:cardCornerRadius="12dp"
                     android:text="Si" />
 
                 <RadioButton
                     android:id="@+id/p21No"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:cardCornerRadius="12dp"
                     android:text="No" />
             </RadioGroup>
 
@@ -558,6 +640,10 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/radioGroup1" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
 
         </LinearLayout>
     </ScrollView>
