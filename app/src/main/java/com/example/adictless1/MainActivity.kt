@@ -21,11 +21,12 @@ class MainActivity : AppCompatActivity() {
         val logPassword = findViewById<TextView>(R.id.password)
         val logLogin = findViewById<Button>(R.id.login)
         val progressBar = findViewById<ProgressBar>(R.id.progress)
+        var username: CharSequence = ""
 
         logLogin.setOnClickListener(View.OnClickListener {
             val email: String
             val password: String
-            var username: CharSequence = ""
+
             email = logEmail.getText().toString()
             password = logPassword.getText().toString()
             if (email != "" && password != "") {
@@ -83,7 +84,9 @@ class MainActivity : AppCompatActivity() {
 
         val invitado = findViewById<TextView>(R.id.guest)
         invitado.setOnClickListener {
+            username = "Invitado"
             val guestAct = Intent(this, Login::class.java)
+            guestAct.putExtra("usuario", username)
             startActivity(guestAct)
         }
     }
