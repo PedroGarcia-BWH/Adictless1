@@ -1,11 +1,15 @@
 package com.example.adictless1.Controlador
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.adictless1.Login
@@ -15,8 +19,10 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_progress.*
+import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.absoluteValue
 
 /**
  * A simple [Fragment] subclass.
@@ -36,6 +42,7 @@ class Progress : Fragment() {
         return inflater.inflate(R.layout.fragment_progress, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -48,9 +55,9 @@ class Progress : Fragment() {
         val login_usuario = view?.findViewById<TextView>(R.id.textView6)
         login_usuario?.text = usuario
 
-
-        val values = Array<Float>(7){ Math.random().toFloat() }
-
+        //Inicializar values con los valores de la base de datos
+        val values = Array<Float>(7){ Math.random().toFloat() * 2}
+        //Inicializar gráfica
         setBarChart(values)
 
         val addButton = view?.findViewById<Button>(R.id.addStatButton)
@@ -60,21 +67,24 @@ class Progress : Fragment() {
             }
             else{
                 addStatCard?.visibility = View.GONE
-                //Añadir estadistica()
             }
         }
 
         val addConfirmButton = view?.findViewById<Button>(R.id.addStatButton2)
         addConfirmButton?.setOnClickListener(){
-            val values = Array<Float>(7){ Math.random().toFloat() }
+            //Extraer dia de la semana
+            val day = LocalDate.now().dayOfWeek.ordinal
+            //*Comprobar el texto introducido
+            //Recoge los datos introducidos por el usuario
+            val time = view?.findViewById<EditText>(R.id.addTimeText)?.text.toString()
 
+            values[day] += time.toFloat()
+            setBarChart(values)
         }
     }
 
     private fun setBarChart(values : Array<Float> ){
         val entries = ArrayList<BarEntry>()
-        //val values = Array<Float>(7){ Math.random().toFloat() }
-        /* Inicializar datos de values con los de la base de datos*/
 
         for(value in values){
             entries.add(BarEntry(value, values.indexOf(value)))

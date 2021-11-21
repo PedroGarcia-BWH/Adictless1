@@ -175,7 +175,8 @@
                             android:layout_marginEnd="40dp"
                             android:layout_marginBottom="40dp"
                             android:ems="10"
-                            android:inputType="time"
+                            android:inputType="number"
+                            android:hint="Introduzca horas aproximadas"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/textView"
@@ -267,6 +268,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="20dp"
                                 android:layout_weight="1"
+                                android:alpha=".5"
                                 android:src="@drawable/award" />
 
                             <ImageView
@@ -274,6 +276,7 @@
                                 android:layout_width="80dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:alpha=".5"
                                 android:src="@drawable/award" />
                         </LinearLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -294,7 +297,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="152dp"
-        android:layout_height="139dp"
+        android:layout_height="100dp"
         android:layout_marginStart="130dp"
         android:layout_marginEnd="130dp"
         android:src="@drawable/no_profile"
@@ -306,7 +309,7 @@
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="28dp"
-        android:layout_marginTop="-25dp"
+        android:layout_marginTop="-15dp"
         android:fontFamily="sans-serif-condensed"
         android:text="Username"
         android:textAlignment="center"
