@@ -1,5 +1,7 @@
 package com.example.adictless1.Controlador
 
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.DrawableWrapper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -23,7 +25,8 @@ class PageController(supportFragmentManager: FragmentManager) : FragmentPagerAda
         return mFragmentTitleList[position]
     }
 
-    fun addFragment(fragment: Fragment, title:String){
+
+    fun addFragment(fragment: Fragment, title:String, ){
         mFragmentList.add(fragment)
         mFragmentTitleList.add(title)
     }
