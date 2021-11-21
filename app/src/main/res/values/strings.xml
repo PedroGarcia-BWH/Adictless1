@@ -40,5 +40,9 @@ En este caso, un claro ejemplo sería la adicción a apuestas deportivas. Numero
     \nUna persona adicta a los videojuegos es incapaz de controlar sus ganas y su deseo le lleva a jugar irremediablemente durante un gran número de horas. Hay que tener mucho cuidado con este tipo de adicciones sobre todo en niños ya que pueden llegar a desarrollar depresión, ansiedad, timidez, agresión y problemas con el uso excesivo de los teléfonos celulares. Los niños con el trastorno por déficit de atención e hiperactividad (TDAH) pueden ser particularmente vulnerables. \n
     </string>
 
+    <string name="soon">WORK IN PROGRESS,SOON...</string>
+
+    <string name="bloqueado">INICIE SESIÓN PARA DESBLOQUEARLO</string>
+
 
 </resources>

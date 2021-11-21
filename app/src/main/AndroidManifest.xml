@@ -10,6 +10,12 @@
         android:theme="@style/Theme.Adictless1"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Controlador.SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".SurveyActivityFinal"
             android:exported="false" />
         <activity
@@ -38,8 +44,9 @@
         <activity
             android:name=".RegisterActivity1"
             android:exported="false" />
-        <activity android:name=".SurveyActivityFinal"
-            android:exported="false"/>
+        <activity
+            android:name=".SurveyActivityFinal"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
