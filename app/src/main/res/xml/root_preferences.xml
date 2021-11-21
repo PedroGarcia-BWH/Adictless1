@@ -4,7 +4,7 @@
     <PreferenceCategory app:title="Cuenta">
 
         <EditTextPreference
-
+            android:key="Modificaremail"
             app:title="Modificar correo electrónico" />
 
         <EditTextPreference
@@ -13,7 +13,7 @@
             android:singleLine="true"
             android:title="Modificar contraseña" />
         <EditTextPreference
-            android:key="edit_text_preference_1"
+            android:key="Modificaruser"
             android:singleLine="true"
             android:title="Modificar nombre de usuario" />
 

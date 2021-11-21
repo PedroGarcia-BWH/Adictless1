@@ -30,4 +30,5 @@ class PageController(supportFragmentManager: FragmentManager) : FragmentPagerAda
         mFragmentList.add(fragment)
         mFragmentTitleList.add(title)
     }
+
 }

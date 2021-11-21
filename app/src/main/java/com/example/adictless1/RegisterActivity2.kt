@@ -137,7 +137,6 @@ class RegisterActivity2 : AppCompatActivity() {
             regRedes.isEnabled = !isChecked
             regApuestas.isEnabled = !isChecked
             regVideojuegos.isEnabled = !isChecked
-
         }
 
         regRedes.setOnCheckedChangeListener { buttonView, isChecked ->

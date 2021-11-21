@@ -1,19 +1,21 @@
 package com.example.adictless1.Controlador
 
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.adictless1.Login
 import com.example.adictless1.R
+import com.example.adictless1.RegisterActivity2
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
@@ -118,5 +120,24 @@ class Progress : Fragment() {
         barDataSet.color = resources.getColor(R.color.blueProgress)
 
         barChart.animateY(5000)
+
+        val logout = view?.findViewById<ImageButton>(R.id.logout)
+        logout?.setOnClickListener(){
+           val builder = AlertDialog.Builder(getActivity())
+            builder.setTitle("Cerrar Sesión")
+            builder.setMessage("¿Estás seguro de cerrar sesión?")
+            builder.setCancelable(true)
+
+            builder.setNegativeButton("NO", DialogInterface.OnClickListener{ dialog, which ->  
+                Toast.makeText(getActivity(),"Cerrar sesión cancelado", Toast.LENGTH_LONG).show()
+            })
+
+            builder.setPositiveButton("Si", DialogInterface.OnClickListener{ dialog, which ->
+                getActivity()?.finish()
+            })
+
+            val alertDialog = builder.create()
+            alertDialog.show();
+            }
+        }
     }
-}
