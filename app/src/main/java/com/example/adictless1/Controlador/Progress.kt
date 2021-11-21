@@ -8,6 +8,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.adictless1.Login
 import com.example.adictless1.R
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_progress.*
 
@@ -37,5 +40,37 @@ class Progress : Fragment() {
 
         val login_usuario = view?.findViewById<TextView>(R.id.textView6)
         login_usuario?.text = usuario
+        setBarChart()
+    }
+
+    private fun setBarChart(){
+        val entries = ArrayList<BarEntry>()
+        entries.add(BarEntry(8f, 0))
+        entries.add(BarEntry(2f, 1))
+        entries.add(BarEntry(5f, 2))
+        entries.add(BarEntry(20f, 3))
+        entries.add(BarEntry(15f, 4))
+        entries.add(BarEntry(19f, 5))
+        entries.add(BarEntry(5f, 6))
+
+        val barDataSet = BarDataSet(entries, "Cells")
+
+        val labels = ArrayList<String>()
+        labels.add("Lun")
+        labels.add("Mar")
+        labels.add("Mie")
+        labels.add("Jue")
+        labels.add("Vie")
+        labels.add("Sab")
+        labels.add("Dom")
+        val data = BarData(labels, barDataSet)
+        barChart.data = data // set the data and list of lables into chart
+
+        barChart.setDescription("Set Bar Chart Description")  // set the description
+
+        //barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
+        barDataSet.color = resources.getColor(R.color.teal_200)
+
+        barChart.animateY(5000)
     }
 }
