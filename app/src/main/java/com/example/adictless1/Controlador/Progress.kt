@@ -47,7 +47,11 @@ class Progress : Fragment() {
 
         val login_usuario = view?.findViewById<TextView>(R.id.textView6)
         login_usuario?.text = usuario
-        setBarChart()
+
+
+        val values = Array<Float>(7){ Math.random().toFloat() }
+
+        setBarChart(values)
 
         val addButton = view?.findViewById<Button>(R.id.addStatButton)
         addButton?.setOnClickListener(){

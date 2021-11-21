@@ -4,11 +4,11 @@
     <PreferenceCategory app:title="Cuenta">
 
         <EditTextPreference
-            app:key="signature"
+
             app:title="Modificar correo electrónico" />
 
         <EditTextPreference
-            android:key="Modificar contraseña"
+            android:key="Modificarcontraseña"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:title="Modificar contraseña" />
@@ -24,7 +24,7 @@
 
         <SwitchPreferenceCompat
             android:defaultValue="true"
-            app:key="notificaciones"
+
             app:title="Recibir notificaciones"
             android:singleLine="true"/>
     </PreferenceCategory>
