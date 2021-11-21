@@ -6,8 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -15,6 +13,7 @@ import com.example.adictless1.Login
 import com.example.adictless1.NewsActivity
 import com.example.adictless1.R
 import com.example.adictless1.SettingsActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 //import kotlinx.android.synthetic.main.activity_main.*
 //import kotlinx.android.synthetic.main.fragment_home.*
@@ -66,11 +65,13 @@ class Home : Fragment() {
         login_usuario?.text = "Bienvenido\n" + usuario
 
 
-        val settings =  view?.findViewById<ImageButton>(R.id.settings)
+        val settings =  view?.findViewById<FloatingActionButton>(R.id.ruedaSettings)
         settings?.setOnClickListener {
             val settingsAct = Intent(activity, SettingsActivity::class.java)
             activity?.startActivity(settingsAct)
         }
+
+
     }
 
 }
