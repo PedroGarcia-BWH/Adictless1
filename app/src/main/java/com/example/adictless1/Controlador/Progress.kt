@@ -53,7 +53,7 @@ class Progress : Fragment() {
         entries.add(BarEntry(19f, 5))
         entries.add(BarEntry(5f, 6))
 
-        val barDataSet = BarDataSet(entries, "Cells")
+        val barDataSet = BarDataSet(entries, "Horas")
 
         val labels = ArrayList<String>()
         labels.add("Lun")
@@ -66,10 +66,10 @@ class Progress : Fragment() {
         val data = BarData(labels, barDataSet)
         barChart.data = data // set the data and list of lables into chart
 
-        barChart.setDescription("Set Bar Chart Description")  // set the description
+        barChart.setDescription("Tiempo de uso semanal")  // set the description
 
         //barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
-        barDataSet.color = resources.getColor(R.color.teal_200)
+        barDataSet.color = resources.getColor(R.color.blueProgress)
 
         barChart.animateY(5000)
     }
