@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Adictless</string>
+    <string name="app_name">Addictless</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_survey1">SurveyActivity1</string>
@@ -58,6 +58,24 @@ En este caso, un claro ejemplo sería la adicción a apuestas deportivas. Numero
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="title_activity_settings">SettingsActivity</string>
+
+    <string name="termsPrivacy">\nCondiciones de uso\n
+\nEl presente documento tiene por objeto establecer las Condiciones Generales de Uso de las aplicaciones móviles titularidad de ADDICTLESS.\nSi desea contactar con ADDICTLESS puede hacerlo por escrito en la dirección de correo electrónico centroinformacion@adictless.com.\n
+\nADDICTLESS se reserva el derecho a modificar las presentes Condiciones de Uso con el objeto de adecuarlas a la legislación vigente aplicable en cada momento.\n
+\nLas presentes Condiciones de Uso no excluyen la posibilidad de que determinados Servicios de las aplicaciones, por sus características particulares, sean sometidos, además de a las Condiciones Generales de Uso, a sus propias condiciones particulares de uso (en adelante las Condiciones Particulares).\n
+\nLa Empresa podrá, en cualquier momento y sin necesidad de previo aviso, realizar cambios y actualizaciones de las presentes Condiciones de Uso y de la Política de Privacidad. Estos cambios serán publicados en la Aplicación y serán efectivos desde el momento de su publicación.\n
+\nComo consecuencia de lo anterior, el Usuario deberá revisar periódicamente si hay cambios en estas Condiciones y, tanto si existe consentimiento expreso como si no, si el Usuario continua usando el Servicio tras la publicación, ello implica la aceptación y asunción de los mismos. En caso de que no esté de acuerdo con las actualizaciones de las Condiciones de uso o de la Política de Privacidad, podrá renunciar dejando de usar el Servicio.\n
+\nEsta versión de la aplicación está disponible de forma gratuita.\n
+\nLa descarga y uso de la aplicación atribuye la condición de usuario de la misma (en adelante, el Usuario) aceptación de todos los términos y condiciones recogidas por la presente.\n
+Los datos de carácter personal objeto de tratamiento no se utilizarán para otras finalidades que no se encuentren aquí recogidas o, en su caso, por otro documento o contrato que vinculase a ambas partes con condiciones particulares.
+\nMODIFICACIONES\n
+\nADDICTLESS se reserva el derecho a efectuar las modificaciones que estime oportunas, pudiendo modificar, suprimir e incluir nuevos contenidos y/o servicios, así como la forma en que éstos aparezcan presentados y localizados.\n
+\nMENORES DE EDAD\n
+\nCon carácter general, para hacer uso de los Servicios de la presente aplicación móvil los menores de edad deben haber obtenido previamente la autorización de sus padres, tutores o representantes legales, quienes serán responsables de todos los actos realizados a través de la presente aplicación móvil por los menores a su cargo. En aquellos Servicios en los que expresamente se señale, el acceso quedará restringido única y exclusivamente a mayores de 18 años.\n
+\nDURACIÓN Y TERMINACIÓN\n
+\nLa prestación de los servicios y/o contenidos de la presente aplicación móvil tiene una duración indefinida. Sin perjuicio de lo anterior, ADDICTLESS está facultada para dar por terminada, suspender o interrumpir unilateralmente, en cualquier momento y sin necesidad de preaviso, la prestación del servicio y de la presente aplicación móvil y/o de cualquiera de los servicios, sin perjuicio de lo que se hubiera dispuesto al respecto en las correspondientes condiciones particulares.
+</string>
+
 
 
 </resources>
