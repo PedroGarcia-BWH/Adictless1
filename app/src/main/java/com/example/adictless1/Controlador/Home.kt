@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -63,6 +64,12 @@ class Home : Fragment() {
 
         val login_usuario = view?.findViewById<TextView>(R.id.alias)
         login_usuario?.text = "Bienvenido\n" + usuario
+
+        if(usuario == "Invitado")
+        {
+            val settings = view?.findViewById<FloatingActionButton>(R.id.ruedaSettings)
+            settings!!.visibility = View.GONE
+        }
 
 
         val settings =  view?.findViewById<FloatingActionButton>(R.id.ruedaSettings)

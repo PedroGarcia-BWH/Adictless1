@@ -19,6 +19,7 @@ import com.example.adictless1.RegisterActivity2
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_progress.*
 import java.time.LocalDate
@@ -50,6 +51,12 @@ class Progress : Fragment() {
 
         val activity: Login? = activity as Login?
         val usuario: CharSequence? = activity?.usuario()
+
+        if(usuario == "Invitado")
+        {
+            val logout = view?.findViewById<ImageButton>(R.id.logout)
+            logout!!.visibility = View.GONE
+        }
 
         val addStatCard = view?.findViewById<CardView>(R.id.addHoursCardView)
         addStatCard?.visibility = View.GONE
@@ -120,6 +127,7 @@ class Progress : Fragment() {
         barDataSet.color = resources.getColor(R.color.blueProgress)
 
         barChart.animateY(5000)
+
 
         val logout = view?.findViewById<ImageButton>(R.id.logout)
         logout?.setOnClickListener(){

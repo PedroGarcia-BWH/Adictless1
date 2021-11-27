@@ -40,7 +40,6 @@ class SurveyActivityFinal : AppCompatActivity() {
         apuestasDeactivate.setOnClickListener{
             apuestasLayout.visibility = View.GONE
         }
-
         val juegosLayout = findViewById<LinearLayout>(R.id.layoutJuegos)
         juegosLayout.visibility = View.GONE
 
@@ -133,8 +132,6 @@ class SurveyActivityFinal : AppCompatActivity() {
 
               contRedesSociales = Integer.parseInt(nRD)
           }
-
-
             val builder = AlertDialog.Builder(this)
             builder.setTitle("RESULTADO")
             if (contRedesSociales >=5 && contApuesta >=2 && contGames >=2){
