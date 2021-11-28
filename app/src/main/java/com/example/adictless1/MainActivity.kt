@@ -2,26 +2,34 @@ package com.example.adictless1
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.vishnusivadas.advanced_httpurlconnection.PutData
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
+    val db = Firebase.firestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        auth = Firebase.auth
 
         val logEmail = findViewById<TextView>(R.id.email)
         val logPassword = findViewById<TextView>(R.id.password)
         val logLogin = findViewById<Button>(R.id.login)
         val progressBar = findViewById<ProgressBar>(R.id.progress)
-        var username: CharSequence = ""
 
         logLogin.setOnClickListener(View.OnClickListener {
             val email: String
@@ -31,42 +39,8 @@ class MainActivity : AppCompatActivity() {
             password = logPassword.getText().toString()
             if (email != "" && password != "") {
                 progressBar.setVisibility(View.VISIBLE)
-                val handler = Handler(Looper.getMainLooper())
-                handler.post {
-                    val field = arrayOfNulls<String>(2)
-                    field[0] = "email"
-                    field[1] = "password"
-                    //Creating array for data
-                    val data = arrayOfNulls<String>(2)
-                    data[0] = email
-                    data[1] = password
-
-                    val putData =
-                        PutData("http://192.168.48.47/LoginRegister/login.php", "POST", field, data)
-                    if (putData.startPut()) {
-                        if (putData.onComplete()) {
-                            progressBar.setVisibility(View.GONE)
-                            val result = putData.result
-                            if (result == "Inicio de Sesion Correcto") {
-                                val fetchData = PutData("http://192.168.48.47/LoginRegister/show_login.php","POST", field, data)
-                                if(fetchData.startPut()){
-                                    if(fetchData.onComplete()){
-                                        username = fetchData.result
-                                    }
-                                }
-                                Toast.makeText(applicationContext, result, Toast.LENGTH_SHORT)
-                                    .show()
-                                val intent = Intent(applicationContext, Login::class.java)
-                                intent.putExtra("usuario",username)
-                                startActivity(intent)
-                                finish()
-                            } else {
-                                Toast.makeText(applicationContext, result, Toast.LENGTH_SHORT)
-                                    .show()
-                            }
-                        }
-                    }
-                }
+                InicioSesion(email,password)
+                progressBar.setVisibility(View.GONE)
             } else {
                 Toast.makeText(
                     applicationContext,
@@ -84,10 +58,62 @@ class MainActivity : AppCompatActivity() {
 
         val invitado = findViewById<TextView>(R.id.guest)
         invitado.setOnClickListener {
-            username = "Invitado"
-            val guestAct = Intent(this, Login::class.java)
-            guestAct.putExtra("usuario", username)
-            startActivity(guestAct)
+            auth.signInAnonymously()
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInAnonymously:success")
+                        val user = auth.currentUser
+                        updateUI(user)
+                        Toast.makeText(baseContext, "Inicio de Sesión Correcto",
+                            Toast.LENGTH_SHORT).show()
+                        updateUI(user)
+                        val invitado = Intent(applicationContext, Login::class.java)
+                        startActivity(invitado)
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInAnonymously:failure", task.exception)
+                        Toast.makeText(baseContext, "Fallo del Login de Invitado",
+                            Toast.LENGTH_SHORT).show()
+                        updateUI(null)
+                    }
+                }
         }
+    }
+    companion object{
+        private const val TAG = "EmailPassword"
+    }
+
+    fun InicioSesion(email: String, password: String){
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithEmail:success")
+                    val user = auth.currentUser
+                    Toast.makeText(baseContext, "Inicio de Sesión Correcto",
+                        Toast.LENGTH_SHORT).show()
+                    updateUI(user)
+                    val username = user?.email
+
+                    val login = Intent(applicationContext, Login::class.java)
+                    login.putExtra("usuario",username)
+                    startActivity(login)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithEmail:failure", task.exception)
+                    Toast.makeText(baseContext, "Correo o Password Incorrecto",
+                        Toast.LENGTH_SHORT).show()
+                    updateUI(null)
+                }
+            }
+    }
+
+    private fun updateUI(user: FirebaseUser?) {
+
+    }
+
+    private fun reload() {
+
     }
 }

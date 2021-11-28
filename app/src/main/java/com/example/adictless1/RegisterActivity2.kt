@@ -2,17 +2,25 @@ package com.example.adictless1
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.vishnusivadas.advanced_httpurlconnection.PutData
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class RegisterActivity2 : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
+    val db = Firebase.firestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register2)
+
+        auth = Firebase.auth
 
         val regEmail = findViewById<TextView>(R.id.emailRegister)
         val regUsername = findViewById<TextView>(R.id.nickNameRegister)
@@ -38,74 +46,18 @@ class RegisterActivity2 : AppCompatActivity() {
                         regNose.isChecked == true)) {
 
                 if (password.length >= 8) {
+                    if (regNose.isChecked == true)
+                        type += "NoProcede "
+                    if (regRedes.isChecked == true)
+                        type += "RedesSociales "
+                    if (regApuestas.isChecked == true)
+                        type += "Apuestas "
+                    if (regVideojuegos.isChecked == true)
+                        type += "Videojuegos"
 
-                    if (regNose.isChecked == true && (regRedes.isChecked == true ||
-                                regApuestas.isChecked == true ||
-                                regVideojuegos.isChecked == true)) {
-                        Toast.makeText(
-                            applicationContext,
-                            "No se puede seleccionar el campo Prefiero No Contestar y otro campo a la vez",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }else {
-                        if (regNose.isChecked == true)
-                            type += "NoProcede "
-                        if (regRedes.isChecked == true)
-                            type += "RedesSociales "
-                        if (regApuestas.isChecked == true)
-                            type += "Apuestas "
-                        if (regVideojuegos.isChecked == true)
-                            type += "Videojuegos"
-
-                        progressBar.setVisibility(View.VISIBLE)
-                        val handler = Handler(Looper.getMainLooper())
-                        handler.post {
-                            val field = arrayOfNulls<String>(4)
-                            field[0] = "email"
-                            field[1] = "username"
-                            field[2] = "password"
-                            field[3] = "type"
-                            //Creating array for data
-                            val data = arrayOfNulls<String>(4)
-                            data[0] = email
-                            data[1] = username
-                            data[2] = password
-                            data[3] = type
-
-                            val putData =
-                                PutData(
-                                    "http://192.168.48.47/LoginRegister/signup.php",
-                                    "POST",
-                                    field,
-                                    data
-                                )
-                            if (putData.startPut()) {
-                                if (putData.onComplete()) {
-                                    progressBar.setVisibility(View.GONE)
-                                    val result = putData.result
-                                    if (result == "Registro Correcto") {
-                                        Toast.makeText(
-                                            applicationContext,
-                                            result,
-                                            Toast.LENGTH_SHORT
-                                        )
-                                            .show()
-                                        val intent =
-                                            Intent(applicationContext, MainActivity::class.java)
-                                        startActivity(intent)
-                                        finish()
-                                    } else {
-                                        Toast.makeText(
-                                            applicationContext,
-                                            result,
-                                            Toast.LENGTH_SHORT
-                                        )
-                                            .show()
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    progressBar.setVisibility(View.VISIBLE)
+                    crearCuenta(email,username,password,type)
+                    progressBar.setVisibility(View.GONE)
 
                 } else {
                     Toast.makeText(
@@ -123,6 +75,7 @@ class RegisterActivity2 : AppCompatActivity() {
             }
 
         })
+
         val survey = findViewById<TextView>(R.id.survey)
         survey.setOnClickListener {
             val surveyAct = Intent(this, SurveyActivityFinal::class.java)
@@ -148,6 +101,53 @@ class RegisterActivity2 : AppCompatActivity() {
         regVideojuegos.setOnCheckedChangeListener { buttonView, isChecked ->
             noResponse.isEnabled = !isChecked && !regApuestas.isChecked && !regRedes.isChecked
         }
+    }
+
+    companion object{
+        private var TAG = "EmailPassword"
+    }
+
+    fun crearCuenta (email : String, username: String, password: String, type: String){
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserWithEmail:success")
+                    val user = auth.currentUser
+                    Toast.makeText(baseContext, "Registro Correcto",
+                        Toast.LENGTH_SHORT).show()
+                    updateUI(user)
+
+                    val usuario = hashMapOf(
+                        "email" to email,
+                        "username" to username,
+                        "password" to password,
+                        "type" to type
+                    )
+                    TAG = "DocSnippets"
+                    db.collection("users").document(username)
+                        .set(usuario)
+                        .addOnSuccessListener { Log.d(TAG, "Documento escrito de forma exitosa") }
+                        .addOnFailureListener { e -> Log.w(TAG, "Error al escribir el documento", e) }
+
+                    val registro = Intent(applicationContext, MainActivity::class.java)
+                    startActivity(registro)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(baseContext, "Fallo de Registro",
+                        Toast.LENGTH_SHORT).show()
+                    updateUI(null)
+                }
+            }
+    }
+
+    private fun updateUI(user: FirebaseUser?) {
 
     }
+
+    private fun reload() {
+
+    }
+
 }

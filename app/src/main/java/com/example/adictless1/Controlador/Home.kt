@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -15,6 +14,8 @@ import com.example.adictless1.NewsActivity
 import com.example.adictless1.R
 import com.example.adictless1.SettingsActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 //import kotlinx.android.synthetic.main.activity_main.*
 //import kotlinx.android.synthetic.main.fragment_home.*
@@ -26,6 +27,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
  * create an instance of this fragment.
  */
 class Home : Fragment() {
+
+    val db = Firebase.firestore
+
+    companion object{
+        private var TAG = "DocSnippets"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -59,8 +67,9 @@ class Home : Fragment() {
 
             activity?.startActivity(an2Ac)
         }
+
         val activity: Login? = activity as Login?
-        val usuario: CharSequence? = activity?.usuario()
+        val usuario = activity?.usuario()
 
         val login_usuario = view?.findViewById<TextView>(R.id.alias)
         login_usuario?.text = "Bienvenido\n" + usuario
