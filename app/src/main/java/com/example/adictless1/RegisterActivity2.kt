@@ -125,10 +125,12 @@ class RegisterActivity2 : AppCompatActivity() {
                         "type" to type
                     )
                     TAG = "DocSnippets"
-                    db.collection("users").document(username)
-                        .set(usuario)
-                        .addOnSuccessListener { Log.d(TAG, "Documento escrito de forma exitosa") }
-                        .addOnFailureListener { e -> Log.w(TAG, "Error al escribir el documento", e) }
+                    if (user != null) {
+                        db.collection("users").document(user.uid)
+                            .set(usuario)
+                            .addOnSuccessListener { Log.d(TAG, "Documento escrito de forma exitosa") }
+                            .addOnFailureListener { e -> Log.w(TAG, "Error al escribir el documento", e) }
+                    }
 
                     val registro = Intent(applicationContext, MainActivity::class.java)
                     startActivity(registro)

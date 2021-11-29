@@ -9,12 +9,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import com.example.adictless1.Login
 import com.example.adictless1.NewsActivity
 import com.example.adictless1.R
 import com.example.adictless1.SettingsActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 //import kotlinx.android.synthetic.main.activity_main.*
@@ -28,7 +29,8 @@ import com.google.firebase.ktx.Firebase
  */
 class Home : Fragment() {
 
-    val db = Firebase.firestore
+    val db = FirebaseFirestore.getInstance()
+    private lateinit var auth: FirebaseAuth
 
     companion object{
         private var TAG = "DocSnippets"
@@ -50,6 +52,36 @@ class Home : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        auth = Firebase.auth
+        val user = auth.currentUser
+        val doc_ref = user?.let { db.collection("users").document(it.uid) }
+
+            doc_ref!!.get()
+                .addOnSuccessListener { document ->
+                    if (document.data != null) {
+                        Log.d(TAG, "Datos Recibidos desde la Base de Datos")
+                        val data_user= document.data
+                        val username = data_user?.get("username")
+                        val login_usuario = view?.findViewById<TextView>(R.id.alias)
+                        login_usuario?.text = "Bienvenido\n" + username
+                    } else {
+                        Log.d(TAG, "No existe dicho documento en la Base de Datos")
+                        val usuario = "Invitado"
+
+                        if(usuario == "Invitado")
+                        {
+                            val login_usuario = view?.findViewById<TextView>(R.id.alias)
+                            login_usuario?.text = "Bienvenido\n" + usuario
+                            val settings = view?.findViewById<FloatingActionButton>(R.id.ruedaSettings)
+                            settings!!.visibility = View.GONE
+                        }
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d(TAG, "get failed with ", exception)
+                }
+
         val an1CardView = view?.findViewById<CardView>(R.id.announce1)
         Log.d("View", an1CardView.toString())
         an1CardView?.setOnClickListener {
@@ -68,25 +100,12 @@ class Home : Fragment() {
             activity?.startActivity(an2Ac)
         }
 
-        val activity: Login? = activity as Login?
-        val usuario = activity?.usuario()
-
-        val login_usuario = view?.findViewById<TextView>(R.id.alias)
-        login_usuario?.text = "Bienvenido\n" + usuario
-
-        if(usuario == "Invitado")
-        {
-            val settings = view?.findViewById<FloatingActionButton>(R.id.ruedaSettings)
-            settings!!.visibility = View.GONE
-        }
-
 
         val settings =  view?.findViewById<FloatingActionButton>(R.id.ruedaSettings)
         settings?.setOnClickListener {
             val settingsAct = Intent(activity, SettingsActivity::class.java)
             activity?.startActivity(settingsAct)
         }
-
 
     }
 

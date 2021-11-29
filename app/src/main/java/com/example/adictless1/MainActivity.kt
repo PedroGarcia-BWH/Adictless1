@@ -97,7 +97,6 @@ class MainActivity : AppCompatActivity() {
                     val username = user?.email
 
                     val login = Intent(applicationContext, Login::class.java)
-                    login.putExtra("usuario",username)
                     startActivity(login)
                 } else {
                     // If sign in fails, display a message to the user.

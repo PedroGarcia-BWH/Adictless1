@@ -13,13 +13,9 @@ import com.google.android.material.tabs.TabLayout
 
 
 class Login : AppCompatActivity() {
-    var usuario_intent: String? =""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        usuario_intent= intent.extras?.getString("usuario")
-        usuario()
         setUpTabs()
     }
 
@@ -44,8 +40,5 @@ class Login : AppCompatActivity() {
         tabs.getTabAt(1)!!.setTabLabelVisibility(TabLayout.TAB_LABEL_VISIBILITY_UNLABELED);
         tabs.getTabAt(2)!!.setTabLabelVisibility(TabLayout.TAB_LABEL_VISIBILITY_UNLABELED);
         */
-    }
-    fun usuario(): String? {
-        return usuario_intent
     }
 }
