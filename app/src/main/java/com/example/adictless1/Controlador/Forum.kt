@@ -80,7 +80,7 @@ class Forum : Fragment() {
         adding?.setOnClickListener(){
 
             val builder = AlertDialog.Builder(getActivity())
-            builder.setView(R.layout.nuevotema);
+            builder.setView(R.layout.dialog);
             builder.setTitle("Crear nuevo tema")
             builder.setMessage("¿Estás seguro de crear nuevo tema?")
             builder.setCancelable(true)

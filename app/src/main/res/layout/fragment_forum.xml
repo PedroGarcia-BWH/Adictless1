@@ -124,12 +124,12 @@
             android:layout_width="56dp"
             android:layout_height="wrap_content"
 
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="170dp"
+            android:layout_marginTop="400dp"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/add"
             app:backgroundTint="@color/blueProgress"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/SOON"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView4" />
 
         <ImageView
             android:id="@+id/Candado"
