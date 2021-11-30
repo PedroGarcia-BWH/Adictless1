@@ -2,6 +2,7 @@ package com.example.adictless1.Controlador
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.example.adictless1.Controlador.Forum
@@ -12,8 +13,11 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.Fragment
+import com.example.adictless1.ChatActivity
+import com.example.adictless1.NewsActivity
 import com.example.adictless1.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
@@ -76,6 +80,11 @@ class Forum : Fragment() {
                 Log.d(Forum.TAG, "get failed with ", exception)
             }
 
+        val chat = view?.findViewById<CardView>(R.id.fRedesSociales)
+        chat?.setOnClickListener(){
+            val chatIntent = Intent(activity, ChatActivity::class.java)
+            activity?.startActivity(chatIntent)
+        }
         val adding = view?.findViewById<FloatingActionButton>(R.id.addTag)
         adding?.setOnClickListener(){
 

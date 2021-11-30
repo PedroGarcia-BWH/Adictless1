@@ -9,7 +9,9 @@
     <ScrollView
         android:id="@+id/scrollView5"
         android:layout_width="413dp"
-        android:layout_height="683dp">
+        android:layout_height="683dp"
+        tools:layout_editor_absoluteX="-2dp"
+        tools:layout_editor_absoluteY="-8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,13 +21,23 @@
         </LinearLayout>
     </ScrollView>
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/sendMesage"
+        android:layout_width="56dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+
+        android:src="@drawable/send"
+        app:backgroundTint="@color/blueProgress"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView5" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/Mensage"
+        android:layout_width="317dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:hint="Mensaje"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sendMesage" />
 </androidx.constraintlayout.widget.ConstraintLayout>
