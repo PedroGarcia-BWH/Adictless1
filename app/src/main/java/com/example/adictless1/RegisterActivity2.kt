@@ -111,29 +111,47 @@ class RegisterActivity2 : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "createUserWithEmail:success")
-                    val user = auth.currentUser
-                    Toast.makeText(baseContext, "Registro Correcto",
-                        Toast.LENGTH_SHORT).show()
-                    updateUI(user)
+                    val same_username = db.collection("users").whereEqualTo("username",username)
+                    if (same_username == null) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "createUserWithEmail:success")
+                        val user = auth.currentUser
+                        Toast.makeText(baseContext, "Registro Correcto",
+                            Toast.LENGTH_SHORT).show()
+                        updateUI(user)
+                        val usuario = hashMapOf(
+                            "email" to email,
+                            "username" to username,
+                            "password" to password,
+                            "type" to type
+                        )
+                        TAG = "DocSnippets"
+                        if (user != null) {
+                            db.collection("users").document(user.uid)
+                                .set(usuario)
+                                .addOnSuccessListener {
+                                    Log.d(
+                                        TAG,
+                                        "Documento escrito de forma exitosa"
+                                    )
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.w(
+                                        TAG,
+                                        "Error al escribir el documento",
+                                        e
+                                    )
+                                }
+                        }
 
-                    val usuario = hashMapOf(
-                        "email" to email,
-                        "username" to username,
-                        "password" to password,
-                        "type" to type
-                    )
-                    TAG = "DocSnippets"
-                    if (user != null) {
-                        db.collection("users").document(user.uid)
-                            .set(usuario)
-                            .addOnSuccessListener { Log.d(TAG, "Documento escrito de forma exitosa") }
-                            .addOnFailureListener { e -> Log.w(TAG, "Error al escribir el documento", e) }
+                        val registro = Intent(applicationContext, MainActivity::class.java)
+                        startActivity(registro)
+                    } else {
+                        Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                        Toast.makeText(baseContext, "El usuario ya existe en la base de datos",
+                            Toast.LENGTH_SHORT).show()
+                        updateUI(null)
                     }
-
-                    val registro = Intent(applicationContext, MainActivity::class.java)
-                    startActivity(registro)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
