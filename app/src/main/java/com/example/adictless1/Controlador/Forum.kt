@@ -83,6 +83,7 @@ class Forum : Fragment() {
         val chat = view?.findViewById<CardView>(R.id.fRedesSociales)
         chat?.setOnClickListener(){
             val chatIntent = Intent(activity, ChatActivity::class.java)
+            chatIntent.putExtra("nombreTema", "Redes Sociales");
             activity?.startActivity(chatIntent)
         }
         val adding = view?.findViewById<FloatingActionButton>(R.id.addTag)
