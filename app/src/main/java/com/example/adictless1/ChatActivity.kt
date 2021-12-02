@@ -18,7 +18,7 @@ import java.time.Instant
 
 
 class ChatActivity : AppCompatActivity() {
-    //var mensajes: List<Mensaje>
+    var mensajes: List<Mensaje> = listOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -29,12 +29,12 @@ class ChatActivity : AppCompatActivity() {
         var db = Firebase.firestore
         var foro = db.collection("foro").document(nomTema).collection("mensajes")
         var auth = Firebase.auth
-        /*var mensaje = hashMapOf(
+        var mensaje = hashMapOf(
             "nickname" to nickname,
             "mensaje" to cuerpoMensaje,
             "hora" to hora,
         )
-        var nMensaje = "0"
+        /* var nMensaje = "0"
         var nMensajeContador = 1
         var mensajeEncontrado : Mensaje
         while(true)
@@ -43,7 +43,7 @@ class ChatActivity : AppCompatActivity() {
                 .addOnSuccessListener { document ->
                     if (document != null) {
                         foro.document(nMensaje).set(mensaje)
-                        mensajes += Mensaje(mensaje[1],mensaje[2],mensaje[3])
+                        //mensajes += Mensaje(mensaje[1],mensaje[2],mensaje[3])
                         Log.d(TAG, "DocumentSnapshot data: ${document.data}")
                     } else {
                         Log.d(TAG, "No such document")
@@ -61,69 +61,71 @@ class ChatActivity : AppCompatActivity() {
         var nMensaje = "0"
 
         enviar.setOnClickListener() {
-            var mensajeEnviar = findViewById<EditText>(R.id.Mensage)
+            var find = findViewById<EditText>(R.id.Mensage)
+            var mensajeEnviar = find.getText().toString()
             var horaActual = Instant.now().toString()
             var nicknameEnviar = "Prueba"
-            var id = auth.currentUser.toString()
-            val doc_ref = id.let { db.collection("users").document(id) }
+            var id = auth.currentUser
+            var aux = id?.uid.toString()
+            val doc_ref = id.let { db.collection("users").document(aux) }
             doc_ref.get()
                 .addOnSuccessListener { document ->
                     if (document.data != null) {
                         //Log.d(Home.TAG, "Datos Recibidos desde la Base de Datos")
-                        val data_user = document.data
+                        var data_user = document.data
                         nicknameEnviar = data_user?.get("username").toString()
-                    }
-                    var nMensajeContador = 1
-                    var fin = true
-                    while (true) {
-                        foro.document(nMensaje).get()
-                            .addOnSuccessListener { document ->
-                                if (document != null) {
-                                    Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                                } else {
-                                    Log.d(TAG, "No such document")
-                                    fin = false //si no encuentra mas mensajes no busca mas
+
+                        var nMensajeContador = 1
+                        var fin = true
+                        var nMensaje = "1"
+                        while (fin) {
+                            foro.document(nMensaje).get()
+                                .addOnSuccessListener { document ->
+                                    if (document != null) {
+                                        Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+                                    } else {
+                                        Log.d(TAG, "No such document")
+                                        fin = false //si no encuentra mas mensajes no busca mas
+                                    }
                                 }
-                            }
-                            .addOnFailureListener { exception ->
-                                Log.d(TAG, "get failed with ", exception)
-                            }
-
-                        nMensajeContador++
-                        nMensaje = nMensajeContador.toString()
+                                .addOnFailureListener { exception ->
+                                    Log.d(TAG, "get failed with ", exception)
+                                }
+                            nMensajeContador++
+                            nMensaje = nMensajeContador.toString()
+                        }
                     }
+                    //var nMensaje = "3"
+                    val nuevoMensaje = hashMapOf(
+                        "nickname" to nicknameEnviar,
+                        "mensaje" to mensajeEnviar,
+                        "hora" to horaActual
+                    )
+                    db.collection("foro").document(nomTema).collection("mensajes")
+                        .document(nMensaje)
+                        .set(nuevoMensaje)
+                        .addOnSuccessListener {
+                            Log.d(
+                                TAG,
+                                "DocumentSnapshot successfully written!"
+                            )
+                        }
+                        .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+
+                    mensajes += Mensaje(nicknameEnviar, mensajeEnviar, horaActual)
+                    initRecycler()
                 }
-
-            val nuevoMensaje= hashMapOf(
-                "nickname" to nicknameEnviar,
-                "mensaje" to mensajeEnviar,
-                "hora" to horaActual
-            )
-            db.collection("foro").document(nomTema).collection("mensajes").document(nMensaje)
-                .set(nuevoMensaje)
-               // .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
-               // .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
-
+        }
+    }
+        fun initRecycler()
+        {
+            rvmensajes.layoutManager = LinearLayoutManager(this)
+            val adapter = MensajeAdapter(mensajes)
+            rvmensajes.adapter = adapter
         }
 
-            /*fun initRecycler()
-    {
-        rvmensajes.layoutManager = LinearLayoutManager(this)
-        val adapter = MensajeAdapter(mensajes)
-        rvmensajes.adapter = adapter
-
-    }*/
-        }
         companion object{
             private const val TAG = "Mensaje"
         }
-
-    /*fun initRecycler()
-    {
-    rvmensajes.layoutManager = LinearLayoutManager(this)
-    val adapter = MensajeAdapter(mensajes)
-    rvmensajes.adapter = adapter
-
-    }*/
 
 }
