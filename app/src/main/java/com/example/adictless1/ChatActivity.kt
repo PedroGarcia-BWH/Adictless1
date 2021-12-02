@@ -18,8 +18,7 @@ import java.time.Instant
 
 
 class ChatActivity : AppCompatActivity() {
-    var mensajes: List<Mensaje> = TODO()
-
+    //var mensajes: List<Mensaje>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -64,7 +63,7 @@ class ChatActivity : AppCompatActivity() {
         enviar.setOnClickListener() {
             var mensajeEnviar = findViewById<EditText>(R.id.Mensage)
             var horaActual = Instant.now().toString()
-            var nicknameEnviar = "i"
+            var nicknameEnviar = "Prueba"
             var id = auth.currentUser.toString()
             val doc_ref = id.let { db.collection("users").document(id) }
             doc_ref.get()
