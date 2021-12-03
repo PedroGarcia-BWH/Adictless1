@@ -50,6 +50,10 @@
         <entry key="..\:/Users/condo/AndroidStudioProjects/Adictless1/app/src/main/res/layout/mensajes.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/condo/AndroidStudioProjects/Adictless1/app/src/main/res/layout/settings_activity.xml" value="0.25" />
         <entry key="..\:/Users/condo/AndroidStudioProjects/Adictless1/app/src/main/res/xml/root_preferences.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_chat.xml" value="0.22864583333333333" />
+        <entry key="app/src/main/res/layout/activity_progress.xml" value="0.29030797101449274" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.22864583333333333" />
+        <entry key="app/src/main/res/layout/fragment_progress.xml" value="0.22864583333333333" />
       </map>
     </option>
   </component>

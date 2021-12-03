@@ -11,6 +11,9 @@
         android:theme="@style/Theme.Adictless1"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ActivityProgress"
+            android:exported="false" />
+        <activity
             android:name=".ChatActivity"
             android:exported="false" />
         <activity

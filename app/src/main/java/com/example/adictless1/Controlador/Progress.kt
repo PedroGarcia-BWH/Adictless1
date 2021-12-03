@@ -2,6 +2,7 @@ package com.example.adictless1.Controlador
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,8 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import com.example.adictless1.ActivityProgress
+import com.example.adictless1.NewsActivity
 import com.example.adictless1.R
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
@@ -36,7 +39,7 @@ class Progress : Fragment() {
     val db = FirebaseFirestore.getInstance()
     private lateinit var auth: FirebaseAuth
 
-    companion object{
+    companion object {
         private var TAG = "DocSnippets"
     }
 
@@ -83,92 +86,50 @@ class Progress : Fragment() {
                 Log.d(TAG, "get failed with ", exception)
             }
 
-        val addStatCard = view?.findViewById<CardView>(R.id.addHoursCardView)
-        addStatCard?.visibility = View.GONE
-
-        //Inicializar values con los valores de la base de datos
-        val values = Array<Float>(7){ Math.random().toFloat() * 2}
-        //Inicializar gráfica
-        setBarChart(values)
-
-        val addButton = view?.findViewById<Button>(R.id.addStatButton)
-        addButton?.setOnClickListener(){
-            if(addStatCard?.visibility == View.GONE){
-                addStatCard?.visibility = View.VISIBLE
-            }
-            else{
-                addStatCard?.visibility = View.GONE
-            }
+        val addStatCard = view?.findViewById<CardView>(R.id.statsCardView)
+        addStatCard?.setOnClickListener(){
+            val statAc = Intent(activity, ActivityProgress::class.java)
+            activity?.startActivity(statAc)
         }
 
-        val addConfirmButton = view?.findViewById<Button>(R.id.addStatButton2)
-        addConfirmButton?.setOnClickListener(){
-            //Extraer dia de la semana
-            val day = LocalDate.now().dayOfWeek.ordinal
-            //*Comprobar el texto introducido
-            //Recoge los datos introducidos por el usuario
-            val time = view?.findViewById<EditText>(R.id.addTimeText)?.text.toString()
 
-            values[day] += time.toFloat()
-            setBarChart(values)
+        val addAwardCard = view?.findViewById<CardView>(R.id.awardsCardView)
+        addStatCard?.setOnClickListener(){
+            val statAc = Intent(activity, ActivityProgress::class.java)
+            activity?.startActivity(statAc)
         }
+
     }
+}
 
-    private fun setBarChart(values : Array<Float> ){
-        val entries = ArrayList<BarEntry>()
+/*
+val addStatCard = view?.findViewById<CardView>(R.id.addHoursCardView)
+addStatCard?.visibility = View.GONE
 
-        for(value in values){
-            entries.add(BarEntry(value, values.indexOf(value)))
-        }
+//Inicializar values con los valores de la base de datos
+val values = Array<Float>(7) { Math.random().toFloat() * 2 }
+//Inicializar gráfica
+setBarChart(values)
 
-        /*entries.add(BarEntry(8f, 0))
-        entries.add(BarEntry(2f, 1))
-        entries.add(BarEntry(5f, 2))
-        entries.add(BarEntry(20f, 3))
-        entries.add(BarEntry(15f, 4))
-        entries.add(BarEntry(19f, 5))
-        entries.add(BarEntry(5f, 6))
-         */
+val addButton = view?.findViewById<Button>(R.id.addStatButton)
+addButton?.setOnClickListener() {
+if (addStatCard?.visibility == View.GONE) {
+addStatCard?.visibility = View.VISIBLE
+} else {
+addStatCard?.visibility = View.GONE
+}
+}
 
-        val barDataSet = BarDataSet(entries, "Horas")
+val addConfirmButton = view?.findViewById<Button>(R.id.addStatButton2)
+addConfirmButton?.setOnClickListener() {
+//Extraer dia de la semana
+val day = LocalDate.now().dayOfWeek.ordinal
+// *Comprobar el texto introducido
+//Recoge los datos introducidos por el usuario
+val time = view?.findViewById<EditText>(R.id.addTimeText)?.text.toString()
 
-        val labels = ArrayList<String>()
-        labels.add("Lun")
-        labels.add("Mar")
-        labels.add("Mie")
-        labels.add("Jue")
-        labels.add("Vie")
-        labels.add("Sab")
-        labels.add("Dom")
-        val data = BarData(labels, barDataSet)
-        barChart.data = data // set the data and list of lables into chart
-
-        barChart.setDescription("Tiempo de uso semanal")  // set the description
-
-        //barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
-        barDataSet.color = resources.getColor(R.color.blueProgress)
-
-        barChart.animateY(5000)
-
-
-        val logout = view?.findViewById<ImageButton>(R.id.logout)
-        logout?.setOnClickListener(){
-           val builder = AlertDialog.Builder(getActivity())
-            builder.setTitle("Cerrar Sesión")
-            builder.setMessage("¿Estás seguro de cerrar sesión?")
-            builder.setCancelable(true)
-
-            builder.setNegativeButton("NO", DialogInterface.OnClickListener{ dialog, which ->  
-                Toast.makeText(getActivity(),"Cerrar sesión cancelado", Toast.LENGTH_LONG).show()
-            })
-
-            builder.setPositiveButton("Si", DialogInterface.OnClickListener{ dialog, which ->
-                auth.signOut()
-                getActivity()?.finish()
-            })
-
-            val alertDialog = builder.create()
-            alertDialog.show();
-            }
-        }
-    }
+values[day] += time.toFloat()
+setBarChart(values)
+}
+}
+*/
