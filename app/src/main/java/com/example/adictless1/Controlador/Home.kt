@@ -56,7 +56,6 @@ class Home : Fragment() {
         auth = Firebase.auth
         val user = auth.currentUser
         val doc_ref = user?.let { db.collection("users").document(it.uid) }
-
             doc_ref!!.get()
                 .addOnSuccessListener { document ->
                     if (document.data != null) {

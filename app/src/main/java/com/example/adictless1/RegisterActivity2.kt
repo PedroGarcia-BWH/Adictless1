@@ -121,6 +121,7 @@ class RegisterActivity2 : AppCompatActivity() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 updateUI(user)
+
                                 val usuario = hashMapOf(
                                     "email" to email,
                                     "username" to username,
