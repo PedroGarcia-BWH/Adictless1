@@ -59,7 +59,10 @@ class Forum : Fragment() {
 
         auth = Firebase.auth
         rvForo.layoutManager = LinearLayoutManager(activity)
-        rvForo.adapter = ForoAdapter()
+        rvForo.adapter  =
+            ForoAdapter { chat ->
+                foroSelected(chat)
+            }
 
         val user = auth.currentUser
         val doc_ref = user?.let { db.collection("users").document(it.uid) }
@@ -159,6 +162,12 @@ class Forum : Fragment() {
                     }
                 }
             }
+    }
+
+    fun foroSelected(foro: Foro) {
+        val intent = Intent(activity,ChatActivity::class.java)
+        intent.putExtra("nombreTema", foro.tema);
+        activity?.startActivity(intent)
     }
 }
 

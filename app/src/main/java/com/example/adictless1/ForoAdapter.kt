@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.forocardview.view.*
 
-class ForoAdapter(): RecyclerView.Adapter<ForoAdapter.ForoViewHolder>() {
+class ForoAdapter(val chatClick: (Foro) -> Unit): RecyclerView.Adapter<ForoAdapter.ForoViewHolder>() {
 
     private var messages: List<Foro> = emptyList()
 
@@ -32,6 +32,9 @@ class ForoAdapter(): RecyclerView.Adapter<ForoAdapter.ForoViewHolder>() {
             holder.itemView.temaTexto.text = messages[position].tema
             //position++;;
            // holder.itemView.temaTexto.text = messages[position].tema
+            holder.itemView.setOnClickListener {
+                chatClick(messages[position])
+            }
         }
 
         override fun getItemCount(): Int {
