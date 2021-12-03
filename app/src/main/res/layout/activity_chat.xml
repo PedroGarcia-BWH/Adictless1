@@ -10,8 +10,8 @@
         android:id="@+id/scrollView5"
         android:layout_width="413dp"
         android:layout_height="676dp"
-        tools:layout_editor_absoluteX="-2dp"
-        tools:layout_editor_absoluteY="-1dp">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-2dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,8 +29,8 @@
                 android:id="@+id/rvmensajes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                tools:ignore="InvalidId" />
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY" />
         </LinearLayout>
     </ScrollView>
 

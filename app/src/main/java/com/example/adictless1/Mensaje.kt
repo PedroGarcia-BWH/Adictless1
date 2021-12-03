@@ -1,3 +1,5 @@
 package com.example.adictless1
 
-data class Mensaje (val Nickname:String, val CuerpoMensaje:String, val hora:String)
+import java.util.*
+
+data class Mensaje (val Nickname:String = "a", val CuerpoMensaje:String = "a", val hora: String = "a")
