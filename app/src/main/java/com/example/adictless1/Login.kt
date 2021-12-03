@@ -40,5 +40,7 @@ class Login : AppCompatActivity() {
         tabs.getTabAt(1)!!.setTabLabelVisibility(TabLayout.TAB_LABEL_VISIBILITY_UNLABELED);
         tabs.getTabAt(2)!!.setTabLabelVisibility(TabLayout.TAB_LABEL_VISIBILITY_UNLABELED);
         */
+
+        viewpager.setCurrentItem(1)
     }
 }

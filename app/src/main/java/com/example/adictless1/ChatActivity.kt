@@ -17,19 +17,20 @@ class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-
         var nomTema = getIntent().getExtras()?.getString("nombreTema").toString()
         var db = Firebase.firestore
         var auth = Firebase.auth
 
-       rvmensajes.layoutManager = LinearLayoutManager(this)
+        tituloTema.text = nomTema
+
+        rvmensajes.layoutManager = LinearLayoutManager(this)
         rvmensajes.adapter = MessageAdapter()
         var enviar = findViewById<FloatingActionButton>(R.id.sendMesage)
         enviar.setOnClickListener() {
             var find = findViewById<EditText>(R.id.Mensage)
             var mensajeEnviar = find.getText().toString()
             var nicknameEnviar = "Prueba"
-
+            Mensage.setText(null)
             var id = auth.currentUser
             var aux = id?.uid.toString()
             val doc_ref = id.let { db.collection("users").document(aux) }
@@ -40,17 +41,15 @@ class ChatActivity : AppCompatActivity() {
                         var data_user = document.data
                         nicknameEnviar = data_user?.get("username").toString()
                         var hora = Instant.now().toString()
-                        var message = Mensaje(nicknameEnviar,mensajeEnviar,hora)
+                        var message = Mensaje( mensajeEnviar,nicknameEnviar, hora)
 
                         db.collection("foro").document(nomTema).collection("mensajes").document().set(message)
                     }
                 }
             }
-        Log.d(TAG, "entra bien")
            db.collection("foro").document(nomTema).collection("mensajes").orderBy("hora",Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { messages ->
-                Log.d(TAG, "entra bien")
                var listMessages = messages.toObjects(Mensaje::class.java)
                 (rvmensajes.adapter as MessageAdapter).setData(listMessages)
             }

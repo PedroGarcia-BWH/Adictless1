@@ -9,21 +9,24 @@ import com.example.adictless1.Controlador.Forum
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.Fragment
-import com.example.adictless1.ChatActivity
-import com.example.adictless1.NewsActivity
-import com.example.adictless1.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.adictless1.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_chat.*
+import kotlinx.android.synthetic.main.dialog.*
+import kotlinx.android.synthetic.main.fragment_forum.*
+import java.time.Instant
 
 /**
  * A simple [Fragment] subclass.
@@ -32,12 +35,13 @@ import com.google.firebase.ktx.Firebase
  */
 class Forum : Fragment() {
 
-    val db = FirebaseFirestore.getInstance()
     private lateinit var auth: FirebaseAuth
+    var db = Firebase.firestore
 
-    companion object{
+    companion object {
         var TAG = "DocSnippets"
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -54,7 +58,8 @@ class Forum : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         auth = Firebase.auth
-
+        rvForo.layoutManager = LinearLayoutManager(activity)
+        rvForo.adapter = ForoAdapter()
 
         val user = auth.currentUser
         val doc_ref = user?.let { db.collection("users").document(it.uid) }
@@ -79,36 +84,85 @@ class Forum : Fragment() {
             .addOnFailureListener { exception ->
                 Log.d(Forum.TAG, "get failed with ", exception)
             }
-
-        val chat = view?.findViewById<CardView>(R.id.fRedesSociales)
-        chat?.setOnClickListener(){
+        //----------------FORO REDES SOCIALES----------------
+        val chatRD = view?.findViewById<CardView>(R.id.fRedesSociales)
+        chatRD?.setOnClickListener() {
             val chatIntent = Intent(activity, ChatActivity::class.java)
-            chatIntent.putExtra("nombreTema", "Redes Sociales");
+            chatIntent.putExtra("nombreTema", FGeneralRD.text);
             activity?.startActivity(chatIntent)
         }
-        val adding = view?.findViewById<FloatingActionButton>(R.id.addTag)
-        adding?.setOnClickListener(){
-
-            val builder = AlertDialog.Builder(getActivity())
-            builder.setView(R.layout.dialog);
-            builder.setTitle("Crear nuevo tema")
-            builder.setMessage("¿Estás seguro de crear nuevo tema?")
-            builder.setCancelable(true)
-
-            builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener{ dialog, which ->
-                Toast.makeText(getActivity(),"Crear tema cancelado", Toast.LENGTH_LONG).show()
-            })
-
-            builder.setPositiveButton("Crear", DialogInterface.OnClickListener{ dialog, which ->
-                Toast.makeText(getActivity(),"Creado el tema con éxito", Toast.LENGTH_LONG).show()
-            })
-
-            val alertDialog = builder.create()
-            alertDialog.show();
+        //----------------FORO VIDEOJUEGOS----------------
+        val chatV = view?.findViewById<CardView>(R.id.fVideojuegos)
+        chatV?.setOnClickListener() {
+            val chatIntent = Intent(activity, ChatActivity::class.java)
+            chatIntent.putExtra("nombreTema", FGVideoJuegos.text);
+            activity?.startActivity(chatIntent)
+        }
+        //----------------FORO APUESTAS----------------
+        val chatA = view?.findViewById<CardView>(R.id.fApuestas)
+        chatA?.setOnClickListener() {
+            val chatIntent = Intent(activity, ChatActivity::class.java)
+            chatIntent.putExtra("nombreTema", FGeneralAp.text);
+            activity?.startActivity(chatIntent)
         }
 
 
+        val adding = view?.findViewById<FloatingActionButton>(R.id.addTag)
+        adding?.setOnClickListener() {
+
+            var dialog = CustomDialogFragment()
+           /* dialog.show(PageController, "customDialog")
+
+            builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which ->
+                Toast.makeText(getActivity(), "Crear tema cancelado", Toast.LENGTH_LONG).show()
+            })
+
+            builder.setPositiveButton("Crear", DialogInterface.OnClickListener { dialog, which ->
+                Toast.makeText(getActivity(), "Creado el tema con éxito", Toast.LENGTH_LONG).show()
+
+              var temaEnviar = nTema.text.toString()
+                //var temaEnviar = "addictless"
+                var data = hashMapOf("a" to 5)
+                db.collection("foro").document(temaEnviar).set(data, SetOptions.merge())
+            })
+            val alertDialog = builder.create()
+            alertDialog.show();*/
+        }
+
+
+        db.collection("foro").get()
+            .addOnSuccessListener { messages ->
+                var listForo : List<Foro> = emptyList()
+                var cont = 0
+                for (document in messages) {
+                    if (cont > 2) {
+                        listForo += (Foro(document.id))
+                    }
+                    cont++;
+                    //(rvForo.adapter as ForoAdapter).setData(listForo)
+                }
+                (rvForo.adapter as ForoAdapter).setData(listForo)
+            }
+
+        db.collection("foro")
+            .addSnapshotListener { messages, error ->
+                if (error == null) {
+                    messages?.let {
+                        var listForo: List<Foro> = emptyList()
+                        var aux = messages.documents.forEach()
+                        {
+                            listForo += Foro(it.id.toString())
+                        }
+
+                        listForo += Foro(it.toString())
+                        (rvForo.adapter as ForoAdapter).setData(listForo)
+                    }
+                }
+            }
     }
-
-
 }
+
+
+
+
+

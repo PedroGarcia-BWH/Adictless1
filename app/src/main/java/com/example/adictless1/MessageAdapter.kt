@@ -27,9 +27,8 @@ class MessageAdapter(): RecyclerView.Adapter<MessageAdapter.MessageViewHolder>()
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
        val message = messages[position]
-
-            holder.itemView.nickname.text = message.Nickname
-            holder.itemView.cuerpoMensaje.text = message.CuerpoMensaje
+            holder.itemView.nickname.text = message.nickname
+            holder.itemView.cuerpoMensaje.text = message.cuerpoMensaje
             holder.itemView.horaMensaje.text = message.hora
     }
 

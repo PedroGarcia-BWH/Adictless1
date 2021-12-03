@@ -30,12 +30,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:text="--FOROS OFICIALES" />
+                    android:text="FOROS OFICIALES"
+                    android:fontFamily="sans-serif-black"
+                    android:textAlignment="center"
+                    android:textSize="20dp" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/fRedesSociales"
                     android:layout_width="378dp"
-                    android:layout_height="35dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:clickable="true"
                     android:focusable="true"
@@ -45,16 +48,27 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
+                        <ImageView
+                            android:id="@+id/imageView9"
+                            android:layout_width="51dp"
+                            android:layout_height="37dp"
+                            android:layout_marginTop="6dp"
+                            android:src="@drawable/logo_forooficial"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
                         <TextView
                             android:id="@+id/FGeneralRD"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="13dp"
                             android:gravity="center"
+                            android:fontFamily="sans-serif-black"
                             android:text="Foro General REDES SOCIALES"
                             android:textAlignment="gravity"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView9"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -63,7 +77,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/fVideojuegos"
                     android:layout_width="378dp"
-                    android:layout_height="35dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:clickable="true"
                     android:focusable="true"
@@ -71,16 +85,26 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imageViewVideojuegos"
+                            android:layout_width="51dp"
+                            android:layout_height="37dp"
+                            android:src="@drawable/logo_forooficial"
+                            android:fontFamily="sans-serif-black"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:layout_editor_absoluteY="0dp" />
 
                         <TextView
                             android:id="@+id/FGVideoJuegos"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="8dp"
-                            android:text="Foro General Videojuegos"
-                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="13dp"
+                            android:fontFamily="sans-serif-black"
+                            android:text="Foro General VIDEOJUEGOS"
+                            app:layout_constraintStart_toEndOf="@+id/imageViewVideojuegos"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
@@ -88,7 +112,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/fApuestas"
                     android:layout_width="378dp"
-                    android:layout_height="35dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:clickable="true"
                     android:focusable="true"
@@ -96,16 +120,25 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imageView11"
+                            android:layout_width="51dp"
+                            android:layout_height="37dp"
+                            android:src="@drawable/logo_forooficial"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:layout_editor_absoluteY="0dp" />
 
                         <TextView
                             android:id="@+id/FGeneralAp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="8dp"
-                            android:text="Foro General Apuestas"
-                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="13dp"
+                            android:fontFamily="sans-serif-black"
+                            android:text="Foro General APUESTAS"
+                            app:layout_constraintStart_toEndOf="@+id/imageView11"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
@@ -114,7 +147,16 @@
                     android:id="@+id/textView17"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="--FOROS CREADOS POR LA COMUNIDAD" />
+                    android:textSize="20dp"
+                    android:textAlignment="center"
+                    android:fontFamily="sans-serif-black"
+                    android:text="FOROS CREADOS POR LA COMUNIDAD" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvForo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/forocardview"/>
 
             </LinearLayout>
         </ScrollView>
@@ -124,12 +166,12 @@
             android:layout_width="56dp"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="400dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="200dp"
             android:src="@drawable/add"
             app:backgroundTint="@color/blueProgress"
-            app:layout_constraintEnd_toEndOf="@+id/SOON"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView4" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/SOON" />
 
         <ImageView
             android:id="@+id/Candado"
@@ -145,6 +187,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:gravity="center"
+            android:fontFamily="sans-serif-black"
             android:text="REGISTRATE PARA UTILIZAR ESTA FUNCIONALIDAD"
             android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@+id/Candado"
