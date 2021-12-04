@@ -98,7 +98,26 @@ class Progress : Fragment() {
             val statAc = Intent(activity, ActivityProgress::class.java)
             activity?.startActivity(statAc)
         }
+        //CERRAR SESION NO QUITAR
+        val logout = view?.findViewById<ImageButton>(R.id.logout)
+        logout?.setOnClickListener(){
+            val builder = AlertDialog.Builder(getActivity())
+            builder.setTitle("Cerrar Sesión")
+            builder.setMessage("¿Estás seguro de cerrar sesión?")
+            builder.setCancelable(true)
 
+            builder.setNegativeButton("NO", DialogInterface.OnClickListener{ dialog, which ->
+                Toast.makeText(getActivity(),"Cerrar sesión cancelado", Toast.LENGTH_LONG).show()
+            })
+
+            builder.setPositiveButton("Si", DialogInterface.OnClickListener{ dialog, which ->
+                auth.signOut()
+                getActivity()?.finish()
+            })
+
+            val alertDialog = builder.create()
+            alertDialog.show();
+        }
     }
 }
 
