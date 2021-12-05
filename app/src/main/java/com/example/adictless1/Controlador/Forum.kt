@@ -24,7 +24,6 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_chat.*
-import kotlinx.android.synthetic.main.dialog.*
 import kotlinx.android.synthetic.main.fragment_forum.*
 import java.time.Instant
 
@@ -112,26 +111,9 @@ class Forum : Fragment() {
 
         val adding = view?.findViewById<FloatingActionButton>(R.id.addTag)
         adding?.setOnClickListener() {
-
-            var dialog = CustomDialogFragment()
-           /* dialog.show(PageController, "customDialog")
-
-            builder.setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, which ->
-                Toast.makeText(getActivity(), "Crear tema cancelado", Toast.LENGTH_LONG).show()
-            })
-
-            builder.setPositiveButton("Crear", DialogInterface.OnClickListener { dialog, which ->
-                Toast.makeText(getActivity(), "Creado el tema con éxito", Toast.LENGTH_LONG).show()
-
-              var temaEnviar = nTema.text.toString()
-                //var temaEnviar = "addictless"
-                var data = hashMapOf("a" to 5)
-                db.collection("foro").document(temaEnviar).set(data, SetOptions.merge())
-            })
-            val alertDialog = builder.create()
-            alertDialog.show();*/
+            val intent = Intent(activity,newTemaActivity::class.java)
+            activity?.startActivity(intent)
         }
-
 
         db.collection("foro").get()
             .addOnSuccessListener { messages ->
@@ -152,9 +134,13 @@ class Forum : Fragment() {
                 if (error == null) {
                     messages?.let {
                         var listForo: List<Foro> = emptyList()
+                        var cont = 0
                         var aux = messages.documents.forEach()
                         {
-                            listForo += Foro(it.id.toString())
+                            //if (it.) { //agregar que si es a == 0 entonces no lo  muestre
+                                listForo += Foro(it.id.toString())
+                            //}
+                            //cont++;
                         }
 
                         listForo += Foro(it.toString())

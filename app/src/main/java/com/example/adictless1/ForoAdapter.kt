@@ -30,6 +30,7 @@ class ForoAdapter(val chatClick: (Foro) -> Unit): RecyclerView.Adapter<ForoAdapt
                 holder.itemView.temaTexto.text = it.tema
             }*/
             holder.itemView.temaTexto.text = messages[position].tema
+
             //position++;;
            // holder.itemView.temaTexto.text = messages[position].tema
             holder.itemView.setOnClickListener {

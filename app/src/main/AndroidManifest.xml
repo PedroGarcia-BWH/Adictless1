@@ -11,6 +11,9 @@
         android:theme="@style/Theme.Adictless1"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".newTemaActivity"
+            android:exported="false" />
+        <activity
             android:name=".ActivityProgress"
             android:exported="false" />
         <activity
@@ -63,6 +66,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="firebase_performance_logcat_enabled"
                 android:value="true" />
