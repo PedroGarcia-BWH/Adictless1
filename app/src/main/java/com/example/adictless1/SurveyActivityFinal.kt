@@ -60,7 +60,7 @@ class SurveyActivityFinal : AppCompatActivity() {
         var contGames=0
 
 
-        val p6RS = findViewById<RadioButton>(R.id.p6Yes)
+        val p6RS = findViewById<RadioButton>(R.id.p6No)
         p6RS.setOnClickListener{
             contRedesSociales++
         }
@@ -115,14 +115,6 @@ class SurveyActivityFinal : AppCompatActivity() {
             contGames++
         }
 
-        val p21J = findViewById<RadioButton>(R.id.p21Yes)
-        p21J.setOnClickListener{
-            if(contGames!= 0) contGames += 100
-            if(contApuesta != 0) contApuesta += 100
-            if(contRedesSociales != 0) contRedesSociales +=100
-        }
-
-
         val continuar =findViewById<Button>(R.id.bottonSurvey)
         continuar.setOnClickListener {
 
@@ -130,8 +122,15 @@ class SurveyActivityFinal : AppCompatActivity() {
               var RD = findViewById<EditText>(R.id.nRedesSociales)
               var nRD = RD.getText().toString()
 
-              contRedesSociales = Integer.parseInt(nRD)
+              contRedesSociales += Integer.parseInt(nRD)
           }
+            val p21J = findViewById<RadioButton>(R.id.p21Yes)
+            p21J.setOnClickListener{
+                if(contGames!= 0) contGames += 100
+                if(contApuesta != 0) contApuesta += 100
+                if(contRedesSociales != 0) contRedesSociales +=100
+            }
+
             val builder = AlertDialog.Builder(this)
             builder.setTitle("RESULTADO")
             if (contRedesSociales >=5 && contApuesta >=2 && contGames >=2){
@@ -140,9 +139,10 @@ class SurveyActivityFinal : AppCompatActivity() {
             else if(contRedesSociales >=5 && contApuesta >=2) builder.setMessage("Puede necesitar ayuda sobre Redes Sociales y Apuestas")
             else if(contApuesta >=2 && contGames >=2) builder.setMessage("Puede necesitar ayuda sobre Apuestas y VideoJuegos")
             else if(contRedesSociales >=2 && contGames >=2) builder.setMessage("Puede necesitar ayuda sobre Redes Sociales y Videojuegos")
-            else if(contRedesSociales >=5 ) builder.setMessage("Puede necesitar ayuda sobre Redes Sociales")
+            else if(contRedesSociales >=5) builder.setMessage("Puede necesitar ayuda sobre Redes Sociales")
             else if(contApuesta >=2) builder.setMessage("Puede necesitar ayuda sobre Apuestas")
             else if(contGames >=2) builder.setMessage("Puede necesitar ayuda sobre Videojuegos")
+            else builder.setMessage("Puede que no necesite ayuda")
 
             builder.setCancelable(true)
 
