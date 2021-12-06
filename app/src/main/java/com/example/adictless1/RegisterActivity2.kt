@@ -1,21 +1,32 @@
 package com.example.adictless1
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import org.bouncycastle.jce.provider.BouncyCastleProvider
+import org.bouncycastle.util.encoders.Base64
+import java.io.UnsupportedEncodingException
+import java.security.InvalidKeyException
+import java.security.NoSuchAlgorithmException
+import java.security.Security
+import javax.crypto.*
+import javax.crypto.spec.SecretKeySpec
 
 class RegisterActivity2 : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     val db = Firebase.firestore
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register2)
@@ -80,7 +91,9 @@ class RegisterActivity2 : AppCompatActivity() {
                 } else {
 
                     progressBar.setVisibility(View.VISIBLE)
-                    crearCuenta(email, username, password, type, level, exp)
+                    val key: String = "-JaNdRgUkXp2s5v8y/B?E(G+KbPeShVm"
+                    val encryptedPassword : String? = encrypt(password,key)
+                    crearCuenta(email, username, password, type, level, exp, encryptedPassword)
                     progressBar.setVisibility(View.GONE)
                 }
             } else {
@@ -124,7 +137,7 @@ class RegisterActivity2 : AppCompatActivity() {
         private var TAG = "EmailPassword"
     }
 
-    fun crearCuenta (email: String, username: String, password: String, type: String, level: Int, exp: Int){
+    fun crearCuenta (email: String, username: String, password: String, type: String, level: Int, exp: Int, encryptedPassword: String?){
         val query = db.collection("users").whereEqualTo("username", username).get()
             .addOnCompleteListener(this) {query ->
                 if (query.result!!.isEmpty) {
@@ -142,13 +155,14 @@ class RegisterActivity2 : AppCompatActivity() {
                                 val usuario = hashMapOf(
                                     "email" to email,
                                     "username" to username,
-                                    "password" to password,
+                                    "password" to encryptedPassword,
                                     "type" to type,
                                     "level" to level,
                                     "experience" to exp
                                 )
+
                                 TAG = "DocSnippets"
-                                if (user != null) {
+                                 if (user != null) {
                                     db.collection("users").document(user.uid)
                                         .set(usuario)
                                         .addOnSuccessListener {
@@ -165,6 +179,7 @@ class RegisterActivity2 : AppCompatActivity() {
                                             )
                                         }
                                 }
+
 
                                 val registro = Intent(applicationContext, MainActivity::class.java)
                                 startActivity(registro)
@@ -195,5 +210,45 @@ class RegisterActivity2 : AppCompatActivity() {
     private fun reload() {
 
     }
+    fun encrypt(strToEncrypt: String, secret_key: String): String? {
+        Security.addProvider(BouncyCastleProvider())
+        var keyBytes: ByteArray
 
+        try {
+            keyBytes = secret_key.toByteArray(charset("UTF8"))
+            val skey = SecretKeySpec(keyBytes, "AES")
+            val input = strToEncrypt.toByteArray(charset("UTF8"))
+
+            synchronized(Cipher::class.java) {
+                val cipher = Cipher.getInstance("AES/ECB/PKCS7Padding")
+                cipher.init(Cipher.ENCRYPT_MODE, skey)
+
+                val cipherText = ByteArray(cipher.getOutputSize(input.size))
+                var ctLength = cipher.update(
+                    input, 0, input.size,
+                    cipherText, 0
+                )
+                ctLength += cipher.doFinal(cipherText, ctLength)
+                return String(
+                    Base64.encode(cipherText)
+                )
+            }
+        } catch (uee: UnsupportedEncodingException) {
+            uee.printStackTrace()
+        } catch (ibse: IllegalBlockSizeException) {
+            ibse.printStackTrace()
+        } catch (bpe: BadPaddingException) {
+            bpe.printStackTrace()
+        } catch (ike: InvalidKeyException) {
+            ike.printStackTrace()
+        } catch (nspe: NoSuchPaddingException) {
+            nspe.printStackTrace()
+        } catch (nsae: NoSuchAlgorithmException) {
+            nsae.printStackTrace()
+        } catch (e: ShortBufferException) {
+            e.printStackTrace()
+        }
+
+        return null
+    }
 }
