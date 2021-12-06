@@ -25,6 +25,7 @@ class RegisterActivity2 : AppCompatActivity() {
         val regEmail = findViewById<TextView>(R.id.emailRegister)
         val regUsername = findViewById<TextView>(R.id.nickNameRegister)
         val regPassword = findViewById<TextView>(R.id.passwordRegister)
+        val regConfPassword = findViewById<TextView>(R.id.passwordConfirm)
         val regRegistro = findViewById<Button>(R.id.confirmRegister)
         val regRedes = findViewById<CheckBox>(R.id.redesSociales)
         val regApuestas = findViewById<CheckBox>(R.id.Apuestas)
@@ -36,11 +37,18 @@ class RegisterActivity2 : AppCompatActivity() {
             val email: String
             val username: String
             val password: String
+            val confirmPassword: String
             var type: String = ""
+            val level: Int = 1
+            val exp: Int = 0
 
             email = regEmail.getText().toString()
             username = regUsername.getText().toString()
             password = regPassword.getText().toString()
+
+
+
+            confirmPassword = regConfPassword.getText().toString()
             if (email != "" && username != "" && password != "" && (regRedes.isChecked == true ||
                         regApuestas.isChecked == true || regVideojuegos.isChecked == true ||
                         regNose.isChecked == true)) {
@@ -55,16 +63,25 @@ class RegisterActivity2 : AppCompatActivity() {
                     if (regVideojuegos.isChecked == true)
                         type += "Videojuegos"
 
-                    progressBar.setVisibility(View.VISIBLE)
-                    crearCuenta(email,username,password,type)
-                    progressBar.setVisibility(View.GONE)
-
                 } else {
                     Toast.makeText(
                         applicationContext,
                         "El password debe contener al menos 8 caracteres",
                         Toast.LENGTH_SHORT
                     ).show()
+                }
+
+                if (password != confirmPassword){
+                    Toast.makeText(
+                        applicationContext,
+                        "Los passwords introducidos no son iguales",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+
+                    progressBar.setVisibility(View.VISIBLE)
+                    crearCuenta(email, username, password, type, level, exp)
+                    progressBar.setVisibility(View.GONE)
                 }
             } else {
                 Toast.makeText(
@@ -107,7 +124,7 @@ class RegisterActivity2 : AppCompatActivity() {
         private var TAG = "EmailPassword"
     }
 
-    fun crearCuenta (email : String, username: String, password: String, type: String){
+    fun crearCuenta (email: String, username: String, password: String, type: String, level: Int, exp: Int){
         val query = db.collection("users").whereEqualTo("username", username).get()
             .addOnCompleteListener(this) {query ->
                 if (query.result!!.isEmpty) {
@@ -126,7 +143,9 @@ class RegisterActivity2 : AppCompatActivity() {
                                     "email" to email,
                                     "username" to username,
                                     "password" to password,
-                                    "type" to type
+                                    "type" to type,
+                                    "level" to level,
+                                    "experience" to exp
                                 )
                                 TAG = "DocSnippets"
                                 if (user != null) {
@@ -163,7 +182,7 @@ class RegisterActivity2 : AppCompatActivity() {
                         }
                 } else {
                     Toast.makeText(
-                        baseContext, "El usuario ya existe en la base de datos",
+                        baseContext, "El usuario ya existe",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

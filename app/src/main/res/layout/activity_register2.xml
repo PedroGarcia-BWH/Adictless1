@@ -38,6 +38,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/nickNameRegister" />
 
             <EditText
+                android:id="@+id/passwordConfirm"
+                android:layout_width="320dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/edtext_bg"
+                android:hint="Confirme la Contraseña"
+                android:inputType="textPassword"
+                android:paddingStart="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordRegister" />
+
+            <EditText
                 android:id="@+id/nickNameRegister"
                 android:layout_width="320dp"
                 android:layout_height="35dp"
@@ -87,10 +100,10 @@
                 android:paddingStart="5dp"
                 android:text="Mínimo 8 caracteres"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/passwordRegister"
+                app:layout_constraintEnd_toEndOf="@+id/passwordConfirm"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/passwordRegister"
-                app:layout_constraintTop_toBottomOf="@+id/passwordRegister" />
+                app:layout_constraintStart_toStartOf="@+id/passwordConfirm"
+                app:layout_constraintTop_toBottomOf="@+id/passwordConfirm" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView4"
