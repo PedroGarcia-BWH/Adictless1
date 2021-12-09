@@ -37,7 +37,6 @@
     </PreferenceCategory>
 
     <Preference
-        android:layout="@layout/button_settings"
         android:key="saveChanges"
         ></Preference>
 </PreferenceScreen>

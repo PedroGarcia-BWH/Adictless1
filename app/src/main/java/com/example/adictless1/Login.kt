@@ -32,8 +32,8 @@ class Login : AppCompatActivity() {
         viewpager.adapter = adapter
         tabs.setupWithViewPager(viewpager)
 
-        tabs.getTabAt(0)!!.setIcon(R.drawable.forum_icon)
         tabs.getTabAt(1)!!.setIcon(R.drawable.home_icon)
+        tabs.getTabAt(0)!!.setIcon(R.drawable.forum_icon)
         tabs.getTabAt(2)!!.setIcon(R.drawable.progress_icon)
         /* Quitar titulo de las pestañas
         tabs.getTabAt(0)!!.setTabLabelVisibility(TabLayout.TAB_LABEL_VISIBILITY_UNLABELED);

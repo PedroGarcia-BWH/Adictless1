@@ -195,6 +195,16 @@
 
                 </androidx.cardview.widget.CardView>
 
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="363dp"
+                    android:layout_height="47dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Realizar encuesta de progreso"
+                    app:layout_constraintEnd_toEndOf="@+id/awardsCardView"
+                    app:layout_constraintStart_toStartOf="@+id/statsCardView"
+                    app:layout_constraintTop_toBottomOf="@+id/statsCardView" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>

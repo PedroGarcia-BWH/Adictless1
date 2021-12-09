@@ -67,6 +67,14 @@
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toStartOf="@+id/accept"
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="29dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/decline" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

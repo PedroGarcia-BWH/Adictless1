@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.adictless1.ActivityProgress
+import com.example.adictless1.Awards
 import com.example.adictless1.NewsActivity
 import com.example.adictless1.R
 import com.github.mikephil.charting.data.BarData
@@ -94,9 +95,9 @@ class Progress : Fragment() {
 
 
         val addAwardCard = view?.findViewById<CardView>(R.id.awardsCardView)
-        addStatCard?.setOnClickListener(){
-            val statAc = Intent(activity, ActivityProgress::class.java)
-            activity?.startActivity(statAc)
+        addAwardCard?.setOnClickListener(){
+            val awardAc = Intent(activity, Awards::class.java)
+            activity?.startActivity(awardAc)
         }
         //CERRAR SESION NO QUITAR
         val logout = view?.findViewById<ImageButton>(R.id.logout)

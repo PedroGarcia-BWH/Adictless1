@@ -11,6 +11,9 @@
         android:theme="@style/Theme.Adictless1"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Awards"
+            android:exported="false" />
+        <activity
             android:name=".newTemaActivity"
             android:exported="false" />
         <activity
