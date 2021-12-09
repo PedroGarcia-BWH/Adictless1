@@ -70,6 +70,9 @@ class Award{
         this.Nivel = Nivel
         this.ImageId = ImageId
         this.Conseguido = Conseguido
+        if(Conseguido == false){
+            ImageId.alpha = 0.5F
+        }
     }
 
     fun desbloquear(){
