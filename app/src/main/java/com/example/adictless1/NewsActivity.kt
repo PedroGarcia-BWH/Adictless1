@@ -1,10 +1,14 @@
 package com.example.adictless1
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.marginTop
 import com.example.adictless1.R
 
 class NewsActivity : AppCompatActivity() {
@@ -12,10 +16,12 @@ class NewsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
         val newId = getIntent().getExtras()?.getInt("parametro")
-        val titulo = findViewById<TextView>(R.id.tituloArticulo)
+        var titulo = findViewById<TextView>(R.id.tituloArticulo)
         val subTitulo= findViewById<TextView>(R.id.subTituloArticulo)
         val cuerpoArticulo = findViewById<TextView>(R.id.cuerpoArticulo)
         val foto = findViewById<ImageView>(R.id.imagenArticulo)
+        val context = this
+
 
         when(newId)
         {
@@ -31,8 +37,16 @@ class NewsActivity : AppCompatActivity() {
                 subTitulo.text = getString(R.string.subTituloArticulo2)
                 cuerpoArticulo.text = getString(R.string.cuerpoArticulo2)
                 foto.setImageResource(R.drawable.img_2)
+                (titulo.layoutParams as ConstraintLayout.LayoutParams).apply {
+                    // individually set text view any side margin
+                    topMargin = 0.dpToPixels(context)
+                }
             }
             else->{}
         }
     }
 }
+
+fun Int.dpToPixels(context: Context):Int = TypedValue.applyDimension(
+    TypedValue.COMPLEX_UNIT_DIP,this.toFloat(),context.resources.displayMetrics
+).toInt()
