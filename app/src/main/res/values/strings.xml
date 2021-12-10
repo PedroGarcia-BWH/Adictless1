@@ -28,7 +28,9 @@ En este caso, un claro ejemplo sería la adicción a apuestas deportivas. Numero
 
 
     <string name="tituloArticulo2">¿Eres una persona adicta?</string>
+    <string name="tituloArticulo3">Caso real adicción a videojuegos</string>
     <string name="subTituloArticulo2">Síntomas y características de una persona adicta sin sustancia.</string>
+    <string name="subTituloArticulo3">Primer caso clínico en el mundo de adicción a videojuego fornite.</string>
     <string name="cuerpoArticulo2">\nUna persona adicta se caracteriza por, aun sabiendo que la realización de conductas adictivas están causando problemas en su vida, es incapaz de dejar de consumirlas o de realizarlas. Esto provoca que, cuando la persona no puede consumir su adicción se encuentre ante una sensación de irritabilidad o alto nivel de nerviosismo.\n
     \nNo podemos generalizar en cuanto a los síntomas, ya que dependiendo de la adicción puede provocar distintos problemas, pero nos centraremos en los principales que podemos tratar en addictless.\n
 
@@ -76,5 +78,29 @@ Los datos de carácter personal objeto de tratamiento no se utilizarán para otr
 \nLa prestación de los servicios y/o contenidos de la presente aplicación móvil tiene una duración indefinida. Sin perjuicio de lo anterior, ADDICTLESS está facultada para dar por terminada, suspender o interrumpir unilateralmente, en cualquier momento y sin necesidad de preaviso, la prestación del servicio y de la presente aplicación móvil y/o de cualquiera de los servicios, sin perjuicio de lo que se hubiera dispuesto al respecto en las correspondientes condiciones particulares.
 </string>
 
+    <string name="cuerpoArticulo3">\nEn septiembre de 2021, se hizo famoso el caso de un joven de Castellón. Este joven tuvo que ser hospitalizado dos meses debido a su gran adicción por los videojuegos, en este caso el Fortnite. Es considerado el primer caso clínico en el mundo de un menor ingresado por este videojuego. El psiquiatra que atendió al menor que estuvo hospitalizado en Castellón por un uso abusivo del videojuego ha explicado hoy que el paciente llegó a estar conectado a las pantallas 20 horas diarias.\n
+
+\nSINTOMAS\n
+\nLos síntomas que han llevado a la decisión de hospitalizar al adolescente era: aislamiento en domicilio, rechazo a interacciones sociales con negación a acudir a servicios sanitarios, inflexibilidad personal persistente, escaso interés por su entorno y muy selectivo en sus gustos y con actividades restrictivas. Además, presentaba alteraciones en el desempeño de las actividades básicas de la vida diaria, en la toma del tratamiento prescrito en el hospital de día y en el ritmo de sueño.\n
+\nDe hecho, pese a que se trataba de un joven con un alto rendimiento académico, la familia había observado cómo desde el inicio del curso se había producido un mayor absentismo escolar y el menor se había desvinculado del ritmo del curso coincidiendo con un cambio de clase.\n
+\nTras su evaluación, los profesionales han planteado que la adicción a los videojuegos actúa como reguladora del intenso malestar por la pérdida de un familiar y por la ansiedad derivada del aumento del nivel de exigencia en el contexto educativo.\n
+
+\nEn los momentos más complicados, ha indicado el doctor, "él no era consciente de los problemas que le generaba. Luego sí fue consciente, pero no veía la relación entre estar tanto tiempo jugando y el abandono de las otras cosas".\n
+
+\nTRATAMIENTO\n
+\nEl tratamiento ha precisado un abordaje intensivo multidisciplinar, desde un enfoque cognitivo conductual, trabajando tanto con el paciente como con su familia y, a la vez, la implementación de estrategias de intervención como reestructuración cognitiva, desarrollo de habilidades personales, manejo de contingencias y establecimiento de pautas a diario. \n
+
+\nEsto le ha servido para «ser capaz de apreciar las repercusiones que el uso del videojuego estaba teniendo en su vida diaria», comenta el equipo investigador, y «le ha permitido abordar el duelo por la muerte de su familiar y cómo el empleo del juego comenzó como un refugio para su malestar emocional.\n
+
+
+\nRESULTADOS TRATAMIENTO\n
+\nLos resultados han mostrado una disminución significativa del uso de pantallas (en una primera fase después de la hospitalización con supervisión y únicamente para contacto con iguales para fomentar su socialización), así como una mejoría del funcionamiento personal y social del paciente. En el Hospital de Día, donde se ha trabajado en la prevención de recaídas y la incorporación progresiva a sus estudios, ha proseguido con el entrenamiento en regulación emocional y la adquisición de habilidades comunicativas, de forma grupal.\n
+
+\nCONCLUSION\n
+\nLa generalización del uso de nuevas tecnologías en la vida cotidiana y el ocio ha sacado a relucir potenciales perjuicios del uso inadecuado de los videojuegos y la necesidad de tratamiento especializado en aquellas personas con signos de adicción comportamental.\n
+
+\nDe acuerdo con las conclusiones de la investigación, las estrategias de prevención aconsejan la necesidad de supervisión del uso que realizan los menores de las pantallas «estableciendo límites claros y bien definidos» y «fomentando la práctica de otras fuentes de satisfacción». Asimismo, también apuestan por la creación de espacios de interacción familiar para disfrutar de actividades en grupo y la restricción de los dispositivos en las habitaciones de los menores.\n
+
+\nEl psiquiatra que atendió al menor ha recomendado a todos los padres limitar el tiempo que pasan los menores con estos dispositivos y que los más pequeños "no tengan contacto con ellos por una cuestión de desarrollo".\n</string>
 
 </resources>

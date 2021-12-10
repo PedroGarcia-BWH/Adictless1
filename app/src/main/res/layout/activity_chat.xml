@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Titulo de tema"
+                android:fontFamily="sans-serif-black"
                 android:textSize="20dp" />
 
             <androidx.recyclerview.widget.RecyclerView

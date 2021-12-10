@@ -3,13 +3,10 @@ package com.example.adictless1
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.marginTop
-import com.example.adictless1.R
 
 class NewsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +26,7 @@ class NewsActivity : AppCompatActivity() {
                 titulo.text = getString(R.string.tituloArticulo1)
                 subTitulo.text = getString(R.string.subTituloArticulo1)
                 cuerpoArticulo.text = getString(R.string.cuerpoArticulo1)
-                foto.setImageResource(R.drawable.img_1)
+                foto.setImageResource(R.drawable.adiccion)
             }
             2->
             {
@@ -41,6 +38,13 @@ class NewsActivity : AppCompatActivity() {
                     // individually set text view any side margin
                     topMargin = 0.dpToPixels(context)
                 }
+            }
+
+            3-> {
+                titulo.text = getString(R.string.tituloArticulo3)
+                subTitulo.text = getString(R.string.subTituloArticulo3)
+                cuerpoArticulo.text = getString(R.string.cuerpoArticulo3)
+                foto.setImageResource(R.drawable.article3)
             }
             else->{}
         }
