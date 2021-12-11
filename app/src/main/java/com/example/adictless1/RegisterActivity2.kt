@@ -56,10 +56,8 @@ class RegisterActivity2 : AppCompatActivity() {
             email = regEmail.getText().toString()
             username = regUsername.getText().toString()
             password = regPassword.getText().toString()
-
-
-
             confirmPassword = regConfPassword.getText().toString()
+
             if (email != "" && username != "" && password != "" && (regRedes.isChecked == true ||
                         regApuestas.isChecked == true || regVideojuegos.isChecked == true ||
                         regNose.isChecked == true)) {
