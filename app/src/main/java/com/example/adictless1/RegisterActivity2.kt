@@ -177,6 +177,16 @@ class RegisterActivity2 : AppCompatActivity() {
                                             )
                                         }
                                 }
+                                user!!.sendEmailVerification()
+                                    .addOnCompleteListener { task ->
+                                        if (task.isSuccessful) {
+                                            Log.d(TAG, "Email de verificacion.")
+                                            Toast.makeText(
+                                                baseContext, "Revisa el correo electronico para verificar el correo",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                                    }
 
 
                                 val registro = Intent(applicationContext, MainActivity::class.java)
