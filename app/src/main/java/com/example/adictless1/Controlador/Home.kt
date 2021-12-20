@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -17,6 +18,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import java.math.BigDecimal
+import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 //import kotlinx.android.synthetic.main.activity_main.*
 //import kotlinx.android.synthetic.main.fragment_home.*
@@ -64,6 +68,23 @@ class Home : Fragment() {
                         val username = data_user?.get("username")
                         val login_usuario = view?.findViewById<TextView>(R.id.alias)
                         login_usuario?.text = "Bienvenido\n" + username
+
+                        val level_db = data_user?.get("level").toString().toFloat()
+                        val exp = (level_db % 1).toBigDecimal()
+
+                        val level = level_db.toInt().toBigDecimal()
+                        val level_usuario = view?.findViewById<TextView>(R.id.LvlTextView)
+                        level_usuario?.text = "Nivel " + level
+
+                        val multiplier = 100
+
+                        val exp_total = level.multiply(BigDecimal(multiplier))
+                        val exp_actual = exp.multiply(BigDecimal(multiplier)).multiply(level).setScale(0, BigDecimal.ROUND_HALF_UP)
+
+                        val progress_bar = view?.findViewById<ProgressBar>(R.id.progressBar)
+                        progress_bar?.max = exp_total.toInt()
+                        progress_bar?.progress = exp_actual.toInt()
+
                     } else {
                         Log.d(TAG, "No existe dicho documento en la Base de Datos")
                         val usuario = "Invitado"

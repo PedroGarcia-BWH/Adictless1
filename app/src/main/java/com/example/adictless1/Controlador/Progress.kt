@@ -26,9 +26,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_progress.*
+import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 /**
  * A simple [Fragment] subclass.
@@ -71,6 +74,26 @@ class Progress : Fragment() {
                     val username = data_user?.get("username")
                     val login_usuario = view?.findViewById<TextView>(R.id.textView6)
                     login_usuario?.text = username.toString()
+
+                    val level_db = data_user?.get("level").toString().toFloat()
+                    val exp = (level_db % 1).toBigDecimal()
+
+                    val level = level_db.toInt().toBigDecimal()
+                    val level_usuario = view?.findViewById<TextView>(R.id.LvlTextView)
+                    level_usuario?.text = "Nivel " + level
+
+                    val multiplier = 100
+
+                    val exp_total = level.multiply(BigDecimal(multiplier))
+                    val exp_actual = exp.multiply(BigDecimal(multiplier)).multiply(level).setScale(0, BigDecimal.ROUND_HALF_UP)
+
+                    val mostrar_exp = view?.findViewById<TextView>(R.id.textView7)
+                    mostrar_exp?.text = "" + exp_actual + " EXP / " + exp_total + " EXP"
+
+                    val progress_bar = view?.findViewById<ProgressBar>(R.id.progressBar)
+                    progress_bar?.max = exp_total.toInt()
+                    progress_bar?.progress = exp_actual.toInt()
+
                 } else {
                     Log.d(TAG, "No existe dicho documento en la Base de Datos")
                     val usuario = "Invitado"

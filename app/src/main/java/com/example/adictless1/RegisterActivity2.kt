@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -19,6 +20,9 @@ import java.io.UnsupportedEncodingException
 import java.security.InvalidKeyException
 import java.security.NoSuchAlgorithmException
 import java.security.Security
+import java.time.Instant
+import java.time.LocalDate
+import java.util.*
 import javax.crypto.*
 import javax.crypto.spec.SecretKeySpec
 
@@ -50,8 +54,7 @@ class RegisterActivity2 : AppCompatActivity() {
             val password: String
             val confirmPassword: String
             var type: String = ""
-            val level: Int = 1
-            val exp: Int = 0
+            val level: Float = 1.0F
 
             email = regEmail.getText().toString()
             username = regUsername.getText().toString()
@@ -91,7 +94,7 @@ class RegisterActivity2 : AppCompatActivity() {
                     progressBar.setVisibility(View.VISIBLE)
                     val key: String = "-JaNdRgUkXp2s5v8y/B?E(G+KbPeShVm"
                     val encryptedPassword : String? = encrypt(password,key)
-                    crearCuenta(email, username, password, type, level, exp, encryptedPassword)
+                    crearCuenta(email, username, password, type, level, encryptedPassword)
                     progressBar.setVisibility(View.GONE)
                 }
             } else {
@@ -135,7 +138,8 @@ class RegisterActivity2 : AppCompatActivity() {
         private var TAG = "EmailPassword"
     }
 
-    fun crearCuenta (email: String, username: String, password: String, type: String, level: Int, exp: Int, encryptedPassword: String?){
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun crearCuenta (email: String, username: String, password: String, type: String, level: Float, encryptedPassword: String?){
         val query = db.collection("users").whereEqualTo("username", username).get()
             .addOnCompleteListener(this) {query ->
                 if (query.result!!.isEmpty) {
@@ -150,13 +154,29 @@ class RegisterActivity2 : AppCompatActivity() {
                                 ).show()
                                 updateUI(user)
 
+                                val arrayRedes = arrayListOf(0F,0F,0F,0F,0F,0F,0F)
+                                val arrayApuestas = arrayListOf(0F,0F,0F,0F,0F,0F,0F)
+                                val arrayVideojuegos = arrayListOf(0F,0F,0F,0F,0F,0F,0F)
+
+                                val logros = arrayListOf(0,0,0)
+                                val logro_foro = 0
+                                val logro_estadistica = 0
+
+                                val current = Timestamp.now()
+
                                 val usuario = hashMapOf(
                                     "email" to email,
                                     "username" to username,
                                     "password" to encryptedPassword,
                                     "type" to type,
                                     "level" to level,
-                                    "experience" to exp
+                                    "last_login" to current,
+                                    "stats_socialmedia" to arrayRedes,
+                                    "stats_bets" to arrayApuestas,
+                                    "stats_videogames" to arrayVideojuegos,
+                                    "awards" to logros,
+                                    "cont_award_forum" to logro_foro,
+                                    "cont_award_stats" to logro_estadistica
                                 )
 
                                 TAG = "DocSnippets"

@@ -9,6 +9,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -102,6 +103,9 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(baseContext, "Inicio de Sesión Correcto",
                             Toast.LENGTH_SHORT).show()
+
+                        db.collection("users").document(user.uid)
+                            .update("last_login", Timestamp.now())
 
                         val login = Intent(applicationContext, Login::class.java)
                         startActivity(login)
