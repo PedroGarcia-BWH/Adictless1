@@ -115,7 +115,6 @@ class Progress : Fragment() {
                 auth.signOut()
                 getActivity()?.finish()
             })
-
             val alertDialog = builder.create()
             alertDialog.show();
         }

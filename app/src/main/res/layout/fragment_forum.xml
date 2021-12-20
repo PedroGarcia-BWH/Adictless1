@@ -179,10 +179,9 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvForo"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:listitem="@layout/forocardview">
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/forocardview"/>
 
-                </androidx.recyclerview.widget.RecyclerView>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
