@@ -44,7 +44,7 @@ class Progress : Fragment() {
     private lateinit var auth: FirebaseAuth
 
     companion object {
-        private var TAG = "DocSnippets"
+        var TAG = "DocSnippets"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

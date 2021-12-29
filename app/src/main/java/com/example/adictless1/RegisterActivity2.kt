@@ -154,9 +154,9 @@ class RegisterActivity2 : AppCompatActivity() {
                                 ).show()
                                 updateUI(user)
 
-                                val arrayRedes = arrayListOf(0F,0F,0F,0F,0F,0F,0F)
-                                val arrayApuestas = arrayListOf(0F,0F,0F,0F,0F,0F,0F)
-                                val arrayVideojuegos = arrayListOf(0F,0F,0F,0F,0F,0F,0F)
+                                val arrayRedes = arrayListOf(0.0,0.0,0.0,0.0,0.0,0.0,0.0)
+                                val arrayApuestas = arrayListOf(0.0,0.0,0.0,0.0,0.0,0.0,0.0)
+                                val arrayVideojuegos = arrayListOf(0.0,0.0,0.0,0.0,0.0,0.0,0.0)
 
                                 val logros = arrayListOf(0,0,0)
                                 val logro_foro = 0
