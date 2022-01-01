@@ -128,6 +128,14 @@ class Home : Fragment() {
             activity?.startActivity(an3Ac)
         }
 
+        val an4CardView = view?.findViewById<CardView>(R.id.announce6)
+        an4CardView?.setOnClickListener {
+            val an4Ac = Intent(activity, NewsActivity::class.java)
+            an4Ac.putExtra("parametro", 4);
+
+            activity?.startActivity(an4Ac)
+        }
+
         val settings =  view?.findViewById<FloatingActionButton>(R.id.ruedaSettings)
         settings?.setOnClickListener {
             val settingsAct = Intent(activity, SettingsActivity::class.java)

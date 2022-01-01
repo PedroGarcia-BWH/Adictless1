@@ -26,8 +26,37 @@ Como claro ejemplo podemos hablar del alcoholismo, es una de las adicciones más
 En este caso, un claro ejemplo sería la adicción a apuestas deportivas. Numerosas personas en todo el mundo pierden grandes cantidades de dinero, incluso llegando a arruinarse.
     </string>
 
-    <string name="tituloArticulo4">¿Eres una persona adicta?</string>
+    <string name="tituloArticulo4">¿Qué son las emociones?</string>
+    <string name="subTituloArticulo4">Te explicamos que son las emociones</string>
+    <string name="cuerpoArticulo4">\nAntes de conocer la ruleta de emociones, debemos conocer la diferencia entre emociones y sentimientos.\n
+\nLas emociones son reacciones psicofisiológicas que ocurren de manera espontánea y automática a través de un estímulo. En cambio, los sentimientos son la interpretación que hacemos de esas emociones y se pueden regular mediante nuestros pensamientos
+Por lo tanto, primero tenemos una emoción, esta nos hace experimentar un sentimiento y este provoca un acto. Por ejemplo: ira-rabia-pegar. \n
+\nEntonces, nuestra pregunta no debe ser que debemos hacer para no pegar, sino como controlar esa ira.\n
 
+\nPodemos diferenciar:\n
+\nEmociones primarias: son aquellas que son innatas y que responde a un estímulo. Son seis:\n
+
+\nIra: surge cuando un individuo se encuentra en situaciones que producen o aversión, viene acompañado de un sentimiento de tensión que nos impulsa a actuar, aumento de la actividad cardiaca.\n
+
+\nTristeza: implica una disminución del estado de ánimo, así como una reducción significativa de la actividad cognitiva y conductual.\n
+
+\nAlegría: relacionada con el placer y la alegría, viene como respuesta a la resolución de algún objetivo personal o después de mitigar una situación negativa.\n
+
+\nMiedo: estado emocional negativo o aversivo con una activación muy elevada que incita la evitación y el escape de situaciones peligrosas.\n
+
+\nSorpresa: reacción provocada por algo inesperado, nuevo o extraño.\n
+
+\nAsco: sensación de repulsión o evitación ante la posibilidad, real o imaginaria, de ingerir una sustancia nociva.\n
+    \nEmociones secundarias: son aquellas que se generan luego de una emoción primaria. Vergüenza, culpa, orgullo, ansiedad, celos, esperanza…\n
+
+\n¿Por qué es importante conocer la ruleta de emociones? La ruleta emocional es una herramienta que nos ayuda a potencializar nuestra inteligencia emocional. \n
+\nLa inteligencia emocional se podría definir como la capacidad de comprender, utilizar y controlar nuestras emociones. Esto nos ayudará a conocernos a nosotros mismos y saber cómo actuar correctamente dependiendo de nuestra emoción.\n
+
+\n¿Qué emoción te genera la adicción? ¿Cómo reaccionas antes-durante-después?\n
+
+\nDebes identificar en la ruleta como te encuentras antes, durante y después de consumir su adicción. Es importante saber que emoción y, por lo tanto, que sentimiento te produce al consumir dicha adicción para poder controlarlo.\n
+
+\nPara ello te recomendamos hacer un ejercicio semanal. Al final de la semana tener un diario de emociones, dónde vas escribiendo como te has ido sintiendo a lo largo de la semana, cuestionarte el por qué te has ido sintiendo así, cómo las has gestionado y que sentimiento te ha producido.\n</string>
     <string name="tituloArticulo2">¿Eres una persona adicta?</string>
     <string name="tituloArticulo3">Caso real adicción a videojuegos</string>
     <string name="subTituloArticulo2">Síntomas y características de una persona adicta sin sustancia.</string>

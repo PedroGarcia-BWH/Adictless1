@@ -46,6 +46,12 @@ class NewsActivity : AppCompatActivity() {
                 cuerpoArticulo.text = getString(R.string.cuerpoArticulo3)
                 foto.setImageResource(R.drawable.article3)
             }
+            4-> {
+                titulo.text = getString(R.string.tituloArticulo4)
+                subTitulo.text = getString(R.string.subTituloArticulo4)
+                cuerpoArticulo.text = getString(R.string.cuerpoArticulo4)
+                foto.setImageResource(R.drawable.article4)
+            }
             else->{}
         }
     }
