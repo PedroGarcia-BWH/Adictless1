@@ -43,6 +43,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="100dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cardEncuestaProgreso" />
+
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="?android:attr/progressBarStyleHorizontal"
@@ -139,7 +146,7 @@
                             android:layout_marginEnd="5dp"
                             android:layout_weight="1"
                             android:padding="25dp"
-                            android:src="@drawable/award"
+                            android:src="@drawable/logoestadisticas"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView1" />
@@ -187,7 +194,7 @@
                             android:layout_marginEnd="5dp"
                             android:layout_weight="1"
                             android:padding="25dp"
-                            android:src="@drawable/award"
+                            android:src="@drawable/logologros"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -197,16 +204,208 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/button"
+                    android:id="@+id/buttonEncuesta"
                     android:layout_width="363dp"
                     android:layout_height="47dp"
                     android:layout_marginTop="20dp"
-                    android:text="Realizar encuesta de progreso"
                     android:background="@drawable/loginbtn"
+                    android:text="Mostrar encuesta de progreso"
                     android:textColor="@color/white"
+                    android:clickable="true"
                     app:layout_constraintEnd_toEndOf="@+id/awardsCardView"
                     app:layout_constraintStart_toStartOf="@+id/statsCardView"
                     app:layout_constraintTop_toBottomOf="@+id/statsCardView" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardEncuestaProgreso"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="12dp"
+                    app:layout_constraintEnd_toEndOf="@+id/buttonEncuesta"
+                    app:layout_constraintStart_toStartOf="@+id/buttonEncuesta"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonEncuesta">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/buttonEnviar"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/loginbtn"
+                            android:text="Enviar datos"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/LLep4" />
+
+                        <TextView
+                            android:id="@+id/txt_EncuestaProgreso1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="20dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Pregunta 1: Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <LinearLayout
+                            android:id="@+id/LLep1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintTop_toBottomOf="@+id/txt_EncuestaProgreso1"
+                            tools:layout_editor_absoluteX="10dp">
+
+                            <RadioGroup
+                                android:id="@+id/radioGroupEP1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp">
+
+                                <RadioButton
+                                    android:id="@+id/radioButton2"
+                                    android:layout_width="175dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="Si" />
+
+                                <RadioButton
+                                    android:id="@+id/radioButton"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="No" />
+                            </RadioGroup>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_EncuestaProgreso2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Pregunta 2: Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/LLep1" />
+
+                        <LinearLayout
+                            android:id="@+id/LLep2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintTop_toBottomOf="@id/txt_EncuestaProgreso2"
+                            tools:layout_editor_absoluteX="10dp">
+
+                            <RadioGroup
+                                android:id="@+id/radioGroupEP2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp">
+
+                                <RadioButton
+                                    android:id="@+id/radioButton2Si"
+                                    android:layout_width="175dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="Si" />
+
+                                <RadioButton
+                                    android:id="@+id/radioButton2No"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="No" />
+
+                            </RadioGroup>
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_EncuestaProgreso3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Pregunta 3: Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/LLep2" />
+
+                        <LinearLayout
+                            android:id="@+id/LLep3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            app:layout_constraintTop_toBottomOf="@id/txt_EncuestaProgreso3"
+                            tools:layout_editor_absoluteX="10dp">
+
+                            <RadioGroup
+                                android:id="@+id/radioGroupEP3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp">
+
+                                <RadioButton
+                                    android:id="@+id/radioButton3Si"
+                                    android:layout_width="175dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="Si" />
+
+                                <RadioButton
+                                    android:id="@+id/radioButton3No"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="No" />
+                            </RadioGroup>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_EncuestaProgreso4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Pregunta 4: Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/LLep3" />
+
+                        <LinearLayout
+                            android:id="@+id/LLep4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            app:layout_constraintTop_toBottomOf="@id/txt_EncuestaProgreso4"
+                            tools:layout_editor_absoluteX="10dp">
+
+                            <RadioGroup
+                                android:id="@+id/radioGroupEP4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp">
+
+                                <RadioButton
+                                    android:id="@+id/radioButton4Si"
+                                    android:layout_width="175dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="Si" />
+
+                                <RadioButton
+                                    android:id="@+id/radioButton4No"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="No" />
+                            </RadioGroup>
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

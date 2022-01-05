@@ -20,6 +20,7 @@ import com.example.adictless1.R
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.google.android.material.badge.BadgeUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -122,6 +123,41 @@ class Progress : Fragment() {
             val awardAc = Intent(activity, Awards::class.java)
             activity?.startActivity(awardAc)
         }
+
+        //Ocultación de encuesta de progreso
+        val EncProgress = view?.findViewById<CardView>(R.id.cardEncuestaProgreso)
+        EncProgress!!.visibility = View.INVISIBLE
+
+        //Boton realizar encuesta progreso
+        val encButton = view?.findViewById<Button>(R.id.buttonEncuesta)
+        encButton?.setOnClickListener(){
+            Log.d("Visibilidad", EncProgress.visibility.toString())
+            if(EncProgress.visibility == View.VISIBLE){
+                EncProgress.visibility = View.INVISIBLE
+                encButton.text = "Mostrar encuesta progreso"
+            }
+            else{
+                EncProgress.visibility = View.VISIBLE
+                encButton.text = "Ocultar encuesta progreso"
+            }
+        }
+
+        //Enviar datos de encuesta
+        val enviarEnc = view?.findViewById<Button>(R.id.buttonEnviar)
+        enviarEnc?.setOnClickListener(){
+            //Obtener fecha actual
+            val fecha = LocalDate.now()
+            //Comparar fecha con el ultimo registro de encuesta en la base de datos
+
+            //Nivel = Obtener nivel de la base datos
+
+            //OtorgarExperiencia(100xp + Nivel x 0.5)
+
+            //Actualizar ultima fecha de realizacion en base de datos
+
+        }
+
+
         //CERRAR SESION NO QUITAR
         val logout = view?.findViewById<ImageButton>(R.id.logout)
         logout?.setOnClickListener(){
