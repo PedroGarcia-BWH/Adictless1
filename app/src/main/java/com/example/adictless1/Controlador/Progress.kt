@@ -15,12 +15,8 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.adictless1.ActivityProgress
 import com.example.adictless1.Awards
-import com.example.adictless1.NewsActivity
 import com.example.adictless1.R
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
-import com.google.android.material.badge.BadgeUtils
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -28,11 +24,9 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_progress.*
 import java.math.BigDecimal
-import java.time.LocalDate
 import java.util.*
-import kotlin.collections.ArrayList
+import kotlin.math.round
 import kotlin.math.roundToInt
-import kotlin.math.roundToLong
 
 /**
  * A simple [Fragment] subclass.
@@ -146,15 +140,28 @@ class Progress : Fragment() {
         val enviarEnc = view?.findViewById<Button>(R.id.buttonEnviar)
         enviarEnc?.setOnClickListener(){
             //Obtener fecha actual
-            val fecha = LocalDate.now()
-            //Comparar fecha con el ultimo registro de encuesta en la base de datos
+            val fecha = Timestamp.now()
+            doc_ref.get()
+                .addOnSuccessListener { document ->
+                    if (document.data != null) {
+                        Log.d(Progress.TAG, "Datos Recibidos desde la Base de Datos")
+                        val data_user = document.data
+                        val ultima_fecha = data_user?.get("last_survey") as Timestamp   // Obtengo fecha de la base de datos
+                        if(fecha.toDate().after(ultima_fecha.toDate())){
+                            // Compruebo que la fecha actual es posterior a la fecha almacenada en la base de datos. Este if es un poco useless ya que siempre va a ser true, pero por si acaso
+                            val level_db = data_user.get("level").toString().toFloat()    // Obtengo nivel de la base de datos
+                            val newLevel = ObtenerExperiencia(100,level_db,0.5f) // Calculo el nuevo nivel
+                            val database = db.collection("users").document(user.uid)    // Obtengo el documento de la base de datos
+                            database.update("level", newLevel)  // Se guarda el nuevo nivel en la base de datos
+                            database.update("last_survey", fecha)  // Se guarda la fecha de realizacion de la encuesta en la base de datos
+                            Toast.makeText(activity, "Encuesta Realizada", Toast.LENGTH_SHORT).show()  // Muestro un mensaje por pantalla
+                            // El toast es pa ver que se esta ha hecho
 
-            //Nivel = Obtener nivel de la base datos
-
-            //OtorgarExperiencia(100xp + Nivel x 0.5)
-
-            //Actualizar ultima fecha de realizacion en base de datos
-
+                            // Habría que actualizar el fragment para que se muestre la nueva experiencia correctamente, pero no se como
+                            // ya que el recreate() de Activity no funciona ya que no es un Activity, sino un Fragment
+                        }
+                    }
+                }
         }
 
 
@@ -177,6 +184,32 @@ class Progress : Fragment() {
             val alertDialog = builder.create()
             alertDialog.show();
         }
+    }
+}
+
+// Exp:         La experiencia que se le va a subir al usuario
+// Level:       El nivel actual del usuario (sacar de la base de datos)
+// Multiplier:  El numero que se va a multiplicar al nivel (0.5 o 2.5)
+
+fun ObtenerExperiencia(exp: Int, level: Float, multiplier: Float): Float {
+    var nivelActual = level.toInt()  // Nivel Actual del Usuario
+    var expActualNivel = (level % 1) * 100 * nivelActual // Experiencia actual del usuario
+    var expTotalNivel = nivelActual * 100   // Experiencia Total del Nivel
+    val addExp = exp + (nivelActual * multiplier)  // Experiencia a añadir
+
+
+    if((expActualNivel + addExp) >= expTotalNivel) {
+        nivelActual += 1    // Incrementamos el Nivel
+        expActualNivel = expActualNivel + addExp - expTotalNivel    // Añadimos la experiencia ganada a la experiencia actual del nivel
+        expTotalNivel += 100    // Incremenramos la Experiencia Total
+
+        val newExp = nivelActual + (expActualNivel / expTotalNivel) // La nueva experiencia será el nivel actual + experiencia del nivel
+        return (newExp)
+    } else {
+        expActualNivel += addExp // Añadimos la experiencia ganada a la experiencia actual del nivel
+
+        val newExp = nivelActual + (expActualNivel / expTotalNivel) // La nueva experiencia será el nivel actual + experiencia del nivel
+        return (newExp)
     }
 }
 

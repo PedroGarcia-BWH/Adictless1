@@ -165,6 +165,17 @@ class SettingsActivity : AppCompatActivity() {
                             baseContext, "Email del Usuario Actualizado",
                             Toast.LENGTH_SHORT
                         ).show()
+
+                        user.sendEmailVerification()
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    Log.d(TAG, "Email de verificacion.")
+                                    Toast.makeText(
+                                        baseContext, "Revisa el nuevo correo electronico para verificar el correo",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            }
                     }
                 }
         }
