@@ -121,7 +121,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateUI(user: FirebaseUser?) {
-
     }
 
     private fun reload() {

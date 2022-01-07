@@ -171,6 +171,8 @@ class RegisterActivity2 : AppCompatActivity() {
                                     "type" to type,
                                     "level" to level,
                                     "last_login" to current,
+                                    "last_survey" to current,
+                                    "last_hours_progress" to current,
                                     "stats_socialmedia" to arrayRedes,
                                     "stats_bets" to arrayApuestas,
                                     "stats_videogames" to arrayVideojuegos,
