@@ -33,7 +33,7 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="5dp"
                     android:fontFamily="sans-serif-black"
-                    android:text="FOROS OFICIALES"
+                    android:text="HILOS OFICIALES"
                     android:textAlignment="center"
                     android:textSize="20dp" />
 
@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:fontFamily="sans-serif-black"
-                    android:text="FOROS CREADOS POR LA COMUNIDAD"
+                    android:text="HILOS CREADOS POR LA COMUNIDAD"
                     android:textAlignment="center"
                     android:textSize="20dp" />
 
