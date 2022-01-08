@@ -140,25 +140,59 @@ class Progress : Fragment() {
         val enviarEnc = view?.findViewById<Button>(R.id.buttonEnviar)
         enviarEnc?.setOnClickListener(){
             //Obtener fecha actual
-            val fecha = Timestamp.now()
+            val fechaT = Timestamp.now()
+
+            //Setteamos a 0 las horas para solo tener en cuenta el dia
+            val fecha = fechaT.toDate()
+            fecha.hours = 0
+            fecha.minutes = 0
+            fecha.seconds = 0
+
             doc_ref.get()
                 .addOnSuccessListener { document ->
                     if (document.data != null) {
                         Log.d(Progress.TAG, "Datos Recibidos desde la Base de Datos")
                         val data_user = document.data
-                        val ultima_fecha = data_user?.get("last_survey") as Timestamp   // Obtengo fecha de la base de datos
-                        if(fecha.toDate().after(ultima_fecha.toDate())){
+                        val ultima_fechaD = data_user?.get("last_survey") as Timestamp   // Obtengo fecha de la base de datos
+
+                        val ultima_fecha = ultima_fechaD.toDate()
+                        ultima_fecha.hours = 0
+                        ultima_fecha.minutes = 0
+                        ultima_fecha.seconds = 0
+
+                        Log.d("Fecha - Base de datos", ultima_fecha.toString())
+                        Log.d("Fecha - Actual", fecha.toString())
+
+                        if(fecha.after(ultima_fecha)){
                             // Compruebo que la fecha actual es posterior a la fecha almacenada en la base de datos. Este if es un poco useless ya que siempre va a ser true, pero por si acaso
                             val level_db = data_user.get("level").toString().toFloat()    // Obtengo nivel de la base de datos
                             val newLevel = ObtenerExperiencia(100,level_db,0.5f) // Calculo el nuevo nivel
                             val database = db.collection("users").document(user.uid)    // Obtengo el documento de la base de datos
                             database.update("level", newLevel)  // Se guarda el nuevo nivel en la base de datos
-                            database.update("last_survey", fecha)  // Se guarda la fecha de realizacion de la encuesta en la base de datos
+                            database.update("last_survey", Timestamp(fecha))  // Se guarda la fecha de realizacion de la encuesta en la base de datos
                             Toast.makeText(activity, "Encuesta Realizada", Toast.LENGTH_SHORT).show()  // Muestro un mensaje por pantalla
                             // El toast es pa ver que se esta ha hecho
 
                             // Habría que actualizar el fragment para que se muestre la nueva experiencia correctamente, pero no se como
                             // ya que el recreate() de Activity no funciona ya que no es un Activity, sino un Fragment
+                            val levelDb = data_user?.get("level").toString().toFloat()
+                            val exp = (level_db % 1).toBigDecimal()
+
+                            val level = levelDb.toInt().toBigDecimal()
+                            val level_usuario = view?.findViewById<TextView>(R.id.LvlTextView)
+                            level_usuario?.text = "Nivel " + level
+
+                            val multiplier = 100
+
+                            val exp_total = level.multiply(BigDecimal(multiplier))
+                            val exp_actual = exp.multiply(BigDecimal(multiplier)).multiply(level).setScale(0, BigDecimal.ROUND_HALF_UP)
+
+                            val mostrar_exp = view?.findViewById<TextView>(R.id.textView7)
+                            mostrar_exp?.text = "" + exp_actual + " EXP / " + exp_total + " EXP"
+
+                            val progress_bar = view?.findViewById<ProgressBar>(R.id.progressBar)
+                            progress_bar?.max = exp_total.toInt()
+                            progress_bar?.progress = exp_actual.toInt()
                         }
                     }
                 }

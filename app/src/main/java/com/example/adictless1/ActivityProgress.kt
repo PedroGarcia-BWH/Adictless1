@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
+import com.example.adictless1.Controlador.ObtenerExperiencia
 import com.example.adictless1.Controlador.Progress
 
 import com.github.mikephil.charting.charts.BarChart
@@ -109,6 +110,41 @@ class ActivityProgress : AppCompatActivity() {
                                     }
                                 }
                                 setBarChart(StatsRedes, barChart)
+
+                                //COMPRABACION DE SI ES LA PRIMERA VEZ QUE SE REALIZA EN EL DIA
+                                val fechaT = Timestamp.now()
+
+                                //Setteamos a 0 las horas para solo tener en cuenta el dia
+                                val fecha = fechaT.toDate()
+                                fecha.hours = 0
+                                fecha.minutes = 0
+                                fecha.seconds = 0
+
+                                doc_ref.get()
+                                    .addOnSuccessListener { document ->
+                                        if (document.data != null) {
+                                            Log.d(Progress.TAG, "Datos Recibidos desde la Base de Datos")
+                                            val data_user = document.data
+                                            val ultima_fechaD = data_user?.get("last_survey") as Timestamp   // Obtengo fecha de la base de datos
+
+                                            val ultima_fecha = ultima_fechaD.toDate()
+                                            ultima_fecha.hours = 0
+                                            ultima_fecha.minutes = 0
+                                            ultima_fecha.seconds = 0
+
+                                            Log.d("Fecha - Base de datos", ultima_fecha.toString())
+                                            Log.d("Fecha - Actual", fecha.toString())
+
+                                            if(fecha.after(ultima_fecha)){
+                                                val level_db = data_user.get("level").toString().toFloat()    // Obtengo nivel de la base de datos
+                                                val newLevel = ObtenerExperiencia(40,level_db,0.5f) // Calculo el nuevo nivel
+                                                val database = db.collection("users").document(user.uid)    // Obtengo el documento de la base de datos
+                                                database.update("level", newLevel)  // Se guarda el nuevo nivel en la base de datos
+                                                database.update("last_survey", Timestamp(fecha))  // Se guarda la fecha de realizacion de la encuesta en la base de datos
+                                                Toast.makeText(this, "Encuesta Realizada", Toast.LENGTH_SHORT).show()  // Muestro un mensaje por pantalla
+                                            }
+                                        }
+                                    }
                             }
                         }
                     }
