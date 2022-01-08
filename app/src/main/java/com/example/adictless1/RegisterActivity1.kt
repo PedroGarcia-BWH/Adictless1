@@ -14,11 +14,13 @@ class RegisterActivity1 : AppCompatActivity() {
         rechazar.setOnClickListener {
             val intento1 = Intent(this, MainActivity::class.java)
             startActivity(intento1)
+            finish()
         }
         val aceptar =findViewById<Button>(R.id.accept)
         aceptar.setOnClickListener {
             val intento2 = Intent(this, RegisterActivity2::class.java)
             startActivity(intento2)
+            finish()
         }
     }
 }

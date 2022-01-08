@@ -1,6 +1,7 @@
 package com.example.adictless1
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -15,20 +17,35 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.type.DateTime
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalDateTime.ofInstant
+import java.time.LocalTime.ofInstant
+import java.time.ZoneId
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     val db = Firebase.firestore
 
+    private lateinit var logEmail: TextView
+    private lateinit var logPassword: TextView
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         auth = Firebase.auth
 
-        val logEmail = findViewById<TextView>(R.id.email)
-        val logPassword = findViewById<TextView>(R.id.password)
+        logEmail = findViewById(R.id.email)
+        logPassword = findViewById(R.id.password)
         val logLogin = findViewById<Button>(R.id.login)
         val progressBar = findViewById<ProgressBar>(R.id.progress)
 
@@ -85,6 +102,7 @@ class MainActivity : AppCompatActivity() {
         private const val TAG = "EmailPassword"
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun InicioSesion(email: String, password: String){
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
@@ -104,11 +122,33 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(baseContext, "Inicio de Sesión Correcto",
                             Toast.LENGTH_SHORT).show()
 
-                        db.collection("users").document(user.uid)
-                            .update("last_login", Timestamp.now())
+                        val user = auth.currentUser
+                        val doc_ref = user?.let { db.collection("users").document(it.uid) }
+                        doc_ref!!.get()
+                            .addOnSuccessListener { document ->
+                                if (document.data != null) {
+                                    val data_user= document.data
+                                    val date_last_login = data_user?.get("last_login") as Timestamp
+                                    var cont_logins = data_user?.get("cont_award_login").toString().toInt()
 
-                        val login = Intent(applicationContext, Login::class.java)
-                        startActivity(login)
+                                    val fecha_bbdd = date_last_login.toLocalDateTime()
+                                    val fecha_actual = Timestamp.now().toLocalDateTime()
+
+                                    // Inicio Sesion Dias Consecutivos --> Incrementa en 1 el contador y lo guarda en la BBDD
+                                    if(fecha_actual.isAfter(fecha_bbdd) && fecha_actual.dayOfMonth == fecha_bbdd.plusDays(1).dayOfMonth){
+                                        cont_logins += 1
+                                        db.collection("users").document(user.uid)
+                                            .update("cont_award_login", cont_logins)
+                                    }
+                                }
+                                db.collection("users").document(user.uid)
+                                    .update("last_login", Timestamp.now())
+
+                                val login = Intent(applicationContext, Login::class.java)
+                                startActivity(login)
+                                logEmail.setText("")    // Borramos el email para el logout
+                                logPassword.setText("") // Borramos la contraseña para el logout
+                            }
                     }
                 } else {
                     // If sign in fails, display a message to the user.
@@ -120,9 +160,12 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun Timestamp.toLocalDateTime(zone: ZoneId = ZoneId.systemDefault()) = LocalDateTime.ofInstant(
+        Instant.ofEpochMilli(seconds * 1000 + nanoseconds / 1000000), zone)
+
     private fun updateUI(user: FirebaseUser?) {
     }
-
     private fun reload() {
 
     }

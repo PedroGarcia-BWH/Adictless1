@@ -12,9 +12,11 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityCompat.recreate
 import androidx.fragment.app.Fragment
 import com.example.adictless1.ActivityProgress
 import com.example.adictless1.Awards
+import com.example.adictless1.Login
 import com.example.adictless1.R
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -27,6 +29,13 @@ import java.math.BigDecimal
 import java.util.*
 import kotlin.math.round
 import kotlin.math.roundToInt
+import android.app.Activity
+import android.content.Intent.getIntent
+import androidx.fragment.app.FragmentTransaction
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+
 
 /**
  * A simple [Fragment] subclass.
@@ -57,6 +66,11 @@ class Progress : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        var fa: Fragment? = null
+        fun onCreate() {
+            fa = this
+        }
 
         auth = Firebase.auth
         val user = auth.currentUser
@@ -106,11 +120,11 @@ class Progress : Fragment() {
             }
 
         val addStatCard = view?.findViewById<CardView>(R.id.statsCardView)
-        addStatCard?.setOnClickListener(){
+        addStatCard?.setOnClickListener() {
             val statAc = Intent(activity, ActivityProgress::class.java)
             activity?.startActivity(statAc)
+            activity?.finish()
         }
-
 
         val addAwardCard = view?.findViewById<CardView>(R.id.awardsCardView)
         addAwardCard?.setOnClickListener(){
@@ -143,10 +157,7 @@ class Progress : Fragment() {
             val fechaT = Timestamp.now()
 
             //Setteamos a 0 las horas para solo tener en cuenta el dia
-            val fecha = fechaT.toDate()
-            fecha.hours = 0
-            fecha.minutes = 0
-            fecha.seconds = 0
+            val fecha = fechaT.toLocalDateTime()
 
             doc_ref.get()
                 .addOnSuccessListener { document ->
@@ -155,44 +166,24 @@ class Progress : Fragment() {
                         val data_user = document.data
                         val ultima_fechaD = data_user?.get("last_survey") as Timestamp   // Obtengo fecha de la base de datos
 
-                        val ultima_fecha = ultima_fechaD.toDate()
-                        ultima_fecha.hours = 0
-                        ultima_fecha.minutes = 0
-                        ultima_fecha.seconds = 0
+                        val ultima_fecha = ultima_fechaD.toLocalDateTime()
 
                         Log.d("Fecha - Base de datos", ultima_fecha.toString())
                         Log.d("Fecha - Actual", fecha.toString())
 
-                        if(fecha.after(ultima_fecha)){
+                        if(fecha.dayOfMonth > ultima_fecha.dayOfMonth && fecha.dayOfWeek == ultima_fecha.dayOfWeek){
                             // Compruebo que la fecha actual es posterior a la fecha almacenada en la base de datos. Este if es un poco useless ya que siempre va a ser true, pero por si acaso
                             val level_db = data_user.get("level").toString().toFloat()    // Obtengo nivel de la base de datos
                             val newLevel = ObtenerExperiencia(100,level_db,0.5f) // Calculo el nuevo nivel
                             val database = db.collection("users").document(user.uid)    // Obtengo el documento de la base de datos
                             database.update("level", newLevel)  // Se guarda el nuevo nivel en la base de datos
-                            database.update("last_survey", Timestamp(fecha))  // Se guarda la fecha de realizacion de la encuesta en la base de datos
+                            database.update("last_survey", Timestamp.now())  // Se guarda la fecha de realizacion de la encuesta en la base de datos
                             Toast.makeText(activity, "Encuesta Realizada", Toast.LENGTH_SHORT).show()  // Muestro un mensaje por pantalla
                             // El toast es pa ver que se esta ha hecho
 
-                            // Habría que actualizar el fragment para que se muestre la nueva experiencia correctamente, pero no se como
-                            // ya que el recreate() de Activity no funciona ya que no es un Activity, sino un Fragment
-                            val levelDb = data_user?.get("level").toString().toFloat()
-                            val exp = (level_db % 1).toBigDecimal()
-
-                            val level = levelDb.toInt().toBigDecimal()
-                            val level_usuario = view?.findViewById<TextView>(R.id.LvlTextView)
-                            level_usuario?.text = "Nivel " + level
-
-                            val multiplier = 100
-
-                            val exp_total = level.multiply(BigDecimal(multiplier))
-                            val exp_actual = exp.multiply(BigDecimal(multiplier)).multiply(level).setScale(0, BigDecimal.ROUND_HALF_UP)
-
-                            val mostrar_exp = view?.findViewById<TextView>(R.id.textView7)
-                            mostrar_exp?.text = "" + exp_actual + " EXP / " + exp_total + " EXP"
-
-                            val progress_bar = view?.findViewById<ProgressBar>(R.id.progressBar)
-                            progress_bar?.max = exp_total.toInt()
-                            progress_bar?.progress = exp_actual.toInt()
+                            (activity as Login).recreateFragment(this)  // Recreate Fragment
+                        } else {
+                            Toast.makeText(activity, "La encuesta es semanal. Inténtelo de nuevo dentro de 1 semana", Toast.LENGTH_SHORT).show()  // Muestro un mensaje por pantalla
                         }
                     }
                 }
@@ -219,6 +210,9 @@ class Progress : Fragment() {
             alertDialog.show();
         }
     }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun Timestamp.toLocalDateTime(zone: ZoneId = ZoneId.systemDefault()) = LocalDateTime.ofInstant(
+        Instant.ofEpochMilli(seconds * 1000 + nanoseconds / 1000000), zone)
 }
 
 // Exp:         La experiencia que se le va a subir al usuario
@@ -230,7 +224,6 @@ fun ObtenerExperiencia(exp: Int, level: Float, multiplier: Float): Float {
     var expActualNivel = (level % 1) * 100 * nivelActual // Experiencia actual del usuario
     var expTotalNivel = nivelActual * 100   // Experiencia Total del Nivel
     val addExp = exp + (nivelActual * multiplier)  // Experiencia a añadir
-
 
     if((expActualNivel + addExp) >= expTotalNivel) {
         nivelActual += 1    // Incrementamos el Nivel

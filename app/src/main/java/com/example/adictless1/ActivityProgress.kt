@@ -8,10 +8,22 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import android.R.id
+import android.app.Activity
+import android.app.PendingIntent.getActivity
+import android.content.Intent
+import android.os.Build
 import android.util.Log
 import android.view.View
+import android.view.WindowInsets.Side.all
 import android.widget.*
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.recreate
 import androidx.core.content.ContextCompat
+import androidx.core.text.isDigitsOnly
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.example.adictless1.Controlador.ObtenerExperiencia
 import com.example.adictless1.Controlador.Progress
 
@@ -23,6 +35,9 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_progress.*
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -35,6 +50,7 @@ class ActivityProgress : AppCompatActivity() {
         private var TAG = "ProgressBar"
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_progress)
@@ -66,85 +82,115 @@ class ActivityProgress : AppCompatActivity() {
                             setBarChart(StatsRedes, barChart)
                             Btn_Confirmar?.setOnClickListener()
                             {
-                                val HorasRedes = Horas.text.toString().toDouble()
-                                val horaBBDD = data_user.get("last_login") as Timestamp
-                                val n_dia = horaBBDD.toDate().day
-                                when(n_dia){
-                                    0 -> {
-                                        StatsRedes[6] = HorasRedes  // Domingo
-                                        db.collection("users").document(user.uid).update("stats_socialmedia", StatsRedes)
-                                        Toast.makeText(baseContext, "Uso de Redes Sociales Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    1 -> {
-                                        StatsRedes[0] = HorasRedes  // Lunes
-                                        db.collection("users").document(user.uid).update("stats_socialmedia", StatsRedes)
-                                        Toast.makeText(baseContext, "Uso de Redes Sociales Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    2 -> {
-                                        StatsRedes[1] = HorasRedes  // Martes
-                                        db.collection("users").document(user.uid).update("stats_socialmedia", StatsRedes)
-                                        Toast.makeText(baseContext, "Uso de Redes Sociales Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    3 -> {
-                                        StatsRedes[2] = HorasRedes  // Miercoles
-                                        db.collection("users").document(user.uid).update("stats_socialmedia", StatsRedes)
-                                        Toast.makeText(baseContext, "Uso de Redes Sociales Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    4 -> {
-                                        StatsRedes[3] = HorasRedes  // Jueves
-                                        db.collection("users").document(user.uid).update("stats_socialmedia", StatsRedes)
-                                        Toast.makeText(baseContext, "Uso de Redes Sociales Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    5 -> {
-                                        StatsRedes[4] = HorasRedes  // Viernes
-                                        db.collection("users").document(user.uid).update("stats_socialmedia", StatsRedes)
-                                        Toast.makeText(baseContext, "Uso de Redes Sociales Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    6 -> {
-                                        StatsRedes[5] = HorasRedes  // Sabado
-                                        db.collection("users").document(user.uid).update("stats_socialmedia", StatsRedes)
-                                        Toast.makeText(baseContext, "Uso de Redes Sociales Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    else -> {
-                                        Toast.makeText(baseContext, "Se ha producido un error desconocido", Toast.LENGTH_SHORT).show()
-                                    }
-                                }
-                                setBarChart(StatsRedes, barChart)
+                                val check = Horas.text.toString()
 
-                                //COMPRABACION DE SI ES LA PRIMERA VEZ QUE SE REALIZA EN EL DIA
-                                val fechaT = Timestamp.now()
-
-                                //Setteamos a 0 las horas para solo tener en cuenta el dia
-                                val fecha = fechaT.toDate()
-                                fecha.hours = 0
-                                fecha.minutes = 0
-                                fecha.seconds = 0
-
-                                doc_ref.get()
-                                    .addOnSuccessListener { document ->
-                                        if (document.data != null) {
-                                            Log.d(Progress.TAG, "Datos Recibidos desde la Base de Datos")
-                                            val data_user = document.data
-                                            val ultima_fechaD = data_user?.get("last_survey") as Timestamp   // Obtengo fecha de la base de datos
-
-                                            val ultima_fecha = ultima_fechaD.toDate()
-                                            ultima_fecha.hours = 0
-                                            ultima_fecha.minutes = 0
-                                            ultima_fecha.seconds = 0
-
-                                            Log.d("Fecha - Base de datos", ultima_fecha.toString())
-                                            Log.d("Fecha - Actual", fecha.toString())
-
-                                            if(fecha.after(ultima_fecha)){
-                                                val level_db = data_user.get("level").toString().toFloat()    // Obtengo nivel de la base de datos
-                                                val newLevel = ObtenerExperiencia(40,level_db,0.5f) // Calculo el nuevo nivel
-                                                val database = db.collection("users").document(user.uid)    // Obtengo el documento de la base de datos
-                                                database.update("level", newLevel)  // Se guarda el nuevo nivel en la base de datos
-                                                database.update("last_survey", Timestamp(fecha))  // Se guarda la fecha de realizacion de la encuesta en la base de datos
-                                                Toast.makeText(this, "Encuesta Realizada", Toast.LENGTH_SHORT).show()  // Muestro un mensaje por pantalla
+                                if (check.isDigitsOnly() && check != ""){
+                                    if (check.toDouble() <= 24.0){
+                                        val HorasRedes = check.toDouble()
+                                        val horaBBDD = data_user.get("last_login") as Timestamp
+                                        val n_dia = horaBBDD.toDate().day
+                                        when(n_dia){
+                                            0 -> {
+                                                StatsRedes[6] = HorasRedes  // Domingo
+                                                db.collection("users").document(user.uid).update("stats_socialmedia", StatsRedes)
+                                                Toast.makeText(baseContext, "Uso de Redes Sociales Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            1 -> {
+                                                StatsRedes[0] = HorasRedes  // Lunes
+                                                db.collection("users").document(user.uid).update("stats_socialmedia", StatsRedes)
+                                                Toast.makeText(baseContext, "Uso de Redes Sociales Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            2 -> {
+                                                StatsRedes[1] = HorasRedes  // Martes
+                                                db.collection("users").document(user.uid).update("stats_socialmedia", StatsRedes)
+                                                Toast.makeText(baseContext, "Uso de Redes Sociales Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            3 -> {
+                                                StatsRedes[2] = HorasRedes  // Miercoles
+                                                db.collection("users").document(user.uid).update("stats_socialmedia", StatsRedes)
+                                                Toast.makeText(baseContext, "Uso de Redes Sociales Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            4 -> {
+                                                StatsRedes[3] = HorasRedes  // Jueves
+                                                db.collection("users").document(user.uid).update("stats_socialmedia", StatsRedes)
+                                                Toast.makeText(baseContext, "Uso de Redes Sociales Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            5 -> {
+                                                StatsRedes[4] = HorasRedes  // Viernes
+                                                db.collection("users").document(user.uid).update("stats_socialmedia", StatsRedes)
+                                                Toast.makeText(baseContext, "Uso de Redes Sociales Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            6 -> {
+                                                StatsRedes[5] = HorasRedes  // Sabado
+                                                db.collection("users").document(user.uid).update("stats_socialmedia", StatsRedes)
+                                                Toast.makeText(baseContext, "Uso de Redes Sociales Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            else -> {
+                                                Toast.makeText(baseContext, "Se ha producido un error desconocido", Toast.LENGTH_SHORT).show()
                                             }
                                         }
+                                        setBarChart(StatsRedes, barChart)
+
+                                        //COMPRABACION DE SI ES LA PRIMERA VEZ QUE SE REALIZA EN EL DIA
+                                        val fechaT = Timestamp.now()
+
+                                        //Setteamos a 0 las horas para solo tener en cuenta el dia
+                                        val fecha = fechaT.toLocalDateTime()
+
+                                        doc_ref.get()
+                                            .addOnSuccessListener { document ->
+                                                if (document.data != null) {
+                                                    Log.d(Progress.TAG, "Datos Recibidos desde la Base de Datos")
+                                                    val data_user = document.data
+                                                    val ultima_fechaD = data_user?.get("last_hours_progress") as Timestamp   // Obtengo fecha de la base de datos
+
+                                                    val ultima_fecha = ultima_fechaD.toLocalDateTime()
+
+                                                    Log.d("Fecha - Base de datos", ultima_fecha.toString())
+                                                    Log.d("Fecha - Actual", fecha.toString())
+
+                                                    if(fecha.dayOfMonth > ultima_fecha.dayOfMonth){
+                                                        var cont_stats = data_user.get("cont_award_stats").toString().toInt()  // Obtengo contador estadisticas diario
+                                                        val level_db = data_user.get("level").toString().toFloat()    // Obtengo nivel de la base de datos
+                                                        val newLevel = ObtenerExperiencia(40,level_db,0.5f) // Calculo el nuevo nivel
+                                                        val database = db.collection("users").document(user.uid)    // Obtengo el documento de la base de datos
+                                                        database.update("level", newLevel)  // Se guarda el nuevo nivel en la base de datos
+                                                        database.update("last_hours_progress", Timestamp.now())  // Se guarda la fecha de realizacion de la encuesta en la base de datos
+                                                        if(fecha.dayOfMonth == ultima_fecha.plusDays(1).dayOfMonth){
+                                                            cont_stats += 1 // Incremento en uno el contador
+                                                            db.collection("users").document(user.uid)   // y se actualiza el campo en la BBDD
+                                                                .update("cont_award_stats", cont_stats)
+                                                        }
+
+                                                    } else {
+                                                        val database = db.collection("users").document(user.uid)    // Obtengo el documento de la base de datos
+                                                        database.update("last_hours_progress", Timestamp.now())  // Se guarda la fecha de realizacion de la encuesta en la base de datos
+                                                    }
+
+                                                    val builder = AlertDialog.Builder(this)
+                                                    builder.setTitle("Registro de Horas")
+                                                    builder.setMessage("¿Deseas registrar otra estadística?")
+                                                    builder.setCancelable(true)
+
+                                                    builder.setNegativeButton("NO", DialogInterface.OnClickListener{ dialog, which ->
+                                                        Toast.makeText(this, "Regresando al Menu Principal", Toast.LENGTH_SHORT).show()
+                                                        val login = Intent(applicationContext, Login::class.java)
+                                                        startActivity(login)
+                                                        finish()
+                                                    })
+
+                                                    builder.setPositiveButton("Si", DialogInterface.OnClickListener{ dialog, which ->
+                                                    })
+                                                    val alertDialog = builder.create()
+                                                    alertDialog.show()
+                                                }
+                                            }
+                                    } else {
+                                        Toast.makeText(this, "Dato Introducido No Permitido", Toast.LENGTH_SHORT).show()  // Muestro un mensaje por pantalla
                                     }
+                                } else {
+                                    Toast.makeText(this, "Dato Introducido No Permitido", Toast.LENGTH_SHORT).show()  // Muestro un mensaje por pantalla
+                                }
                             }
                         }
                     }
@@ -159,50 +205,114 @@ class ActivityProgress : AppCompatActivity() {
                             setBarChart(StatsAdicciones, barChart)
                             Btn_Confirmar?.setOnClickListener()
                             {
-                                val HorasApuestas = Horas.text.toString().toDouble()
-                                val horaBBDD = data_user.get("last_login") as Timestamp
-                                val n_dia = horaBBDD.toDate().day
-                                when(n_dia){
-                                    0 -> {
-                                        StatsAdicciones[6] = HorasApuestas  // Domingo
-                                        db.collection("users").document(user.uid).update("stats_bets", StatsAdicciones)
-                                        Toast.makeText(baseContext, "Uso de Apuestas Actualizado", Toast.LENGTH_SHORT).show()
+                                val check = Horas.text.toString()
+
+                                if (check.isDigitsOnly() && check != ""){
+                                    if (check.toDouble() <= 24.0){
+                                        val HorasAdicciones = check.toDouble()
+                                        val horaBBDD = data_user.get("last_login") as Timestamp
+                                        val n_dia = horaBBDD.toDate().day
+                                        when(n_dia){
+                                            0 -> {
+                                                StatsAdicciones[6] = HorasAdicciones  // Domingo
+                                                db.collection("users").document(user.uid).update("stats_bets", StatsAdicciones)
+                                                Toast.makeText(baseContext, "Uso de Apuestas Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            1 -> {
+                                                StatsAdicciones[0] = HorasAdicciones  // Lunes
+                                                db.collection("users").document(user.uid).update("stats_bets", StatsAdicciones)
+                                                Toast.makeText(baseContext, "Uso de Apuestas Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            2 -> {
+                                                StatsAdicciones[1] = HorasAdicciones  // Martes
+                                                db.collection("users").document(user.uid).update("stats_bets", StatsAdicciones)
+                                                Toast.makeText(baseContext, "Uso de Apuestas Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            3 -> {
+                                                StatsAdicciones[2] = HorasAdicciones  // Miercoles
+                                                db.collection("users").document(user.uid).update("stats_bets", StatsAdicciones)
+                                                Toast.makeText(baseContext, "Uso de Apuestas Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            4 -> {
+                                                StatsAdicciones[3] = HorasAdicciones  // Jueves
+                                                db.collection("users").document(user.uid).update("stats_bets", StatsAdicciones)
+                                                Toast.makeText(baseContext, "Uso de Apuestas Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            5 -> {
+                                                StatsAdicciones[4] = HorasAdicciones  // Viernes
+                                                db.collection("users").document(user.uid).update("stats_bets", StatsAdicciones)
+                                                Toast.makeText(baseContext, "Uso de Apuestas Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            6 -> {
+                                                StatsAdicciones[5] = HorasAdicciones  // Sabado
+                                                db.collection("users").document(user.uid).update("stats_bets", StatsAdicciones)
+                                                Toast.makeText(baseContext, "Uso de Apuestas Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            else -> {
+                                                Toast.makeText(baseContext, "Se ha producido un error desconocido", Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
+                                        setBarChart(StatsAdicciones, barChart)
+
+                                        //COMPRABACION DE SI ES LA PRIMERA VEZ QUE SE REALIZA EN EL DIA
+                                        val fechaT = Timestamp.now()
+
+                                        //Setteamos a 0 las horas para solo tener en cuenta el dia
+                                        val fecha = fechaT.toLocalDateTime()
+
+                                        doc_ref.get()
+                                            .addOnSuccessListener { document ->
+                                                if (document.data != null) {
+                                                    Log.d(Progress.TAG, "Datos Recibidos desde la Base de Datos")
+                                                    val data_user = document.data
+                                                    val ultima_fechaD = data_user?.get("last_hours_progress") as Timestamp   // Obtengo fecha de la base de datos
+
+                                                    val ultima_fecha = ultima_fechaD.toLocalDateTime()
+
+                                                    Log.d("Fecha - Base de datos", ultima_fecha.toString())
+                                                    Log.d("Fecha - Actual", fecha.toString())
+
+                                                    if(fecha.dayOfMonth > ultima_fecha.dayOfMonth){
+                                                        var cont_stats = data_user.get("cont_award_stats").toString().toInt()  // Obtengo contador estadisticas diario
+                                                        val level_db = data_user.get("level").toString().toFloat()    // Obtengo nivel de la base de datos
+                                                        val newLevel = ObtenerExperiencia(40,level_db,0.5f) // Calculo el nuevo nivel
+                                                        val database = db.collection("users").document(user.uid)    // Obtengo el documento de la base de datos
+                                                        database.update("level", newLevel)  // Se guarda el nuevo nivel en la base de datos
+                                                        database.update("last_hours_progress", Timestamp.now())  // Se guarda la fecha de realizacion de la encuesta en la base de datos
+                                                        if(fecha.dayOfMonth == ultima_fecha.plusDays(1).dayOfMonth){
+                                                            cont_stats += 1 // Incremento en uno el contador
+                                                            db.collection("users").document(user.uid)   // y se actualiza el campo en la BBDD
+                                                                .update("cont_award_stats", cont_stats)
+                                                        }
+                                                    } else {
+                                                        val database = db.collection("users").document(user.uid)    // Obtengo el documento de la base de datos
+                                                        database.update("last_hours_progress", Timestamp.now())  // Se guarda la fecha de realizacion de la encuesta en la base de datos
+                                                    }
+
+                                                    val builder = AlertDialog.Builder(this)
+                                                    builder.setTitle("Registro de Horas")
+                                                    builder.setMessage("¿Deseas registrar otra estadística?")
+                                                    builder.setCancelable(true)
+
+                                                    builder.setNegativeButton("NO", DialogInterface.OnClickListener{ dialog, which ->
+                                                        Toast.makeText(this, "Regresando al Menu Principal", Toast.LENGTH_SHORT).show()
+                                                        val login = Intent(applicationContext, Login::class.java)
+                                                        startActivity(login)
+                                                        finish()
+                                                    })
+
+                                                    builder.setPositiveButton("Si", DialogInterface.OnClickListener{ dialog, which ->
+                                                    })
+                                                    val alertDialog = builder.create()
+                                                    alertDialog.show()
+                                                }
+                                            }
+                                    } else {
+                                        Toast.makeText(this, "Dato Introducido No Permitido", Toast.LENGTH_SHORT).show()  // Muestro un mensaje por pantalla
                                     }
-                                    1 -> {
-                                        StatsAdicciones[0] = HorasApuestas  // Lunes
-                                        db.collection("users").document(user.uid).update("stats_bets", StatsAdicciones)
-                                        Toast.makeText(baseContext, "Uso de Apuestas Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    2 -> {
-                                        StatsAdicciones[1] = HorasApuestas  // Martes
-                                        db.collection("users").document(user.uid).update("stats_bets", StatsAdicciones)
-                                        Toast.makeText(baseContext, "Uso de Apuestas Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    3 -> {
-                                        StatsAdicciones[2] = HorasApuestas  // Miercoles
-                                        db.collection("users").document(user.uid).update("stats_bets", StatsAdicciones)
-                                        Toast.makeText(baseContext, "Uso de Apuestas Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    4 -> {
-                                        StatsAdicciones[3] = HorasApuestas  // Jueves
-                                        db.collection("users").document(user.uid).update("stats_bets", StatsAdicciones)
-                                        Toast.makeText(baseContext, "Uso de Apuestas Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    5 -> {
-                                        StatsAdicciones[4] = HorasApuestas  // Viernes
-                                        db.collection("users").document(user.uid).update("stats_bets", StatsAdicciones)
-                                        Toast.makeText(baseContext, "Uso de Apuestas Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    6 -> {
-                                        StatsAdicciones[5] = HorasApuestas  // Sabado
-                                        db.collection("users").document(user.uid).update("stats_bets", StatsAdicciones)
-                                        Toast.makeText(baseContext, "Uso de Apuestas Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    else -> {
-                                        Toast.makeText(baseContext, "Se ha producido un error desconocido", Toast.LENGTH_SHORT).show()
-                                    }
+                                } else {
+                                    Toast.makeText(this, "Dato Introducido No Permitido", Toast.LENGTH_SHORT).show()  // Muestro un mensaje por pantalla
                                 }
-                                setBarChart(StatsAdicciones, barChart)
                             }
                         }
                     }
@@ -217,50 +327,114 @@ class ActivityProgress : AppCompatActivity() {
                             setBarChart(StatsVideojuegos, barChart)
                             Btn_Confirmar?.setOnClickListener()
                             {
-                                val HorasVideojuegos = Horas.text.toString().toDouble()
-                                val horaBBDD = data_user.get("last_login") as Timestamp
-                                val n_dia = horaBBDD.toDate().day
-                                when(n_dia){
-                                    0 -> {
-                                        StatsVideojuegos[6] = HorasVideojuegos  // Domingo
-                                        db.collection("users").document(user.uid).update("stats_videogames", StatsVideojuegos)
-                                        Toast.makeText(baseContext, "Uso de Videojuegos Actualizado", Toast.LENGTH_SHORT).show()
+                                val check = Horas.text.toString()
+
+                                if (check.isDigitsOnly() && check != ""){
+                                    if (check.toDouble() <= 24.0){
+                                        val HorasVideojuegos = check.toDouble()
+                                        val horaBBDD = data_user.get("last_login") as Timestamp
+                                        val n_dia = horaBBDD.toDate().day
+                                        when(n_dia){
+                                            0 -> {
+                                                StatsVideojuegos[6] = HorasVideojuegos  // Domingo
+                                                db.collection("users").document(user.uid).update("stats_videogames", StatsVideojuegos)
+                                                Toast.makeText(baseContext, "Uso de Videojuegos Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            1 -> {
+                                                StatsVideojuegos[0] = HorasVideojuegos  // Lunes
+                                                db.collection("users").document(user.uid).update("stats_videogames", StatsVideojuegos)
+                                                Toast.makeText(baseContext, "Uso de Videojuegos Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            2 -> {
+                                                StatsVideojuegos[1] = HorasVideojuegos  // Martes
+                                                db.collection("users").document(user.uid).update("stats_videogames", StatsVideojuegos)
+                                                Toast.makeText(baseContext, "Uso de Videojuegos Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            3 -> {
+                                                StatsVideojuegos[2] = HorasVideojuegos  // Miercoles
+                                                db.collection("users").document(user.uid).update("stats_videogames", StatsVideojuegos)
+                                                Toast.makeText(baseContext, "Uso de Videojuegos Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            4 -> {
+                                                StatsVideojuegos[3] = HorasVideojuegos  // Jueves
+                                                db.collection("users").document(user.uid).update("stats_videogames", StatsVideojuegos)
+                                                Toast.makeText(baseContext, "Uso de Videojuegos Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            5 -> {
+                                                StatsVideojuegos[4] = HorasVideojuegos  // Viernes
+                                                db.collection("users").document(user.uid).update("stats_videogames", StatsVideojuegos)
+                                                Toast.makeText(baseContext, "Uso de Videojuegos Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            6 -> {
+                                                StatsVideojuegos[5] = HorasVideojuegos  // Sabado
+                                                db.collection("users").document(user.uid).update("stats_videogames", StatsVideojuegos)
+                                                Toast.makeText(baseContext, "Uso de Videojuegos Actualizado", Toast.LENGTH_SHORT).show()
+                                            }
+                                            else -> {
+                                                Toast.makeText(baseContext, "Se ha producido un error desconocido", Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
+                                        setBarChart(StatsVideojuegos, barChart)
+
+                                        //COMPRABACION DE SI ES LA PRIMERA VEZ QUE SE REALIZA EN EL DIA
+                                        val fechaT = Timestamp.now()
+
+                                        //Setteamos a 0 las horas para solo tener en cuenta el dia
+                                        val fecha = fechaT.toLocalDateTime()
+
+                                        doc_ref.get()
+                                            .addOnSuccessListener { document ->
+                                                if (document.data != null) {
+                                                    Log.d(Progress.TAG, "Datos Recibidos desde la Base de Datos")
+                                                    val data_user = document.data
+                                                    val ultima_fechaD = data_user?.get("last_hours_progress") as Timestamp   // Obtengo fecha de la base de datos
+
+                                                    val ultima_fecha = ultima_fechaD.toLocalDateTime()
+
+                                                    Log.d("Fecha - Base de datos", ultima_fecha.toString())
+                                                    Log.d("Fecha - Actual", fecha.toString())
+
+                                                    if(fecha.dayOfMonth > ultima_fecha.dayOfMonth){
+                                                        var cont_stats = data_user.get("cont_award_stats").toString().toInt()  // Obtengo contador estadisticas diario
+                                                        val level_db = data_user.get("level").toString().toFloat()    // Obtengo nivel de la base de datos
+                                                        val newLevel = ObtenerExperiencia(40,level_db,0.5f) // Calculo el nuevo nivel
+                                                        val database = db.collection("users").document(user.uid)    // Obtengo el documento de la base de datos
+                                                        database.update("level", newLevel)  // Se guarda el nuevo nivel en la base de datos
+                                                        database.update("last_hours_progress", Timestamp.now())  // Se guarda la fecha de realizacion de la encuesta en la base de datos
+                                                        if(fecha.dayOfMonth == ultima_fecha.plusDays(1).dayOfMonth){
+                                                            cont_stats += 1 // Incremento en uno el contador
+                                                            db.collection("users").document(user.uid)   // y se actualiza el campo en la BBDD
+                                                                .update("cont_award_stats", cont_stats)
+                                                        }
+                                                    } else {
+                                                        val database = db.collection("users").document(user.uid)    // Obtengo el documento de la base de datos
+                                                        database.update("last_hours_progress", Timestamp.now())  // Se guarda la fecha de realizacion de la encuesta en la base de datos
+                                                    }
+
+                                                    val builder = AlertDialog.Builder(this)
+                                                    builder.setTitle("Registro de Horas")
+                                                    builder.setMessage("¿Deseas registrar otra estadística?")
+                                                    builder.setCancelable(true)
+
+                                                    builder.setNegativeButton("NO", DialogInterface.OnClickListener{ dialog, which ->
+                                                        Toast.makeText(this, "Regresando al Menu Principal", Toast.LENGTH_SHORT).show()
+                                                        val login = Intent(applicationContext, Login::class.java)
+                                                        startActivity(login)
+                                                        finish()
+                                                    })
+
+                                                    builder.setPositiveButton("Si", DialogInterface.OnClickListener{ dialog, which ->
+                                                    })
+                                                    val alertDialog = builder.create()
+                                                    alertDialog.show()
+                                                }
+                                            }
+                                    } else {
+                                        Toast.makeText(this, "Dato Introducido No Permitido", Toast.LENGTH_SHORT).show()  // Muestro un mensaje por pantalla
                                     }
-                                    1 -> {
-                                        StatsVideojuegos[0] = HorasVideojuegos  // Lunes
-                                        db.collection("users").document(user.uid).update("stats_videogames", StatsVideojuegos)
-                                        Toast.makeText(baseContext, "Uso de Videojuegos Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    2 -> {
-                                        StatsVideojuegos[1] = HorasVideojuegos  // Martes
-                                        db.collection("users").document(user.uid).update("stats_videogames", StatsVideojuegos)
-                                        Toast.makeText(baseContext, "Uso de Videojuegos Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    3 -> {
-                                        StatsVideojuegos[2] = HorasVideojuegos  // Miercoles
-                                        db.collection("users").document(user.uid).update("stats_videogames", StatsVideojuegos)
-                                        Toast.makeText(baseContext, "Uso de Videojuegos Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    4 -> {
-                                        StatsVideojuegos[3] = HorasVideojuegos  // Jueves
-                                        db.collection("users").document(user.uid).update("stats_videogames", StatsVideojuegos)
-                                        Toast.makeText(baseContext, "Uso de Videojuegos Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    5 -> {
-                                        StatsVideojuegos[4] = HorasVideojuegos  // Viernes
-                                        db.collection("users").document(user.uid).update("stats_videogames", StatsVideojuegos)
-                                        Toast.makeText(baseContext, "Uso de Videojuegos Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    6 -> {
-                                        StatsVideojuegos[5] = HorasVideojuegos  // Sabado
-                                        db.collection("users").document(user.uid).update("stats_videogames", StatsVideojuegos)
-                                        Toast.makeText(baseContext, "Uso de Videojuegos Actualizado", Toast.LENGTH_SHORT).show()
-                                    }
-                                    else -> {
-                                        Toast.makeText(baseContext, "Se ha producido un error desconocido", Toast.LENGTH_SHORT).show()
-                                    }
+                                } else {
+                                    Toast.makeText(this, "Dato Introducido No Permitido", Toast.LENGTH_SHORT).show()  // Muestro un mensaje por pantalla
                                 }
-                                setBarChart(StatsVideojuegos, barChart)
                             }
                         }
                     }
@@ -304,4 +478,7 @@ class ActivityProgress : AppCompatActivity() {
 
         barChart.animateY(5000)
     }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun Timestamp.toLocalDateTime(zone: ZoneId = ZoneId.systemDefault()) = LocalDateTime.ofInstant(
+        Instant.ofEpochMilli(seconds * 1000 + nanoseconds / 1000000), zone)
 }

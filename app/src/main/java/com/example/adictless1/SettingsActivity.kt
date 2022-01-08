@@ -110,31 +110,39 @@ class SettingsActivity : AppCompatActivity() {
                                                             Log.d(TAG,"Datos Recibidos desde la Base de Datos")
                                                             val data_user = document.data
                                                             val databasePassword = data_user?.get("password").toString()
-                                                            if(password != "" && confirmPassword != "" && (password.length < 8 || confirmPassword.length < 8)){
+                                                            if (username.length < 3){
                                                                 Toast.makeText(
                                                                     applicationContext,
-                                                                    "La Contraseña debe contener al menos 8 caracteres",
+                                                                    "El username debe contener al menos 3 caracteres",
                                                                     Toast.LENGTH_SHORT
                                                                 ).show()
                                                             } else {
-                                                                if (password != confirmPassword) {
+                                                                if(password != "" && confirmPassword != "" && (password.length < 8 || confirmPassword.length < 8)){
                                                                     Toast.makeText(
                                                                         applicationContext,
-                                                                        "Las Contraseñas introducidas no son Iguales",
+                                                                        "La Contraseña debe contener al menos 8 caracteres",
                                                                         Toast.LENGTH_SHORT
                                                                     ).show()
-                                                                } else{
-                                                                    if (databasePassword == encryptedPassword){
+                                                                } else {
+                                                                    if (password != confirmPassword) {
                                                                         Toast.makeText(
-                                                                            baseContext,
-                                                                            "La Contraseña introducida es la actual Contraseña del Usuario",
+                                                                            applicationContext,
+                                                                            "Las Contraseñas introducidas no son Iguales",
                                                                             Toast.LENGTH_SHORT
                                                                         ).show()
-                                                                    } else {
-                                                                        CambioEmail(email)
-                                                                        CambioUsername(username)
-                                                                        CambioPassword(password,encryptedPassword)
-                                                                        FunReturn()
+                                                                    } else{
+                                                                        if (databasePassword == encryptedPassword){
+                                                                            Toast.makeText(
+                                                                                baseContext,
+                                                                                "La Contraseña introducida es la actual Contraseña del Usuario",
+                                                                                Toast.LENGTH_SHORT
+                                                                            ).show()
+                                                                        } else {
+                                                                            CambioEmail(email)
+                                                                            CambioUsername(username)
+                                                                            CambioPassword(password,encryptedPassword)
+                                                                            FunReturn()
+                                                                        }
                                                                     }
                                                                 }
                                                             }
@@ -213,6 +221,7 @@ class SettingsActivity : AppCompatActivity() {
     fun FunReturn() {
         val home = Intent(applicationContext, Login::class.java)
         startActivity(home)
+        finish()
     }
 
     private fun encrypt(strToEncrypt: String, secret_key: String): String? {

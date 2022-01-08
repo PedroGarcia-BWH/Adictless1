@@ -1,7 +1,9 @@
 package com.example.adictless1
 
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.example.adictless1.Controlador.Forum
 import com.example.adictless1.Controlador.Home
@@ -42,5 +44,14 @@ class Login : AppCompatActivity() {
         */
 
         viewpager.setCurrentItem(1)
+    }
+
+    fun recreateFragment(fragment : Fragment){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            supportFragmentManager.beginTransaction().detach(fragment).commitNow()
+            supportFragmentManager.beginTransaction().attach(fragment).commitNow()
+        }else{
+            supportFragmentManager.beginTransaction().detach(fragment).attach(fragment).commitNow()
+        }
     }
 }

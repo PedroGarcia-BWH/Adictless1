@@ -64,38 +64,45 @@ class RegisterActivity2 : AppCompatActivity() {
             if (email != "" && username != "" && password != "" && (regRedes.isChecked == true ||
                         regApuestas.isChecked == true || regVideojuegos.isChecked == true ||
                         regNose.isChecked == true)) {
-
-                if (password.length >= 8) {
-                    if (regNose.isChecked == true)
-                        type += "NoProcede "
-                    if (regRedes.isChecked == true)
-                        type += "RedesSociales "
-                    if (regApuestas.isChecked == true)
-                        type += "Apuestas "
-                    if (regVideojuegos.isChecked == true)
-                        type += "Videojuegos"
-
-                } else {
+                if (username.length < 3){
                     Toast.makeText(
                         applicationContext,
-                        "El password debe contener al menos 8 caracteres",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                if (password != confirmPassword){
-                    Toast.makeText(
-                        applicationContext,
-                        "Los passwords introducidos no son iguales",
+                        "El username debe contener al menos 3 caracteres",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
+                    if (password.length >= 8) {
+                        if (regNose.isChecked == true)
+                            type += "NoProcede "
+                        if (regRedes.isChecked == true)
+                            type += "RedesSociales "
+                        if (regApuestas.isChecked == true)
+                            type += "Apuestas "
+                        if (regVideojuegos.isChecked == true)
+                            type += "Videojuegos"
 
-                    progressBar.setVisibility(View.VISIBLE)
-                    val key: String = "-JaNdRgUkXp2s5v8y/B?E(G+KbPeShVm"
-                    val encryptedPassword : String? = encrypt(password,key)
-                    crearCuenta(email, username, password, type, level, encryptedPassword)
-                    progressBar.setVisibility(View.GONE)
+                    } else {
+                        Toast.makeText(
+                            applicationContext,
+                            "El password debe contener al menos 8 caracteres",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    if (password != confirmPassword){
+                        Toast.makeText(
+                            applicationContext,
+                            "Los passwords introducidos no son iguales",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+
+                        progressBar.setVisibility(View.VISIBLE)
+                        val key: String = "-JaNdRgUkXp2s5v8y/B?E(G+KbPeShVm"
+                        val encryptedPassword : String? = encrypt(password,key)
+                        crearCuenta(email, username, password, type, level, encryptedPassword)
+                        progressBar.setVisibility(View.GONE)
+                    }
                 }
             } else {
                 Toast.makeText(
@@ -159,8 +166,8 @@ class RegisterActivity2 : AppCompatActivity() {
                                 val arrayVideojuegos = arrayListOf(0.0,0.0,0.0,0.0,0.0,0.0,0.0)
 
                                 val logros = arrayListOf(0,0,0)
-                                val logro_foro = 0
-                                val logro_estadistica = 0
+                                val logro_login = 1
+                                val logro_estadistica = 1
 
                                 val current = Timestamp.now()
 
@@ -177,7 +184,7 @@ class RegisterActivity2 : AppCompatActivity() {
                                     "stats_bets" to arrayApuestas,
                                     "stats_videogames" to arrayVideojuegos,
                                     "awards" to logros,
-                                    "cont_award_forum" to logro_foro,
+                                    "cont_award_login" to logro_login,
                                     "cont_award_stats" to logro_estadistica
                                 )
 
@@ -213,6 +220,7 @@ class RegisterActivity2 : AppCompatActivity() {
 
                                 val registro = Intent(applicationContext, MainActivity::class.java)
                                 startActivity(registro)
+                                finish()
                                 // Sign in success, update UI with the signed-in user's information
 
                             } else {

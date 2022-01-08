@@ -140,6 +140,7 @@ class Home : Fragment() {
         settings?.setOnClickListener {
             val settingsAct = Intent(activity, SettingsActivity::class.java)
             activity?.startActivity(settingsAct)
+            activity?.finish()
         }
 
     }
