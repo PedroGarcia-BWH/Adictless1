@@ -1,15 +1,31 @@
 package com.example.adictless1
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TableLayout
+import androidx.annotation.RequiresApi
+import com.example.adictless1.Controlador.Progress
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_awards.*
 import kotlinx.android.synthetic.main.activity_awards.view.*
 
 class Awards : AppCompatActivity() {
+
+    val db = FirebaseFirestore.getInstance()
+    private lateinit var auth: FirebaseAuth
+
+    companion object {
+        private var TAG = "ProgressBar"
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_awards)
@@ -19,8 +35,16 @@ class Awards : AppCompatActivity() {
         imageList.add(findViewById<ImageView>(R.id.imageView12))
         imageList.add(findViewById<ImageView>(R.id.imageView8))
         imageList.add(findViewById<ImageView>(R.id.imageView10))
-        for(id in 13 until 28){
-            imageList.add(findViewById<ImageView>(resources.getIdentifier("imageView" + id, "id", packageName)))
+        for (id in 13 until 28) {
+            imageList.add(
+                findViewById<ImageView>(
+                    resources.getIdentifier(
+                        "imageView" + id,
+                        "id",
+                        packageName
+                    )
+                )
+            )
         }
 
         //Creacion de lista trofeos
@@ -30,12 +54,12 @@ class Awards : AppCompatActivity() {
         AwardList.add(Award("XP", 1, imageList[2]))
 
         val categoria: Array<String> = arrayOf("Chat", "Estadistica", "XP")
-        val nivel: Array<Int> = arrayOf(1,2,3,4,5,6)
+        val nivel: Array<Int> = arrayOf(1, 2, 3, 4, 5, 6)
         var contador = 0
         var nivelIt = 0
 
-        for (it in 0..17){
-            if(contador == 3){
+        for (it in 0..17) {
+            if (contador == 3) {
                 contador = 0
                 nivelIt++
             }
@@ -54,6 +78,26 @@ class Awards : AppCompatActivity() {
         // 15, 16, 17 -> Extra
 
         //Para desbloquear un trofeo -> AwardList[numTrofeo segun lo descrito arriba].desbloquear()
+
+
+        auth = Firebase.auth
+        val user = auth.currentUser
+
+        val doc_ref = user?.let { db.collection("users").document(it.uid) }
+        doc_ref!!.get()
+            .addOnSuccessListener { document ->
+                if (document.data != null) {
+                    Log.d(Progress.TAG, "Datos Recibidos desde la Base de Datos")
+                    val data_user = document.data
+                    val awards = data_user?.get("awards") as ArrayList<Int>
+                    if(awards[0] >= 0)
+                        AwardList[awards[0] * 3].desbloquear()
+                    if(awards[1] >= 0)
+                        AwardList[awards[1] * 3 + 1].desbloquear()
+                    if(awards[2] >= 0)
+                        AwardList[awards[2] * 3 + 2].desbloquear()
+                }
+            }
     }
 }
 

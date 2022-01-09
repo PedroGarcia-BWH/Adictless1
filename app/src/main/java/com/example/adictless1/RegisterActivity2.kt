@@ -165,7 +165,7 @@ class RegisterActivity2 : AppCompatActivity() {
                                 val arrayApuestas = arrayListOf(0.0,0.0,0.0,0.0,0.0,0.0,0.0)
                                 val arrayVideojuegos = arrayListOf(0.0,0.0,0.0,0.0,0.0,0.0,0.0)
 
-                                val logros = arrayListOf(0,0,0)
+                                val logros = arrayListOf(-1,-1,-1)
                                 val logro_login = 1
                                 val logro_estadistica = 1
 

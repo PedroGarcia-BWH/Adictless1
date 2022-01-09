@@ -193,7 +193,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="5dp"
                             android:layout_weight="1"
-                            android:padding="25dp"
+                            android:padding="10dp"
                             android:src="@drawable/logologros"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

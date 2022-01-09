@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.adictless1.Controlador.ObtenerExperiencia
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -28,6 +29,7 @@ import java.time.LocalTime.ofInstant
 import java.time.ZoneId
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.math.truncate
 
 class MainActivity : AppCompatActivity() {
 
@@ -134,9 +136,40 @@ class MainActivity : AppCompatActivity() {
                                     val fecha_bbdd = date_last_login.toLocalDateTime()
                                     val fecha_actual = Timestamp.now().toLocalDateTime()
 
+                                    //Normalizar fecha
+                                    var fechaActXP = date_last_login.toDate()
+                                    var fechaBbddXP = Timestamp.now().toDate()
+
+                                    fechaActXP.hours = 0
+                                    fechaActXP.minutes = 0
+                                    fechaActXP.seconds = 0
+                                    fechaBbddXP.hours = 0
+                                    fechaBbddXP.minutes = 0
+                                    fechaBbddXP.seconds = 0
+
+                                    Log.d("Actual XP",fechaActXP.toString())
+                                    Log.d("BBDD XP",fechaBbddXP.toString())
+
+                                    //Otorgar experiencia
+                                    if(fechaActXP.after(fechaBbddXP)){
+                                        val level_db = data_user.get("level").toString().toFloat()    // Obtengo nivel de la base de datos
+                                        val newLevel = ObtenerExperiencia(20,level_db,2.5f) // Calculo el nuevo nivel
+                                        val database = db.collection("users").document(user.uid)    // Obtengo el documento de la base de datos
+                                        database.update("level", newLevel)  // Se guarda el nuevo nivel en la base de datos
+                                        val xp = 20 + level_db * 2.5
+                                        Toast.makeText(baseContext, "Has conseguido " + xp.toInt().toString() + "xp",
+                                            Toast.LENGTH_SHORT).show()
+                                    }
+
                                     // Inicio Sesion Dias Consecutivos --> Incrementa en 1 el contador y lo guarda en la BBDD
                                     if(fecha_actual.isAfter(fecha_bbdd) && fecha_actual.dayOfMonth == fecha_bbdd.plusDays(1).dayOfMonth){
                                         cont_logins += 1
+                                        db.collection("users").document(user.uid)
+                                            .update("cont_award_login", cont_logins)
+                                    }
+                                    else{
+                                        //Si los dias no son consecutivos entonces se reinicia el contador
+                                        cont_logins = 1
                                         db.collection("users").document(user.uid)
                                             .update("cont_award_login", cont_logins)
                                     }
