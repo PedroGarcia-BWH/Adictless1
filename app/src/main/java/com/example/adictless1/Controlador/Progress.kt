@@ -93,6 +93,29 @@ class Progress : Fragment() {
                     val level_usuario = view?.findViewById<TextView>(R.id.LvlTextView)
                     level_usuario?.text = "Nivel " + level
 
+                    val awards = data_user?.get("awards") as ArrayList<Int>
+                    if(level_db.toInt() == 1){
+                        awards[2] = 0
+                    }
+                    else if(level_db.toInt() >= 5){
+                        awards[2] = 1
+                    }
+                    else if(level_db.toInt() >= 10){
+                        awards[2] = 2
+                    }
+                    else if(level_db.toInt() >= 20){
+                        awards[2] = 3
+                    }
+                    else if(level_db.toInt() >= 40){
+                        awards[2] = 4
+                    }
+                    else if(level_db.toInt() >= 50){
+                        awards[2] = 5
+                    }
+
+                    db.collection("users").document(user.uid)   // y se actualiza el campo en la BBDD
+                        .update("awards", awards)
+
                     val multiplier = 100
 
                     val exp_total = level.multiply(BigDecimal(multiplier))

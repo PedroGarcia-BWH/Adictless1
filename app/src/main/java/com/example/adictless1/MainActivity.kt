@@ -165,6 +165,27 @@ class MainActivity : AppCompatActivity() {
                                     // Inicio Sesion Dias Consecutivos --> Incrementa en 1 el contador y lo guarda en la BBDD
                                     if(fecha_actual.isAfter(fecha_bbdd) && fecha_actual.dayOfMonth == fecha_bbdd.plusDays(1).dayOfMonth){
                                         cont_logins += 1
+                                        val awards = data_user?.get("awards") as ArrayList<Int>
+                                        if(cont_logins == 5){
+                                            awards[0] = 0
+                                        }
+                                        else if(cont_logins >= 10){
+                                            awards[0] = 1
+                                        }
+                                        else if(cont_logins >= 25){
+                                            awards[0] = 2
+                                        }
+                                        else if(cont_logins >= 50){
+                                            awards[0] = 3
+                                        }
+                                        else if(cont_logins >= 75){
+                                            awards[0] = 4
+                                        }
+                                        else if(cont_logins >= 100){
+                                            awards[0] = 5
+                                        }
+                                        db.collection("users").document(user.uid)   // y se actualiza el campo en la BBDD
+                                            .update("awards", awards)
                                         db.collection("users").document(user.uid)
                                             .update("cont_award_login", cont_logins)
                                     }
