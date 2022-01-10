@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
-import androidx.core.app.ActivityCompat.recreate
 import androidx.fragment.app.Fragment
 import com.example.adictless1.ActivityProgress
 import com.example.adictless1.Awards
@@ -27,12 +26,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_progress.*
 import java.math.BigDecimal
 import java.util.*
-import kotlin.math.round
-import kotlin.math.roundToInt
-import android.app.Activity
-import android.content.Intent.getIntent
 import androidx.constraintlayout.widget.Group
-import androidx.fragment.app.FragmentTransaction
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -79,6 +73,13 @@ class Progress : Fragment() {
         doc_ref!!.get()
             .addOnSuccessListener { document ->
                 if (document.data != null) {
+
+                    val candado = view?.findViewById<ImageView>(R.id.Candado2);
+                    candado!!.visibility = View.GONE
+
+                    val candado2 = view?.findViewById<TextView>(R.id.SOON2);
+                    candado2!!.visibility = View.GONE
+
                     Log.d(TAG, "Datos Recibidos desde la Base de Datos")
                     val data_user = document.data
                     val username = data_user?.get("username")
@@ -104,8 +105,7 @@ class Progress : Fragment() {
                     progress_bar?.max = exp_total.toInt()
                     progress_bar?.progress = exp_actual.toInt()
 
-                    val candado = view?.findViewById<Group>(R.id.group2)
-                    candado!!.visibility = View.GONE
+
 
                 } else {
                     Log.d(TAG, "No existe dicho documento en la Base de Datos")
@@ -119,6 +119,7 @@ class Progress : Fragment() {
 
                         val compForo = view?.findViewById<Group>(R.id.groupProgress)
                         compForo!!.visibility = View.GONE
+
                     }
                 }
             }
