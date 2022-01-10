@@ -275,6 +275,7 @@
                             android:layout_marginTop="20dp"
                             android:fontFamily="sans-serif-medium"
                             android:text="Pregunta 1: ¿Crees que está tomando hábitos saludables?"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -293,13 +294,13 @@
                                 android:layout_marginStart="10dp">
 
                                 <RadioButton
-                                    android:id="@+id/radioButton2"
+                                    android:id="@+id/r1si"
                                     android:layout_width="175dp"
                                     android:layout_height="wrap_content"
                                     android:text="Si" />
 
                                 <RadioButton
-                                    android:id="@+id/radioButton"
+                                    android:id="@+id/r1no"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="No" />
@@ -332,13 +333,13 @@
                                 android:layout_marginStart="10dp">
 
                                 <RadioButton
-                                    android:id="@+id/radioButton2Si"
+                                    android:id="@+id/r2si"
                                     android:layout_width="175dp"
                                     android:layout_height="wrap_content"
                                     android:text="Si" />
 
                                 <RadioButton
-                                    android:id="@+id/radioButton2No"
+                                    android:id="@+id/r2no"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="No" />
@@ -371,7 +372,7 @@
                                 android:layout_marginStart="10dp">
 
                                 <RadioButton
-                                    android:id="@+id/radioButton3Si"
+                                    android:id="@+id/r3si"
                                     android:layout_width="175dp"
                                     android:layout_height="wrap_content"
                                     android:text="Si" />
@@ -410,13 +411,13 @@
                                 android:layout_marginStart="10dp">
 
                                 <RadioButton
-                                    android:id="@+id/radioButton4Si"
+                                    android:id="@+id/r4si"
                                     android:layout_width="175dp"
                                     android:layout_height="wrap_content"
                                     android:text="Si" />
 
                                 <RadioButton
-                                    android:id="@+id/radioButton4No"
+                                    android:id="@+id/r4no"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:text="No" />

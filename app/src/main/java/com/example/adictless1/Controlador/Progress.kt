@@ -94,23 +94,23 @@ class Progress : Fragment() {
                     level_usuario?.text = "Nivel " + level
 
                     val awards = data_user?.get("awards") as ArrayList<Int>
-                    if(level_db.toInt() == 1){
-                        awards[2] = 0
-                    }
-                    else if(level_db.toInt() >= 5){
+                    if(level_db.toInt() >= 1){
                         awards[2] = 1
                     }
-                    else if(level_db.toInt() >= 10){
+                    if(level_db.toInt() >= 5){
                         awards[2] = 2
                     }
-                    else if(level_db.toInt() >= 20){
+                    if(level_db.toInt() >= 10){
                         awards[2] = 3
                     }
-                    else if(level_db.toInt() >= 40){
+                    if(level_db.toInt() >= 20){
                         awards[2] = 4
                     }
-                    else if(level_db.toInt() >= 50){
+                    if(level_db.toInt() >= 40){
                         awards[2] = 5
+                    }
+                    if(level_db.toInt() >= 50){
+                        awards[2] = 6
                     }
 
                     db.collection("users").document(user.uid)   // y se actualiza el campo en la BBDD
@@ -170,7 +170,6 @@ class Progress : Fragment() {
         //Boton realizar encuesta progreso
         val encButton = view?.findViewById<Button>(R.id.buttonEncuesta)
         encButton?.setOnClickListener(){
-            Log.d("Visibilidad", EncProgress.visibility.toString())
             if(EncProgress.visibility == View.VISIBLE){
                 EncProgress.visibility = View.INVISIBLE
                 encButton.text = "Mostrar encuesta progreso"
@@ -184,6 +183,37 @@ class Progress : Fragment() {
         //Enviar datos de encuesta
         val enviarEnc = view?.findViewById<Button>(R.id.buttonEnviar)
         enviarEnc?.setOnClickListener(){
+
+            //Mensaje respuesta a encuesta
+            val r1 = view?.findViewById<RadioButton>(R.id.r1si)
+            val r2 = view?.findViewById<RadioButton>(R.id.r2si)
+            val r3 = view?.findViewById<RadioButton>(R.id.r3si)
+            val r4 = view?.findViewById<RadioButton>(R.id.r4si)
+
+            var puntuacion = 0
+            if(r1?.isChecked == true)
+                puntuacion++
+            if(r2?.isChecked == true)
+                puntuacion++
+            if(r3?.isChecked == true)
+                puntuacion++
+            if(r4?.isChecked == true)
+                puntuacion++
+
+            if(puntuacion >= 2 && puntuacion < 4){
+                Toast.makeText(activity, "Creemos que esta progresando positivamente con respecto a sus adiciones", Toast.LENGTH_SHORT).show()
+            }
+            else if(puntuacion == 4){
+                Toast.makeText(activity, "Creemos que esta mejorando bastante con respecto a sus adiciones", Toast.LENGTH_SHORT).show()
+            }
+            else if(puntuacion < 2){
+                Toast.makeText(activity, "Aún necesita mejorar con respecto a sus adiciones", Toast.LENGTH_SHORT).show()
+            }
+
+            EncProgress.visibility = View.INVISIBLE
+            encButton?.text = "Mostrar encuesta progreso"
+
+
             //Obtener fecha actual
             val fechaT = Timestamp.now()
 
@@ -199,8 +229,6 @@ class Progress : Fragment() {
 
                         val ultima_fecha = ultima_fechaD.toLocalDateTime()
 
-                        Log.d("Fecha - Base de datos", ultima_fecha.toString())
-                        Log.d("Fecha - Actual", fecha.toString())
 
                         if(fecha.dayOfMonth > ultima_fecha.dayOfMonth && fecha.dayOfWeek == ultima_fecha.dayOfWeek){
                             // Compruebo que la fecha actual es posterior a la fecha almacenada en la base de datos. Este if es un poco useless ya que siempre va a ser true, pero por si acaso
@@ -270,35 +298,3 @@ fun ObtenerExperiencia(exp: Int, level: Float, multiplier: Float): Float {
         return (newExp)
     }
 }
-
-/*
-val addStatCard = view?.findViewById<CardView>(R.id.addHoursCardView)
-addStatCard?.visibility = View.GONE
-
-//Inicializar values con los valores de la base de datos
-val values = Array<Float>(7) { Math.random().toFloat() * 2 }
-//Inicializar gráfica
-setBarChart(values)
-
-val addButton = view?.findViewById<Button>(R.id.addStatButton)
-addButton?.setOnClickListener() {
-if (addStatCard?.visibility == View.GONE) {
-addStatCard?.visibility = View.VISIBLE
-} else {
-addStatCard?.visibility = View.GONE
-}
-}
-
-val addConfirmButton = view?.findViewById<Button>(R.id.addStatButton2)
-addConfirmButton?.setOnClickListener() {
-//Extraer dia de la semana
-val day = LocalDate.now().dayOfWeek.ordinal
-// *Comprobar el texto introducido
-//Recoge los datos introducidos por el usuario
-val time = view?.findViewById<EditText>(R.id.addTimeText)?.text.toString()
-
-values[day] += time.toFloat()
-setBarChart(values)
-}
-}
-*/

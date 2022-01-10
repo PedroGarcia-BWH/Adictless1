@@ -90,12 +90,30 @@ class Awards : AppCompatActivity() {
                     Log.d(Progress.TAG, "Datos Recibidos desde la Base de Datos")
                     val data_user = document.data
                     val awards = data_user?.get("awards") as ArrayList<Int>
-                    if(awards[0] >= 0)
+                    if(awards[0] >= 0){
                         AwardList[awards[0] * 3].desbloquear()
+                        var desq = awards[0] * 3
+                        while(desq >= 0){
+                            AwardList[desq].desbloquear()
+                            desq = desq - 3
+                        }
+                    }
                     if(awards[1] >= 0)
                         AwardList[awards[1] * 3 + 1].desbloquear()
+                    var desq2 = awards[1] * 3 + 1
+                    while(desq2 >= 0){
+                        AwardList[desq2].desbloquear()
+                        desq2 = desq2 - 3
+                    }
                     if(awards[2] >= 0)
                         AwardList[awards[2] * 3 + 2].desbloquear()
+                    var desq = awards[2] * 3 + 2
+                    while(desq > 0){
+                        Log.d("XP Logro", desq.toString())
+                        AwardList[desq].desbloquear()
+                        AwardList[desq].ImageId.alpha = 1F
+                        desq = desq - 3
+                    }
                 }
             }
     }

@@ -282,23 +282,23 @@ class ActivityProgress : AppCompatActivity() {
                                                         if(fecha.dayOfMonth == ultima_fecha.plusDays(1).dayOfMonth){
                                                             cont_stats += 1 // Incremento en uno el contador
                                                             val awards = data_user?.get("awards") as java.util.ArrayList<Int>
-                                                            if(cont_stats == 5){
-                                                                awards[1] = 0
-                                                            }
-                                                            else if(cont_stats >= 10){
+                                                            if(cont_stats >= 5){
                                                                 awards[1] = 1
                                                             }
-                                                            else if(cont_stats >= 25){
+                                                            if(cont_stats >= 10){
                                                                 awards[1] = 2
                                                             }
-                                                            else if(cont_stats >= 50){
+                                                            if(cont_stats >= 25){
                                                                 awards[1] = 3
                                                             }
-                                                            else if(cont_stats >= 75){
+                                                            if(cont_stats >= 50){
                                                                 awards[1] = 4
                                                             }
-                                                            else if(cont_stats >= 100){
+                                                            if(cont_stats >= 75){
                                                                 awards[1] = 5
+                                                            }
+                                                            if(cont_stats >= 100){
+                                                                awards[1] = 6
                                                             }
                                                             db.collection("users").document(user.uid)   // y se actualiza el campo en la BBDD
                                                                 .update("awards", awards)
