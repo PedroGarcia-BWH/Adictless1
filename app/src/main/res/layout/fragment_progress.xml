@@ -274,7 +274,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="20dp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Pregunta 1: Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                            android:text="Pregunta 1: ¿Crees que está tomando hábitos saludables?"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -313,7 +313,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Pregunta 2: Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                            android:text="Pregunta 2: ¿Está teniendo menos comportamientos perjudiciales?"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/LLep1" />
 
@@ -352,7 +352,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Pregunta 3: Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                            android:text="Pregunta 3: ¿Crees que está atendiendo más otros aspectos importantes de su vida?"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/LLep2" />
 
@@ -391,7 +391,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Pregunta 4: Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                            android:text="Pregunta 4: ¿Crees que está superando sus adicciones?"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/LLep3" />
 
