@@ -149,9 +149,10 @@ class MainActivity : AppCompatActivity() {
 
                                     Log.d("Actual XP",fechaActXP.toString())
                                     Log.d("BBDD XP",fechaBbddXP.toString())
+                                    Log.d("XP Condicion",fechaBbddXP.before(fechaActXP).toString())
 
                                     //Otorgar experiencia
-                                    if(fechaActXP.after(fechaBbddXP)){
+                                    if(fechaBbddXP.before(fechaActXP)){
                                         val level_db = data_user.get("level").toString().toFloat()    // Obtengo nivel de la base de datos
                                         val newLevel = ObtenerExperiencia(20,level_db,2.5f) // Calculo el nuevo nivel
                                         val database = db.collection("users").document(user.uid)    // Obtengo el documento de la base de datos

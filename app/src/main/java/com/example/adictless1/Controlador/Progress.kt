@@ -104,7 +104,7 @@ class Progress : Fragment() {
                     progress_bar?.max = exp_total.toInt()
                     progress_bar?.progress = exp_actual.toInt()
 
-                    val candado = view?.findViewById<ImageView>(R.id.group2)
+                    val candado = view?.findViewById<Group>(R.id.group2)
                     candado!!.visibility = View.GONE
 
                 } else {
