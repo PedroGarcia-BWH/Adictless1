@@ -154,7 +154,6 @@ class Progress : Fragment() {
         addStatCard?.setOnClickListener() {
             val statAc = Intent(activity, ActivityProgress::class.java)
             activity?.startActivity(statAc)
-            activity?.finish()
         }
 
         val addAwardCard = view?.findViewById<CardView>(R.id.awardsCardView)
