@@ -31,6 +31,7 @@ import kotlin.math.round
 import kotlin.math.roundToInt
 import android.app.Activity
 import android.content.Intent.getIntent
+import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.FragmentTransaction
 import java.time.Instant
 import java.time.LocalDateTime
@@ -103,6 +104,9 @@ class Progress : Fragment() {
                     progress_bar?.max = exp_total.toInt()
                     progress_bar?.progress = exp_actual.toInt()
 
+                    val candado = view?.findViewById<ImageView>(R.id.group2)
+                    candado!!.visibility = View.GONE
+
                 } else {
                     Log.d(TAG, "No existe dicho documento en la Base de Datos")
                     val usuario = "Invitado"
@@ -112,6 +116,9 @@ class Progress : Fragment() {
                         val login_usuario = view?.findViewById<TextView>(R.id.textView6)
                         login_usuario?.text = usuario
                         logout!!.visibility = View.GONE
+
+                        val compForo = view?.findViewById<Group>(R.id.groupProgress)
+                        compForo!!.visibility = View.GONE
                     }
                 }
             }
