@@ -30,6 +30,7 @@ import androidx.constraintlayout.widget.Group
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 
 /**
@@ -182,37 +183,6 @@ class Progress : Fragment() {
         //Enviar datos de encuesta
         val enviarEnc = view?.findViewById<Button>(R.id.buttonEnviar)
         enviarEnc?.setOnClickListener(){
-
-            //Mensaje respuesta a encuesta
-            val r1 = view?.findViewById<RadioButton>(R.id.r1si)
-            val r2 = view?.findViewById<RadioButton>(R.id.r2si)
-            val r3 = view?.findViewById<RadioButton>(R.id.r3si)
-            val r4 = view?.findViewById<RadioButton>(R.id.r4si)
-
-            var puntuacion = 0
-            if(r1?.isChecked == true)
-                puntuacion++
-            if(r2?.isChecked == true)
-                puntuacion++
-            if(r3?.isChecked == true)
-                puntuacion++
-            if(r4?.isChecked == true)
-                puntuacion++
-
-            if(puntuacion >= 2 && puntuacion < 4){
-                Toast.makeText(activity, "Creemos que esta progresando positivamente con respecto a sus adiciones", Toast.LENGTH_SHORT).show()
-            }
-            else if(puntuacion == 4){
-                Toast.makeText(activity, "Creemos que esta mejorando bastante con respecto a sus adiciones", Toast.LENGTH_SHORT).show()
-            }
-            else if(puntuacion < 2){
-                Toast.makeText(activity, "Aún necesita mejorar con respecto a sus adiciones", Toast.LENGTH_SHORT).show()
-            }
-
-            EncProgress.visibility = View.INVISIBLE
-            encButton?.text = "Mostrar encuesta progreso"
-
-
             //Obtener fecha actual
             val fechaT = Timestamp.now()
 
@@ -229,19 +199,48 @@ class Progress : Fragment() {
                         val ultima_fecha = ultima_fechaD.toLocalDateTime()
 
 
-                        if(fecha.dayOfMonth > ultima_fecha.dayOfMonth && fecha.dayOfWeek == ultima_fecha.dayOfWeek){
-                            // Compruebo que la fecha actual es posterior a la fecha almacenada en la base de datos. Este if es un poco useless ya que siempre va a ser true, pero por si acaso
+                        if(fecha.dayOfMonth > ultima_fecha.dayOfMonth && fecha.dayOfMonth >= ultima_fecha.plusDays(7).dayOfMonth){
+                            //Mensaje respuesta a encuesta
+                            val r1 = view?.findViewById<RadioButton>(R.id.r1si)
+                            val r2 = view?.findViewById<RadioButton>(R.id.r2si)
+                            val r3 = view?.findViewById<RadioButton>(R.id.r3si)
+                            val r4 = view?.findViewById<RadioButton>(R.id.r4si)
+
+                            var puntuacion = 0
+                            if(r1?.isChecked == true)
+                                puntuacion++
+                            if(r2?.isChecked == true)
+                                puntuacion++
+                            if(r3?.isChecked == true)
+                                puntuacion++
+                            if(r4?.isChecked == true)
+                                puntuacion++
+
+                            if(puntuacion >= 2 && puntuacion < 4){
+                                Toast.makeText(activity, "Creemos que esta progresando positivamente con respecto a sus adiciones", Toast.LENGTH_SHORT).show()
+                            }
+                            else if(puntuacion == 4){
+                                Toast.makeText(activity, "Creemos que esta mejorando bastante con respecto a sus adiciones", Toast.LENGTH_SHORT).show()
+                            }
+                            else if(puntuacion < 2){
+                                Toast.makeText(activity, "Aún necesita mejorar con respecto a sus adiciones", Toast.LENGTH_SHORT).show()
+                            }
+
+                            EncProgress.visibility = View.INVISIBLE
+                            encButton?.text = "Mostrar encuesta progreso"
+
                             val level_db = data_user.get("level").toString().toFloat()    // Obtengo nivel de la base de datos
                             val newLevel = ObtenerExperiencia(100,level_db,0.5f) // Calculo el nuevo nivel
                             val database = db.collection("users").document(user.uid)    // Obtengo el documento de la base de datos
                             database.update("level", newLevel)  // Se guarda el nuevo nivel en la base de datos
                             database.update("last_survey", Timestamp.now())  // Se guarda la fecha de realizacion de la encuesta en la base de datos
                             Toast.makeText(activity, "Encuesta Realizada", Toast.LENGTH_SHORT).show()  // Muestro un mensaje por pantalla
-                            // El toast es pa ver que se esta ha hecho
 
                             (activity as Login).recreateFragment(this)  // Recreate Fragment
                         } else {
-                            Toast.makeText(activity, "La encuesta es semanal. Inténtelo de nuevo dentro de 1 semana", Toast.LENGTH_SHORT).show()  // Muestro un mensaje por pantalla
+                            Toast.makeText(activity, "La encuesta es semanal. La ultima vez que se hizo fue el "+ToDateWithSlash(ultima_fecha)+
+                                    ". Inténtelo en 1 semana" , Toast.LENGTH_SHORT).show()
+                        // Mensaje de eroor por pantalla
                         }
                     }
                 }
@@ -271,6 +270,11 @@ class Progress : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun Timestamp.toLocalDateTime(zone: ZoneId = ZoneId.systemDefault()) = LocalDateTime.ofInstant(
         Instant.ofEpochMilli(seconds * 1000 + nanoseconds / 1000000), zone)
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun ToDateWithSlash(localDateTime: LocalDateTime?): String? {
+    return DateTimeFormatter.ofPattern("dd/MM/yyyy").format(localDateTime)
 }
 
 // Exp:         La experiencia que se le va a subir al usuario
